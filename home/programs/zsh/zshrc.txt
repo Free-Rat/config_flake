@@ -1,0 +1,7 @@
+    home.file.".zsh".text = ''
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Rofi
+export PATH=$HOME/.config/rofi/scripts:$PATH
+    '';

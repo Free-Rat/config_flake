@@ -1,42 +1,41 @@
 { inputs, pkgs, ... }:
-
 {
-
 # programs.home-manager.enable = true;
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
+	monaspace
 	noto-fonts
 	    noto-fonts-cjk
 	    noto-fonts-emoji
 	    (nerdfonts.override { fonts = [ "Hack" "3270" ]; })
-
     ];
 
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = with pkgs; [
 	neovim
-
+	bat
+	light
 #vim
-	    keepassxc
+	keepassxc
 #gitFull
 #git
 #gitui
-	    unzip
-	    jdk
-	    lazygit
-	    vieb
-	    networkmanager
-	    networkmanagerapplet
-	    gcc
-	    clang
-	    xclip
-	    rofi
-	    awesome
-	    alacritty
-	    tree
-	    # home-manager
-	    #monaspace
-	    wget
+	unzip
+	jdk
+	lazygit
+	vieb
+	networkmanager
+	networkmanagerapplet
+	gcc
+	clang
+	xclip
+	rofi
+	awesome
+	alacritty
+	tree
+# home-manager
+#monaspace
+	wget
     ];
 
     services.picom = {
@@ -55,10 +54,15 @@
 	};
     };
 
+    # programs.hyprland.enable = true;
+    #xdg.portal = {
+#	enable = true;
+#	wlr.enable = true;
+ #   };
+
     programs.git = {
 	enable = true;
 	package = pkgs.gitFull;
 #config.credential.helper = "";
     };
-
 }

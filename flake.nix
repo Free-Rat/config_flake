@@ -1,34 +1,46 @@
 {
-
 	description = "conf flake";
 
 	inputs = {
-		nixpkgs.url = "nixpkgs/nixos-23.05"; #"github:NixOS/nixpkgs/nixos-23.05";
+		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; #"github:NixOS/nixpkgs/nixos-23.05";
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		hyprland.url = "github:hyprwm/Hyprland";
 	};
 
-	outputs = {self, nixpkgs, ... }@inputs:
-		let
+	outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:
+
+	let
 		lib = nixpkgs.lib;
 		user = "freerat";
+		system = "x86_64-linux";
+		pkgs = import nixpkgs {
+			inherit system;
+			config.allowUnfree = true;	
+		};
 	in {
 		nixosConfigurations = {
 
-			nixos = lib.nixosSystem {
-				system = "x86_64-linux";
+			nixos = lib.nixosSystem rec {
+				inherit system;
 				specialArgs = { inherit inputs user; };
 				modules = [ 
-					./config 
+					./config
 					./modules
-					# ./home
+					hyprland.nixosModules.default
+					home-manager.nixosModules.home-manager
+					{
+						home-manager.useGlobalPkgs = true;
+						home-manager.useUserPackages = true;
+						home-manager.users."${user}" = import ./home/home.nix ;
+						home-manager.extraSpecialArgs = specialArgs;
+					}
 				];
 			};
 
 			server = lib.nixosSystem {
-				system = "x86_64-linux";
 				modules = [ ./configuration.nix ];
 			};
 		};
