@@ -1,6 +1,5 @@
 { inputs, pkgs, ... }:
 {
-# programs.home-manager.enable = true;
     fonts.packages = with pkgs; [
 	monaspace
 	noto-fonts
@@ -14,14 +13,9 @@
     environment.systemPackages = with pkgs; [
 	neovim
 	bat
-	light
-#vim
+	lua
 	keepassxc
-#gitFull
-#git
-#gitui
 	unzip
-	jdk
 	lazygit
 	vieb
 	networkmanager
@@ -29,12 +23,8 @@
 	gcc
 	clang
 	xclip
-	rofi
-	awesome
 	alacritty
 	tree
-# home-manager
-#monaspace
 	wget
     ];
 
@@ -52,17 +42,5 @@
 	    partOf = ["graphical-session.target"];
 	    serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
 	};
-    };
-
-    # programs.hyprland.enable = true;
-    #xdg.portal = {
-#	enable = true;
-#	wlr.enable = true;
- #   };
-
-    programs.git = {
-	enable = true;
-	package = pkgs.gitFull;
-#config.credential.helper = "";
     };
 }

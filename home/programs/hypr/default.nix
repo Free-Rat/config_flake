@@ -14,10 +14,10 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemdIntegration = true;
-    # nvidiaPatches = true;
     extraConfig = ''
 
     # Monitor
+    monitor=DP-1,1920x1080@165,auto,1
     monitor=DP-1,1920x1080@165,auto,1
 
     # Fix slow startup
@@ -25,54 +25,48 @@
     exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP 
 
     # Autostart
-
     exec-once = hyprctl setcursor Bibata-Modern-Classic 24
     exec-once = dunst
-
-    source = /home/enzo/.config/hypr/colors
+    # source = /home/enzo/.config/hypr/colors
     exec = pkill waybar & sleep 0.5 && waybar
-    exec-once = swww init & sleep 0.5 && exec wallpaper_random
-    # exec-once = swww img /home/enzo/Imagens/wallpapers/konichiwa.png
+    exec-once = swww init # & sleep 0.5 && exec wallpaper_random
+    exec-once = swww img /home/freerat/config_flake/home/wallpapers/ranni1.jpg
 
     # Set en layout at startup
 
     # Input config
     input {
-        kb_layout = br,us
+        kb_layout = pl,us
         kb_variant =
         kb_model =
         kb_options =
         kb_rules =
-
         follow_mouse = 1
-
         touchpad {
             natural_scroll = false
         }
-
         sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
     }
 
     general {
 
-        gaps_in = 5
-        gaps_out = 20
-        border_size = 2
+        gaps_in = 2
+        gaps_out = 5
+        border_size = 1
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
         col.inactive_border = rgba(595959aa)
-
         layout = dwindle
     }
 
     decoration {
-
-        rounding = 10
-        blur = true
-        blur_size = 3
-        blur_passes = 1
-        blur_new_optimizations = true
-
-        drop_shadow = true
+        rounding = 2
+        blur {
+           enabled = true
+           size = 3
+           passes = 1
+           new_optimizations = true
+        }
+        drop_shadow = false
         shadow_range = 4
         shadow_render_power = 3
         col.shadow = rgba(1a1a1aee)
@@ -108,35 +102,31 @@
     # Example windowrule v2
     # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 
-    windowrule=float,^(kitty)$
-    windowrule=float,^(pavucontrol)$
-    windowrule=center,^(kitty)$
-    windowrule=float,^(blueman-manager)$
-    windowrule=size 600 500,^(kitty)$
-    windowrule=size 934 525,^(mpv)$
-    windowrule=float,^(mpv)$
-    windowrule=center,^(mpv)$
+    # windowrule=float,^(kitty)$
+    # windowrule=float,^(pavucontrol)$
+    # windowrule=center,^(kitty)$
+    # windowrule=float,^(blueman-manager)$
+    # windowrule=size 600 500,^(kitty)$
+    # windowrule=size 934 525,^(mpv)$
+    # windowrule=float,^(mpv)$
+    # windowrule=center,^(mpv)$
     #windowrule=pin,^(firefox)$
 
     $mainMod = SUPER
-    bind = $mainMod, G, fullscreen,
-
-
-    #bind = $mainMod, RETURN, exec, cool-retro-term-zsh
-    bind = $mainMod, RETURN, exec, kitty
-    bind = $mainMod, B, exec, opera --no-sandbox
-    bind = $mainMod, L, exec, librewolf
+    bind = $mainMod, F, fullscreen,
+    bind = $mainMod, RETURN, exec, alacritty
+    bind = $mainMod, B, exec, vieb
     bind = $mainMod, Q, killactive,
-    bind = $mainMod, M, exit,
-    bind = $mainMod, F, exec, nautilus
-    bind = $mainMod, V, togglefloating,
-    bind = $mainMod, w, exec, wofi --show drun
+    bind = SUPER_CTRL_SHIFT, Q, exit,
+    # bind = $mainMod, G, exec, nautilus
+    # bind = $mainMod, V, togglefloating,
+    bind = $mainMod, SPACE, exec, rofi -show drun
     bind = $mainMod, R, exec, rofiWindow
-    bind = $mainMod, P, pseudo, # dwindle
+    # bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, J, togglesplit, # dwindle
 
     # Switch Keyboard Layouts
-    bind = $mainMod, SPACE, exec, hyprctl switchxkblayout teclado-gamer-husky-blizzard next
+    # bind = $mainMod, SPACE, exec, hyprctl switchxkblayout teclado-gamer-husky-blizzard next
 
     bind = , Print, exec, grim -g "$(slurp)" - | wl-copy
     bind = SHIFT, Print, exec, grim -g "$(slurp)"
@@ -155,11 +145,11 @@
     bind = SUPER,Tab,cyclenext,
     bind = SUPER,Tab,bringactivetotop,
 
-    # Move focus with mainMod + arrow keys
-    bind = $mainMod, left, movefocus, l
-    bind = $mainMod, right, movefocus, r
-    bind = $mainMod, up, movefocus, u
-    bind = $mainMod, down, movefocus, d
+    # Move focus with mainMod + vim movement
+    bind = $mainMod, h, movefocus, l
+    bind = $mainMod, l, movefocus, r
+    bind = $mainMod, k, movefocus, u
+    bind = $mainMod, j, movefocus, d
 
     # Switch workspaces with mainMod + [0-9]
     bind = $mainMod, 1, workspace, 1

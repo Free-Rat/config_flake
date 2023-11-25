@@ -15,15 +15,16 @@
   home.packages = (with pkgs; [
     
     # User Apps
-    #discord
+    discord
     #librewolf
 
     # Utils
     ranger
-    git
     curl
     dunst
     pavucontrol
+    pamixer
+    light
 
     # Misc 
     cava
@@ -41,6 +42,15 @@
   ]) ++ (with pkgs.gnome; [ 
     nautilus
   ]);
+
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+    extraConfig = ''
+      [core]
+        askpass =
+    '';
+  };
 
   programs.home-manager.enable = true;
 
