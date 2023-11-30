@@ -1,4 +1,4 @@
-{config, user, ...}:
+{ config, user, ... }:
 {
   imports = [
     ./alacritty
@@ -8,5 +8,8 @@
     ./rofi
     ./waybar
     ./zsh
+    ./fish.nix
+    ./nixvim
+    ./helix
   ];
 }

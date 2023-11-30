@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
-
 {
-  imports = [ 
-    ./hyprland-environment.nix
-  ];
+  # imports = [ 
+  #   ./hyprland-environment.nix
+  # ];
 
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     waybar
     swww
   ];
-  
+
   #test later systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -17,8 +16,8 @@
     extraConfig = ''
 
     # Monitor
-    monitor=DP-1,1920x1080@165,auto,1
-    monitor=DP-1,1920x1080@165,auto,1
+    monitor=eDP-1,preferred,auto,1
+    monitor=,preferred,auto,1
 
     # Fix slow startup
     exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -29,8 +28,8 @@
     exec-once = dunst
     # source = /home/enzo/.config/hypr/colors
     exec = pkill waybar & sleep 0.5 && waybar
-    exec-once = swww init # & sleep 0.5 && exec wallpaper_random
-    exec-once = swww img /home/freerat/config_flake/home/wallpapers/ranni1.jpg
+    exec-once = swww init # & sleep 0.5 && swww kill && swww init
+    #exec-once = swww img /home/freerat/config_flake/home/wallpapers/ranni1.jpg
 
     # Set en layout at startup
 
@@ -50,9 +49,9 @@
 
     general {
 
-        gaps_in = 2
+        gaps_in = 3
         gaps_out = 5
-        border_size = 1
+        border_size = 2
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
         col.inactive_border = rgba(595959aa)
         layout = dwindle
@@ -123,7 +122,7 @@
     bind = $mainMod, SPACE, exec, rofi -show drun
     bind = $mainMod, R, exec, rofiWindow
     # bind = $mainMod, P, pseudo, # dwindle
-    bind = $mainMod, J, togglesplit, # dwindle
+    bind = $mainMod, T, togglesplit, # dwindle
 
     # Switch Keyboard Layouts
     # bind = $mainMod, SPACE, exec, hyprctl switchxkblayout teclado-gamer-husky-blizzard next
@@ -133,8 +132,8 @@
 
     # Functional keybinds
     bind =,XF86AudioMicMute,exec,pamixer --default-source -t
-    bind =,XF86MonBrightnessDown,exec,light -U 20
-    bind =,XF86MonBrightnessUp,exec,light -A 20
+    bind =,XF86MonBrightnessDown, exec, light -U 20
+    bind =,XF86MonBrightnessUp, exec, light -A 20
     bind =,XF86AudioMute,exec,pamixer -t
     bind =,XF86AudioLowerVolume,exec,pamixer -d 10
     bind =,XF86AudioRaiseVolume,exec,pamixer -i 10
@@ -186,25 +185,25 @@
         '';
   };
 
-#      home.file.".config/hypr/colors".text = ''
-#$background = rgba(1d192bee)
-#$foreground = rgba(c3dde7ee)
-#
-#$color0 = rgba(1d192bee)
-#$color1 = rgba(465EA7ee)
-#$color2 = rgba(5A89B6ee)
-#$color3 = rgba(6296CAee)
-#$color4 = rgba(73B3D4ee)
-#$color5 = rgba(7BC7DDee)
-#$color6 = rgba(9CB4E3ee)
-#$color7 = rgba(c3dde7ee)
-#$color8 = rgba(889aa1ee)
-#$color9 = rgba(465EA7ee)
-#$color10 = rgba(5A89B6ee)
-#$color11 = rgba(6296CAee)
-#$color12 = rgba(73B3D4ee)
-#$color13 = rgba(7BC7DDee)
-#$color14 = rgba(9CB4E3ee)
-#$color15 = rgba(c3dde7ee)
-#    '';
+  #      home.file.".config/hypr/colors".text = ''
+  #$background = rgba(1d192bee)
+  #$foreground = rgba(c3dde7ee)
+  #
+  #$color0 = rgba(1d192bee)
+  #$color1 = rgba(465EA7ee)
+  #$color2 = rgba(5A89B6ee)
+  #$color3 = rgba(6296CAee)
+  #$color4 = rgba(73B3D4ee)
+  #$color5 = rgba(7BC7DDee)
+  #$color6 = rgba(9CB4E3ee)
+  #$color7 = rgba(c3dde7ee)
+  #$color8 = rgba(889aa1ee)
+  #$color9 = rgba(465EA7ee)
+  #$color10 = rgba(5A89B6ee)
+  #$color11 = rgba(6296CAee)
+  #$color12 = rgba(73B3D4ee)
+  #$color13 = rgba(7BC7DDee)
+  #$color14 = rgba(9CB4E3ee)
+  #$color15 = rgba(c3dde7ee)
+  #    '';
 }

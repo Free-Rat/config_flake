@@ -9,6 +9,10 @@
 #   "${pkgs.vimPlugins.nightfox-nvim}/extra/carbonfox/nightfox_alacritty.yml"
 # ];
 
+      env = {
+        SHELL = "fish";
+      };
+
       font = {
         normal = {
           family = "Monaspace Krypton";

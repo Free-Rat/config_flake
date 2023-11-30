@@ -9,10 +9,10 @@
       };
       style = ''
                * {
-                 font-family: "JetBrainsMono Nerd Font";
+                 font-family: "Monaspace Krypton";
                  font-size: 12pt;
                  font-weight: bold;
-                 border-radius: 8px;
+                 border-radius: 2px;
                  transition-property: background-color;
                  transition-duration: 0.5s;
                }
@@ -36,7 +36,10 @@
                  margin-left: 5px;
                  margin-right: 5px;
                  margin-top: 5px;
-                 background-color: #1e1e2a;
+                /* background-color: #1e1e2a; */
+                background-color: rgba(43, 48, 59, 0.8);
+                 /* background: transparent; 
+                 color: black; */
                  padding: 3px;
                  padding-left:8px;
                  border: 2px none #33ccff;
@@ -132,15 +135,21 @@
                  color: #c0caf5;
                }
          #custom-cava-internal{
-                 font-family: "Hack Nerd Font" ;
+                 font-family: "Monaspace Krypton";
                  color: #33ccff;
                }
+         #battery{
+           font-family: "Monaspace Krypton";
+           color: #c0caf5;
+         }
       '';
       settings = [{
         "layer" = "top";
         "position" = "top";
         modules-left = [
           "custom/launcher"
+          "cpu"
+          "memory"
           "temperature"
           "mpd"
           "custom/cava-internal"
@@ -149,13 +158,13 @@
           "clock"
         ];
         modules-right = [
+          "battery"
           "pulseaudio"
           "backlight"
-          "memory"
-          "cpu"
-          "network"
-          "custom/powermenu"
           "tray"
+          "network"
+          "workspaces"
+          # "custom/powermenu"
         ];
         "custom/launcher" = {
           "format" = " ";
@@ -166,7 +175,7 @@
         };
         "custom/cava-internal" = {
           "exec" = "sleep 1s && cava-internal";
-          "tooltip" = false;
+          "tooltip" = true;
         };
         "pulseaudio" = {
           "scroll-step" = 1;
@@ -223,8 +232,8 @@
           "tooltip" = false;
         };
         "tray" = {
-          "icon-size" = 15;
-          "spacing" = 5;
+          "icon-size" = 18;
+          "spacing" = 7;
         };
       }];
     };
