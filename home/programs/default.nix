@@ -11,5 +11,6 @@
     ./fish.nix
     ./nixvim
     ./helix
+    ./cava
   ];
 }

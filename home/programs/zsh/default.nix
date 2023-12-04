@@ -1,28 +1,27 @@
 { config, pkgs, ... }:
 {
-    programs = {
-        zsh = {
-            enable = true;
-            oh-my-zsh = {
-                enable = true;
-                theme = "refined";
-                plugins = [
-                    "git"
-                ];
-            };
+  programs = {
+    zsh = {
+      enable = true;
+      oh-my-zsh = {
+        enable = true;
+        theme = "fishy"; #refined
+        plugins = [
+          "git"
+          "emoji"
+          "emotty"
+          # "zsh-vi-mode"
 
-            enableAutosuggestions = true;
-            enableCompletion = true;
-            # enableSyntaxHighlighting = true;
-	    syntaxHighlighting.enable = true;
-        };
+        ];
+      };
+      defaultKeymap = "viins";
+      enableAutosuggestions = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
     };
+  };
 
-    home.file.".zshrc".text = ''
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+  home.file.".zshrc".text = ''
 
-# Rofi
-export PATH=$HOME/.config/rofi/scripts:$PATH
-export PATH=$PATH:~/Apps
     '';
 }

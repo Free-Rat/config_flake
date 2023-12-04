@@ -3,6 +3,7 @@
   imports = [
     inputs.hyprland.homeManagerModules.default
     ./programs
+    ./scripts
   ];
 
   home = {
@@ -45,9 +46,13 @@
     pamixer
     light
     unzip
+    jq
+
+    neofetch
 
     # Misc 
     cava
+    playerctl
     rofi
     nitch
     wget

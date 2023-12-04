@@ -1,13 +1,13 @@
 { inputs, config, pkgs, lib, ... }: {
-  home.packages = lib.optionals config.programs.alacritty.enable [pkgs.nerdfonts pkgs.monaspace];
+  home.packages = lib.optionals config.programs.alacritty.enable [ pkgs.nerdfonts pkgs.monaspace ];
 
   programs.alacritty = {
     enable = true;
 
     settings = {
-# import = [
-#   "${pkgs.vimPlugins.nightfox-nvim}/extra/carbonfox/nightfox_alacritty.yml"
-# ];
+      # import = [
+      #   "${pkgs.vimPlugins.nightfox-nvim}/extra/carbonfox/nightfox_alacritty.yml"
+      # ];
 
       env = {
         SHELL = "fish";
@@ -16,9 +16,13 @@
       font = {
         normal = {
           family = "Monaspace Krypton";
+          style = "Semibold";
+        };
+        italic = {
+          family = "Monaspace Argon";
           style = "Medium";
         };
-        size = 11;
+        size = 12;
       };
 
       colors = {
@@ -32,13 +36,13 @@
         opacity = 0.8;
       };
 
-#   padding = {
-#     x = 12;
-#     y = 12;
-#   };
-# shell = {
-#   program = "/usr/bin/env zsh";
-# };
+      #   padding = {
+      #     x = 12;
+      #     y = 12;
+      #   };
+      # shell = {
+      #   program = "/usr/bin/env zsh";
+      # };
     };
   };
 }

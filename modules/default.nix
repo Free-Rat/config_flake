@@ -1,15 +1,9 @@
 { inputs, pkgs, ... }:
 {
-
-#  imports = [
-#    ./nixvim
-#  ];
-
   environment.variables = {
     EDITOR = "nvim";
     SHELL = "fish";
   };
-
 
   fonts.packages = with pkgs; [
     monaspace
@@ -45,7 +39,6 @@
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    enableNvidiaPatches = true;
     xwayland.enable = true;
   };
 
@@ -81,11 +74,20 @@
     wget
   ];
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+  };
+
   services.picom = {
     enable = true;
     fade = true;
     fadeDelta = 5;
     vSync = true;
+  };
+
+  services.mpd = {
+    enable = true;
   };
 
   systemd.user.services = {
