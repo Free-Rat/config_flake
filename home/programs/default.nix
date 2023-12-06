@@ -12,5 +12,7 @@
     ./nixvim
     ./helix
     ./cava
+    ./tmux
+    ./starship
   ];
 }

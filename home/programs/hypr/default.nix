@@ -28,7 +28,9 @@
     exec-once = dunst
     # source = /home/enzo/.config/hypr/colors
     exec = pkill waybar & sleep 0.5 && waybar
-    exec-once = swww init # & sleep 0.5 && swww kill && swww init
+    exec-once = swww init & swww kill && swww init
+    #exec-once = swww init & sleep 0.5 && swww img /home/freerat/config_flake/home/wallpapers/ranni1.jpg
+    # & sleep 0.5 && swww kill && swww init
     #exec-once = swww img /home/freerat/config_flake/home/wallpapers/ranni1.jpg
 
     # Set en layout at startup

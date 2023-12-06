@@ -58,19 +58,17 @@
   # services.xserver.libinput.enable = true;
 
   environment.systemPackages = with pkgs; [
-    bat
+    # swift
+    # swiftPackages.swift-unwrapped
+    # sourcekit-lsp
+
+    jdk
     lua
-    keepassxc
-    unzip
-    lazygit
-    vieb
     networkmanager
     networkmanagerapplet
     gcc
     clang
     xclip
-    alacritty
-    tree
     wget
   ];
 
