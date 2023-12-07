@@ -96,4 +96,9 @@
       serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
     };
   };
+
+  services.openssh.enable = true;
+  users.user."freerat".openssh.authorizedKeys.keyFiles = [
+    ./.ssh
+  ];
 }
