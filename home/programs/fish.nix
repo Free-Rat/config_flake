@@ -8,8 +8,10 @@
       keepassxc = "keepassxc -platform xcb";
     };
 
+    interactiveShellInit = ''set fish_greeting ""'';
+
     plugins = [
-      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      # { name = "grc"; src = pkgs.fishPlugins.grc.src; }
       # {
       #   name = "slavic-cat";
       #   src = pkgs.fetchFromGitHub {
