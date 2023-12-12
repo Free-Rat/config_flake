@@ -62,7 +62,6 @@
     # swiftPackages.swift-unwrapped
     # sourcekit-lsp
 
-    jdk
     lua
     networkmanager
     networkmanagerapplet
@@ -98,7 +97,7 @@
   };
 
   services.openssh.enable = true;
-  users.user."freerat".openssh.authorizedKeys.keyFiles = [
-    ./.ssh
-  ];
+  # users.user."freerat".openssh.authorizedKeys.keyFiles = [
+  #   ./.ssh
+  # ];
 }

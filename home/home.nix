@@ -38,6 +38,7 @@
     alacritty
     lazygit
     vieb
+    zathura
 
     # Utils
     ranger
