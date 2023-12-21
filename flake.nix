@@ -24,11 +24,12 @@
     {
       nixosConfigurations = {
 
-        nixos = lib.nixosSystem rec {
+        #ranni - my laptop
+        ranni = lib.nixosSystem rec {
           inherit system;
           specialArgs = { inherit inputs user; };
           modules = [
-            ./config
+            ./hosts/ranni
             ./modules
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager
@@ -41,8 +42,27 @@
           ];
         };
 
-        server = lib.nixosSystem {
-          modules = [ ./configuration.nix ];
+        #malenia - my desktop
+        malenia = lib.nixosSystem {
+          modules = [
+            /etc/nixos/configuration.nix
+          ];
+        };
+
+        #melina - my server
+        melina = lib.nixosSystem {
+          modules = [
+            /etc/nixos/configuration.nix
+          ];
+        };
+
+        #vyke - my windows pc vm
+        vyke = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            /etc/nixos/configuration.nix
+          ];
         };
       };
     };

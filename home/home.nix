@@ -69,6 +69,9 @@
     tty-clock
     btop
     gh
+    ueberzugpp
+    xwaylandvideobridge
+
   ]) ++ (with pkgs.gnome; [
     nautilus
   ]);
