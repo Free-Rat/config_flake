@@ -14,6 +14,10 @@
       EDITOR = "nvim";
       BROWSER = "vieb";
       TERMINAL = "alacritty";
+
+      PATH_FLAKE_CONFIG = "$HOME/config_flake";
+      PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/home/scripts";
+
       QT_QPA_PLATFORM = "xcb";
 
       __GL_VRR_ALLOWED = "1";
@@ -33,7 +37,7 @@
     # User Apps
     discord
     caprine-bin
-    #librewolf
+    librewolf
     keepassxc
     alacritty
     lazygit
@@ -79,6 +83,8 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
+    userName = "Free-Rat";
+    userEmail = "lawicki02@gmail.com";
     extraConfig = ''
       [core]
         askpass =

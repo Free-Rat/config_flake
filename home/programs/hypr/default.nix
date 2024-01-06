@@ -46,11 +46,10 @@
         touchpad {
             natural_scroll = false
         }
-        sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+        sensitivity = -0.5 # -1.0 - 1.0, 0 means no modification.
     }
 
     general {
-
         gaps_in = 3
         gaps_out = 5
         border_size = 2
@@ -75,9 +74,7 @@
 
     animations {
         enabled = yes
-
         bezier = ease,0.4,0.02,0.21,1
-
         animation = windows, 1, 3.5, ease, slide
         animation = windowsOut, 1, 3.5, ease, slide
         animation = border, 1, 6, default
@@ -186,26 +183,4 @@
     bindm = ALT, mouse:272, resizewindow
         '';
   };
-
-  #      home.file.".config/hypr/colors".text = ''
-  #$background = rgba(1d192bee)
-  #$foreground = rgba(c3dde7ee)
-  #
-  #$color0 = rgba(1d192bee)
-  #$color1 = rgba(465EA7ee)
-  #$color2 = rgba(5A89B6ee)
-  #$color3 = rgba(6296CAee)
-  #$color4 = rgba(73B3D4ee)
-  #$color5 = rgba(7BC7DDee)
-  #$color6 = rgba(9CB4E3ee)
-  #$color7 = rgba(c3dde7ee)
-  #$color8 = rgba(889aa1ee)
-  #$color9 = rgba(465EA7ee)
-  #$color10 = rgba(5A89B6ee)
-  #$color11 = rgba(6296CAee)
-  #$color12 = rgba(73B3D4ee)
-  #$color13 = rgba(7BC7DDee)
-  #$color14 = rgba(9CB4E3ee)
-  #$color15 = rgba(c3dde7ee)
-  #    '';
 }

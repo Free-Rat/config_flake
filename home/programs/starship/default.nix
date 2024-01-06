@@ -19,16 +19,17 @@
         disabled = false;
       };
 
-      # Core
       username = {
         format = "[$user]($style)";
         show_always = true;
       };
+
       hostname = {
         format = "[@$hostname]($style) ";
         ssh_only = false;
         style = "bold green";
       };
+
       shlvl = {
         format = "[$shlvl]($style) ";
         style = "bold cyan";
@@ -36,18 +37,22 @@
         repeat = true;
         disabled = false;
       };
+
       cmd_duration = {
         format = "took [$duration]($style) ";
       };
+
       directory = {
         format = "[$path]($style)( [$read_only]($read_only_style)) ";
       };
+
       nix_shell = {
         format = "[($name \\(develop\\) <- )$symbol]($style) ";
         impure_msg = "";
         symbol = " ";
         style = "bold red";
       };
+
       character = {
         error_symbol = "[~~>](bold red)";
         success_symbol = "[->>](bold green)";

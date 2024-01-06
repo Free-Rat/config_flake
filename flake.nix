@@ -43,9 +43,20 @@
         };
 
         #malenia - my desktop
-        malenia = lib.nixosSystem {
+        malenia = lib.nixosSystem rec {
+          inherit system;
+          specialArgs = { inherit inputs user; };
           modules = [
-            /etc/nixos/configuration.nix
+	  	./hosts/malenia
+            ./modules
+            hyprland.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users."${user}" = import ./home/home.nix;
+              home-manager.extraSpecialArgs = { inherit hyprland user inputs; };
+            }
           ];
         };
 
