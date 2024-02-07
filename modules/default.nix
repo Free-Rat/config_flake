@@ -2,7 +2,9 @@
 {
   imports = [
     ./sound.nix
-    ./hyprland.nix
+    # ./hyprland.nix
+    # ./awesome.nix
+    ./dwm
   ];
 
   environment.variables = {
@@ -28,6 +30,9 @@
     clang
     xclip
     wget
+    st
+    dmenu
+    pywal
   ];
 
   systemd.user.services = {

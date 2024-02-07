@@ -75,6 +75,8 @@
     gh
     ueberzugpp
     xwaylandvideobridge
+    rpi-imager
+    feh
 
   ]) ++ (with pkgs.gnome; [
     nautilus

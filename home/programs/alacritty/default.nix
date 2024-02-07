@@ -22,7 +22,7 @@
           family = "Monaspace Argon";
           style = "Medium";
         };
-        size = 12;
+        size = 9;
       };
 
       colors = {
