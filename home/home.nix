@@ -17,6 +17,7 @@
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/home/scripts";
+      PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/home/wallpapers";
 
       QT_QPA_PLATFORM = "xcb";
 
@@ -32,53 +33,61 @@
     };
   };
 
-  home.packages = (with pkgs; [
+  home.file = {
+    ".config/awesome" = {
+      source = ../modules/awesome;
+      # destination = "~/.config/awesome";
+    };
+  };
 
-    # User Apps
-    discord
-    caprine-bin
-    librewolf
-    keepassxc
-    alacritty
-    lazygit
-    vieb
-    zathura
+  home.packages = (with pkgs;
+    [
 
-    # Utils
-    ranger
-    wlr-randr
-    curl
-    dunst
-    catimg
-    pavucontrol
-    pamixer
-    light
-    unzip
-    jq
-    bat
-    unzip
-    tree
-    neofetch
+      # User Apps
+      discord
+      caprine-bin
+      librewolf
+      keepassxc
+      alacritty
+      lazygit
+      vieb
+      zathura
 
-    # Misc 
-    cava
-    playerctl
-    rofi
-    nitch
-    wget
-    grim
-    slurp
-    wl-clipboard
-    mpc-cli
-    tty-clock
-    btop
-    gh
-    ueberzugpp
-    xwaylandvideobridge
-    rpi-imager
-    feh
+      # Utils
+      ranger
+      wlr-randr
+      curl
+      dunst
+      catimg
+      pavucontrol
+      pamixer
+      light
+      unzip
+      jq
+      bat
+      unzip
+      tree
+      neofetch
 
-  ]) ++ (with pkgs.gnome; [
+      # Misc 
+      cava
+      playerctl
+      rofi
+      nitch
+      wget
+      grim
+      slurp
+      wl-clipboard
+      mpc-cli
+      tty-clock
+      btop
+      gh
+      ueberzugpp
+      xwaylandvideobridge
+      rpi-imager
+      feh
+
+    ]) ++ (with pkgs.gnome; [
     nautilus
   ]);
 

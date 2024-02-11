@@ -3,8 +3,8 @@
   imports = [
     ./sound.nix
     # ./hyprland.nix
-    # ./awesome.nix
-    ./dwm
+    ./awesome
+    # ./dwm
   ];
 
   environment.variables = {
