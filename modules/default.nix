@@ -4,7 +4,6 @@
     ./sound.nix
     # ./hyprland.nix
     ./awesome
-    # ./dwm
   ];
 
   environment.variables = {
@@ -20,9 +19,15 @@
     (nerdfonts.override { fonts = [ "Hack" "3270" ]; })
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.neovim.overlays.default
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
+    nvim-pkg
     lua
     networkmanager
     networkmanagerapplet
@@ -30,8 +35,6 @@
     clang
     xclip
     wget
-    st
-    dmenu
     pywal
   ];
 

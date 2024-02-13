@@ -36,58 +36,55 @@
   home.file = {
     ".config/awesome" = {
       source = ../modules/awesome;
-      # destination = "~/.config/awesome";
     };
   };
 
-  home.packages = (with pkgs;
-    [
+  home.packages = (with pkgs; [
+    # User Apps
+    discord
+    caprine-bin
+    librewolf
+    keepassxc
+    alacritty
+    lazygit
+    vieb
+    zathura
 
-      # User Apps
-      discord
-      caprine-bin
-      librewolf
-      keepassxc
-      alacritty
-      lazygit
-      vieb
-      zathura
+    # Utils
+    ranger
+    wlr-randr
+    curl
+    dunst
+    catimg
+    pavucontrol
+    pamixer
+    light
+    unzip
+    jq
+    bat
+    unzip
+    tree
+    neofetch
 
-      # Utils
-      ranger
-      wlr-randr
-      curl
-      dunst
-      catimg
-      pavucontrol
-      pamixer
-      light
-      unzip
-      jq
-      bat
-      unzip
-      tree
-      neofetch
+    # Misc 
+    cava
+    playerctl
+    rofi
+    nitch
+    wget
+    grim
+    slurp
+    wl-clipboard
+    mpc-cli
+    tty-clock
+    btop
+    gh
+    ueberzugpp
+    xwaylandvideobridge
+    rpi-imager
+    feh
 
-      # Misc 
-      cava
-      playerctl
-      rofi
-      nitch
-      wget
-      grim
-      slurp
-      wl-clipboard
-      mpc-cli
-      tty-clock
-      btop
-      gh
-      ueberzugpp
-      xwaylandvideobridge
-      rpi-imager
-      feh
-
-    ]) ++ (with pkgs.gnome; [
+  ]) ++ (with pkgs.gnome; [
     nautilus
   ]);
 

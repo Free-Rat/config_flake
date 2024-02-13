@@ -2,14 +2,14 @@
 {
   imports = [
     ./alacritty
-    ./dunst
-    ./hypr
-    ./kitty
+    # ./dunst
+    # ./hypr
+    # ./kitty
     ./rofi
-    ./waybar
+    # ./waybar
     ./zsh
     ./fish.nix
-    ./nixvim
+    # ./nixvim
     ./helix
     ./cava
     ./tmux

@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    nvim-flake.url = "github:Free-Rat/nvim-flake";
+    neovim.url = "github:Free-Rat/neovim-flake";
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:
@@ -47,7 +47,7 @@
           inherit system;
           specialArgs = { inherit inputs user; };
           modules = [
-	  	./hosts/malenia
+            ./hosts/malenia
             ./modules
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager

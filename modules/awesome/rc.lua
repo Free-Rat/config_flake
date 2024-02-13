@@ -118,6 +118,23 @@ local tasklist_buttons = gears.table.join(
 local function set_wallpaper(s)
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
+
+        local pathWallpapers = os.getenv("PATH_FLAKE_CONFIG") or "/home/freerat/config_flake"
+        if pathWallpapers then
+            pathWallpapers = pathWallpapers .. "/home/wallpapers"
+            local files = {}
+            for file in io.popen('ls "'..pathWallpapers..'"'):lines() do
+                table.insert(files, file)
+            end
+            if #files > 0 then
+                local randomFile = files[math.random(#files)]
+                local newPathWallpapers = pathWallpapers .. "/" .. randomFile
+                wallpaper = newPathWallpapers
+            end
+        else
+            print("Environment variable MY_PATH is not set.")
+        end
+
         -- If wallpaper is a function, call it with the screen
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
@@ -206,11 +223,13 @@ awful.screen.connect_for_each_screen(function(s)
         bg = beautiful.bg_normal .. "00"
     })
 
+    local systray = wibox.widget.systray()
+    systray.bg = beautiful.bg_normal .. "00"
+
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(s.mytaglist)
 
-    local systray = wibox.widget.systray()
-    systray.bg = beautiful.bg_normal .. "00"
+    local middle_layout = wibox.layout.fixed.horizontal()
 
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(systray)
@@ -223,10 +242,12 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         left_layout,
         vert_sep,
+        middle_layout,
+        vert_sep,
         right_layout,
-
     }
 end)
+
 -- }}}
 
 -- {{{ Mouse bindings
