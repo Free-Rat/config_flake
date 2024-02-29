@@ -21,7 +21,6 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "pl_PL.UTF-8";
     LC_IDENTIFICATION = "pl_PL.UTF-8";
@@ -54,10 +53,6 @@
     options = "--delete-older-than 7d";
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    channel = "https://nixos.org/channels/nixos-23.05";
-  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

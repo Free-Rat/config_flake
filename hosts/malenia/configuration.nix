@@ -13,6 +13,7 @@
 
   networking.hostName = "malenia"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -35,29 +36,24 @@
   users.users.freerat = {
     isNormalUser = true;
     description = "Free-Rat";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ 
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+    ];
     packages = with pkgs; [
       firefox
     ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    neovim
-    git
-  ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
-  hardware.keyboard.qmk.enable = true;
-
-  # services.udev.packages = [
-  #   (pkgs.writeTextFile {
-  #     name = "vial-udev";
-  #     text = ''
-  #       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-  #     '';
-  #     destination = "/etc/udev/rules.d/99-vial.rules";
-  #   })
-  # ];
+#  hardware.keyboard.qmk.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

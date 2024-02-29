@@ -6,6 +6,8 @@
     shellAliases = {
       nrf = "sudo nixos-rebuild switch --flake .";
       keepassxc = "keepassxc -platform xcb";
+      vi = "nvim";
+      vim = "nvim";
     };
 
     interactiveShellInit = ''set fish_greeting ""'';

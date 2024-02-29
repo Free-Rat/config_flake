@@ -116,6 +116,7 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 local function set_wallpaper(s)
+    math.randomseed(os.time() + s.index)
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
 
@@ -131,8 +132,6 @@ local function set_wallpaper(s)
                 local newPathWallpapers = pathWallpapers .. "/" .. randomFile
                 wallpaper = newPathWallpapers
             end
-        else
-            print("Environment variable MY_PATH is not set.")
         end
 
         -- If wallpaper is a function, call it with the screen
@@ -242,8 +241,8 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         left_layout,
         vert_sep,
-        middle_layout,
-        vert_sep,
+        -- middle_layout,
+        -- vert_sep,
         right_layout,
     }
 end)
