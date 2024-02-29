@@ -8,7 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    neovim.url = "github:Free-Rat/neovim-flake";
+    nixvim = {
+      url = "github:Free-Rat/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:

@@ -9,7 +9,7 @@
     # ./waybar
     ./zsh
     ./fish.nix
-    # ./nixvim
+    ./nixvim
     ./helix
     ./cava
     ./tmux

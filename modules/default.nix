@@ -21,14 +21,16 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      inputs.neovim.overlays.default
-    ];
+#    overlays = [
+#      inputs.nixvim.overlays.default
+#    ];
   };
 
   environment.systemPackages = with pkgs; [
-    nvim-pkg
-    lua
+    #inputs.nixvim.packages.${pkgs.system}.default
+    lua53Packages.luadbi
+    lua53Packages.lua
+
     networkmanager
     networkmanagerapplet
     gcc
