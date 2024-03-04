@@ -21,16 +21,11 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-#    overlays = [
-#      inputs.nixvim.overlays.default
-#    ];
   };
 
   environment.systemPackages = with pkgs; [
-    #inputs.nixvim.packages.${pkgs.system}.default
-    lua53Packages.luadbi
-    lua53Packages.lua
-
+	swift
+	lua
     networkmanager
     networkmanagerapplet
     gcc
