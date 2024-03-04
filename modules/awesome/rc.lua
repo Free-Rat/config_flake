@@ -150,7 +150,8 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "󰈹 ", " ", " ", " ", " ", " ", "󰢱 ", " ", " " }, s, awful.layout.layouts[1])
+	-- "󰈹 ", " ", " ", " ", " ", " ", "󰢱 ", " ", " "
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -185,11 +186,11 @@ awful.screen.connect_for_each_screen(function(s)
             shape  = gears.shape.rounded_bar,
         },
         layout   = {
-            spacing = 4,
+            spacing = 5,
             spacing_widget = {
                 {
                     forced_width = 10,
-                    shape        = gears.shape.circle,
+                    shape        = gears.shape.rounded_rect,
                     widget       = vert_sep,
                 },
                 valign = 'center',
@@ -208,7 +209,7 @@ awful.screen.connect_for_each_screen(function(s)
                     layout = wibox.layout.fixed.horizontal,
                 },
                 left  = 5,
-                right = 2,
+                right = 5,
                 widget = wibox.container.margin
             },
             id     = 'background_role',
