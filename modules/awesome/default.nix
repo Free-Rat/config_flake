@@ -1,8 +1,7 @@
-{ inputs, pkgs, ... }:
-{
+{ inputs, pkgs, ... }: {
   services.xserver = {
-    layout = "pl";
-    xkbVariant = "";
+    xkb.layout = "pl";
+    xkb.variant = "";
     enable = true;
     displayManager = {
       lightdm.greeters.mini = {

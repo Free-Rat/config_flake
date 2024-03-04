@@ -93,10 +93,11 @@
     package = pkgs.gitFull;
     userName = "Free-Rat";
     userEmail = "lawicki02@gmail.com";
-    extraConfig = ''
-      [core]
-        askpass =
-    '';
+	extraConfig = {
+		core = {
+			askpass = "";
+		};
+	};
   };
 
   programs.home-manager.enable = true;
