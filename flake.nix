@@ -34,9 +34,9 @@
           modules = [
             ./hosts/ranni
             ./modules
+			./modules/awesome
             hyprland.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
+            home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${user}" = import ./home/home.nix;
@@ -52,9 +52,9 @@
           modules = [
             ./hosts/malenia
             ./modules
+			./modules/hyprland.nix
             hyprland.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
+            home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${user}" = import ./home/home.nix;

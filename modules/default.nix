@@ -1,9 +1,11 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, config, ... }:
 {
   imports = [
     ./sound.nix
     # ./hyprland.nix
-    ./awesome
+    # ./awesome
+	# if options.useHyprland = true then ./hyprland.nix else ./awesome.nix;
+	# lib.mkIf config.useHyprland ./hyprland.nix ./awesome.nix
   ];
 
   environment.variables = {
