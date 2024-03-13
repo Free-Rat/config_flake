@@ -3,6 +3,6 @@
   programs.rofi = {
     enable = true;
     terminal = "alacritty";
-    # theme = ./theme.rasi;
+    theme = ./themes/spotlight-dark-Kypton.rasi;
   };
 }

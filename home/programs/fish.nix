@@ -6,6 +6,7 @@
     shellAliases = {
       nrf = "sudo nixos-rebuild switch --flake .";
       keepassxc = "keepassxc -platform xcb";
+      nd = "nix develop . --command fish";
       vi = "nvim";
       vim = "nvim";
     };
