@@ -1,8 +1,8 @@
 { inputs, pkgs, ... }:
 {
   services.xserver = {
-    layout = "pl";
-    xkbVariant = "";
+	xkb.layout = "pl";
+    xkb.variant = "";
     enable = true;
     displayManager = {
       gdm = {

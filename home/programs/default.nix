@@ -2,11 +2,11 @@
 {
   imports = [
     ./alacritty
-    # ./dunst
-    # ./hypr
+    ./dunst
+    ./hypr
     # ./kitty
     ./rofi
-    # ./waybar
+    ./waybar
     ./zsh
     ./fish.nix
     ./nixvim

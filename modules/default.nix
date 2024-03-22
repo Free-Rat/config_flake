@@ -27,6 +27,9 @@
 
   environment.systemPackages = with pkgs; [
 	swift
+	swiftpm
+	swiftPackages.Foundation
+
 	lua
     networkmanager
     networkmanagerapplet

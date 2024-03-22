@@ -22,11 +22,11 @@ window {
 
     location:       center;
     width:          640;
-    border-radius:  8;
+    border-radius:  2;
 }
 
 inputbar {
-    font:       "Montserrat 20";
+    font:       "Monaspace Krypton 20";
     padding:    12px;
     spacing:    12px;
     children:   [ icon-search, entry ];
