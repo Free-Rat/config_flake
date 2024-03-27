@@ -14,8 +14,6 @@
       modules-left = [
         "custom/launcher"
         "custom/cava-internal"
-        # "clock#date"
-        # "clock#time"
 		"clock"
       ];
 
@@ -34,8 +32,7 @@
         "network"
       ];
 
-      # "hyprland/workspaces" = { };
-      "sway/workspaces" = { };
+      "hyprland/workspaces" = { };
 
       "custom/launcher" = {
         "format" = " ";
@@ -74,22 +71,9 @@
         "on-click" = "playerctl play-pause";
       };
 
-      # "clock#time" = {
-      #   "interval" = 10;
-      #   "format" = "{:%H:%M}";
-      #   "tooltip" = false;
-      # };
-      #
-      # "clock#date" = {
-      #   "interval" = 20;
-      #   "format" = "{:%e %b %Y}";
-      #   "tooltip" = false;
-      #   "tooltip-format" = "{:%e %B %Y}";
-      # };
-
 	  clock = {
 		  "interval" = 1;
-		  "format" = "{:%a %Y-%m-%d %I:%M:%S %p}";
+		  "format" = "{:%a %Y-%m-%d %H:%M:%S %p}";
 		  "timezone" = "Poland/Warsaw";
 		  "tooltip-format" = ''
 			  <big>{:%Y %B}</big>

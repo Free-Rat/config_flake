@@ -1,0 +1,175 @@
+$color_1: rgb(104, 149, 208);
+$color_2: rgb(181, 232, 224);
+$color_3: rgb(248, 189, 150);
+$color_4: rgb(217, 224, 238);
+$color_5: #7ebae4;
+$color_6: rgb(245, 194, 231);
+$color_7: #33ccff;
+$color_8: rgb(150, 205, 251);
+$color_9: rgb(245, 224, 220);
+$color_10: #ABE9B3;
+$color_11: rgb(255, 255, 255);
+$color_12: #2FE6FF;
+$color_13: black;
+$color_14: #c0caf5;
+$font-family_1: "Monaspace Krypton";
+$background-color_1: transparent;
+$background-color_2: #8EC5FC;
+
+@keyframes blink_red {
+	to {
+/* background-color: rgb(242, 143, 173); */
+		color: rgb(26, 24, 38);
+	}
+}
+/* #mode { */
+/* 	margin-left: 10px; */
+/* 	background-color: rgb(248, 189, 150); */
+/*     color: rgb(26, 24, 38); */
+/* } */
+* {
+	font-family: $font-family_1;
+	font-size: 12pt;
+	font-weight: bold;
+	border-radius: 2px;
+	transition-property: background-color;
+	transition-duration: 0.5s;
+}
+container {
+	border: none;
+	border-radius: 50px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.warning {
+	animation-name: blink_red;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+.critical {
+	animation-name: blink_red;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+.urgent {
+	animation-name: blink_red;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+window#waybar {
+	background-color: $background-color_1;
+}
+window {
+	>box {
+
+		// @extend container;
+		// margin-left: 5px;
+		// margin-right: 5px;
+		margin-top: 5px;
+		// background: transparent;
+		// padding: 3px;
+		// padding-left: 8px;
+		// border: 2px none #33ccff;
+	}
+}
+#workspaces {
+	@extend container;
+	button {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		color: $color_1;
+		&:hover {
+			color: $color_3;
+		}
+	}
+	button.active {
+		color: $color_2;
+	}
+}
+tooltip {
+	background: rgb(48, 45, 65);
+	label {
+		color: $color_4;
+	}
+}
+#custom-launcher {
+	@extend container;
+	font-size: 20px;
+	color: $color_5;
+}
+#mode {
+	@extend container;
+}
+#clock {
+	@extend container;
+	color: $color_4;
+}
+#memory {
+	@extend container;
+	color: $color_2;
+}
+#temperature {
+	@extend container;
+	color: $color_8;
+}
+#cpu {
+	@extend container;
+	color: $color_6;
+}
+#mpd {
+	@extend container;
+}
+#custom-wall {
+	@extend container;
+	color: $color_7;
+}
+#backlight {
+	@extend container;
+	color: $color_3;
+}
+#pulseaudio {
+	@extend container;
+	color: $color_9;
+}
+#network {
+	@extend container;
+	color: $color_10;
+}
+#battery {
+	@extend container;
+	font-family: $font-family_1;
+	color: $color_14;
+}
+#custom-cava-internal {
+	@extend container;
+	font-family: $font-family_1;
+	background-size: 400% 400%;
+	animation: gradient_f 9s cubic-bezier(.72, .39, .21, 1) infinite;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+	font-weight: bold;
+	border-radius: 20px;
+	color: $color_12;
+}
+#network.disconnected {
+	@extend container;
+	color: $color_11;
+}
+#tray {
+	@extend container;
+}
+#custom-media {
+	@extend container;
+	background-color: $background-color_2;
+	background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+	color: $color_13;
+}
+

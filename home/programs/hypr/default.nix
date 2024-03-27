@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 {
-  # imports = [ 
-  #   ./hyprland-environment.nix
-  # ];
+  imports = [ 
+  	./waybar
+  ];
 
   home.packages = with pkgs; [
     waybar

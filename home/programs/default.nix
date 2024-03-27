@@ -3,11 +3,11 @@
   imports = [
     ./alacritty
     ./dunst
-    # ./hypr
     # ./kitty
     ./rofi
-    # ./waybar
-	../bundles/sway-bundle.nix
+	# ../bundles/sway-bundle.nix
+	# ../bundles/hypr-bundle.nix
+	./hypr
     ./zsh
     ./fish.nix
     ./nixvim
