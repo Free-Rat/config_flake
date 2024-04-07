@@ -6,9 +6,18 @@
     shellAliases = {
       nrf = "sudo nixos-rebuild switch --flake .";
       keepassxc = "keepassxc -platform xcb";
-      nd = "nix develop . --command fish";
+
       vi = "nvim";
       vim = "nvim";
+
+	  rg = "ranger";
+
+      nd = "nix develop . --command fish";
+	  nd-j = "nix develop ~/nixDevShells/java/ --command fish";
+	  nd-p = "nix develop ~/nixDevShells/python/ --command fish";
+	  nd-c = "nix develop ~/nixDevShells/c --command fish";
+	  nd-sw = "nix develop ~/nixDevShells/swift --command fish";
+	  nd-w = "nix develop ~/nixDevShells/web --command fish";
     };
 
     interactiveShellInit = ''set fish_greeting ""'';

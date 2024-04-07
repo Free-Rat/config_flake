@@ -74,6 +74,8 @@
     rpi-imager
     feh
 
+	foot
+	wallust
   ]) ++ (with pkgs.gnome; [
     nautilus
   ]);

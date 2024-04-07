@@ -30,14 +30,14 @@
 	swiftpm
 	swiftPackages.Foundation
 
+	zig
+
 	lua
     networkmanager
     networkmanagerapplet
     gcc
     clang
-    xclip
     wget
-    pywal
   ];
 
   systemd.user.services = {

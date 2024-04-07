@@ -7,7 +7,11 @@
     ./rofi
 	# ../bundles/sway-bundle.nix
 	# ../bundles/hypr-bundle.nix
-	./hypr
+
+	# ./hypr
+	# ./sway
+	./river
+
     ./zsh
     ./fish.nix
     ./nixvim

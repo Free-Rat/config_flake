@@ -5,14 +5,15 @@
     settings = {
       format =
         let
-          git = "$git_branch$git_commit$git_state$git_status";
+          git = "$git_commit$git_state$git_status";
           langs = "$docker_context$package$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$fennel$golang$guix_shell$haskell$haxe$helm$java$julia$kotlin$gradle$lua$nim$nodejs$ocaml$opa$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$solidity$swift$terraform$vlang$vagrant$zig$buf$conda$meson$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal";
 
         in
-        ''
-          $username$hostname($shlvl)($cmd_duration) $fill ${langs}($nix_shell) $directory(${git}) 
-          $jobs$character
-        '';
+        "$nix_shell${git}$jobs$character";
+        # ''
+        #   $username$hostname($shlvl)($cmd_duration) $fill ${langs}($nix_shell) $directory(${git}) 
+        #   $jobs$character
+        # '';
 
       fill = {
         symbol = " ";
@@ -47,7 +48,8 @@
       };
 
       nix_shell = {
-        format = "[($name \\(develop\\) <- )$symbol]($style) ";
+        format = "[$symbol]($style) ";
+        # format = "[$name <- $symbol]($style) ";
         impure_msg = "";
         symbol = " ";
         style = "bold red";

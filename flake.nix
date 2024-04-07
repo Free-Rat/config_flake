@@ -34,7 +34,8 @@
           modules = [
             ./hosts/ranni
             ./modules
-			./modules/awesome
+			# ./modules/awesome
+			./modules/river.nix
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
