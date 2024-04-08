@@ -160,6 +160,7 @@ rivertile -view-padding 6 -outer-padding 6 &
 waybar &
 swww init
 $PATH_SCRIPTS/changeWallpaper.sh
+# $PATH_SCRIPTS/changeWallpaper.sh
 
 
 

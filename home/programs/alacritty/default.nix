@@ -22,7 +22,7 @@
           family = "Monaspace Argon";
           style = "Medium";
         };
-        size = 9;
+        size = 12;
       };
 
       colors = {
@@ -34,15 +34,25 @@
 
       window = {
         opacity = 0.8;
+		blur = true;
       };
 
       #   padding = {
       #     x = 12;
       #     y = 12;
       #   };
-      # shell = {
-      #   program = "/usr/bin/env zsh";
-      # };
+      shell = {
+	  	program = "${pkgs.fish}/bin/fish";
+	  	# program = "/bin/sh";
+		args = [
+			# "-c"
+			# "-init-command"
+			"--init-command=bash -c $PATH_SCRIPTS/updateColors.sh"
+			"--command=tmux"
+			# "bash -c $PATH_SCRIPTS/changeWallpaper.sh && exec fish"
+
+		];
+      };
     };
   };
 }

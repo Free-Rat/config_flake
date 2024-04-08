@@ -7,6 +7,8 @@
       nrf = "sudo nixos-rebuild switch --flake .";
       keepassxc = "keepassxc -platform xcb";
 
+	  cw = "bash $PATH_SCRIPTS/changeWallpaper.sh";
+
       vi = "nvim";
       vim = "nvim";
 
