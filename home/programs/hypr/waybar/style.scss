@@ -84,6 +84,10 @@ window {
 #workspaces {
 	@extend container;
 	button {
+		
+		border: none;
+		border-radius: 50px;
+
 		padding-top: 5px;
 		padding-bottom: 5px;
 		color: $color_1;
@@ -105,6 +109,7 @@ tooltip {
 	@extend container;
 	font-size: 20px;
 	color: $color_5;
+	padding-left:2px;
 }
 #mode {
 	@extend container;

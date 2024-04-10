@@ -53,8 +53,9 @@
           modules = [
             ./hosts/malenia
             ./modules
-			./modules/hyprland.nix
+			# ./modules/hyprland.nix
 			# ./modules/awesome
+			./modules/river.nix
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;

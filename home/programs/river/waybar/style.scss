@@ -70,26 +70,18 @@ container {
 	animation-direction: alternate;
 }
 window#waybar {
-	background-color: rgba(0, 0, 0, 0.5);
+	// background-color: rgba(0, 0, 0, 0.5);
+	background-color: transparent; 
 }
 window {
 	>box {
-
-		// @extend container;
-		// margin-left: 5px;
-		// margin-right: 5px;
 		margin-top: 5px;
-		// background: transparent;
-		// padding: 3px;
-		// padding-left: 8px;
-		// border: 2px none #33ccff;
 	}
 }
 template-tag-button {
 	@extend margins;
 	border: none;
 	border-radius: 50px;
-	// background-color: rgba(0, 0, 0, 0.5);
 }
 #tags {
 	@extend container;
@@ -101,11 +93,6 @@ template-tag-button {
 		&:hover {
 			@extend template-tag-button;
 			color: $color_5;
-
-			// border: none;
-			// border-radius: 50px;
-			// background-color: rgba(0, 0, 0, 0.5);
-			// color: $color_3;
 		}
 	}
 	button.occupied {
