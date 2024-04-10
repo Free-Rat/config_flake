@@ -12,9 +12,11 @@ $color_11: rgb(255, 255, 255);
 $color_12: #2FE6FF;
 $color_13: black;
 $color_14: #c0caf5;
+
+@import "./colors.scss";
+
+
 $font-family_1: "Monaspace Krypton";
-$background-color_1: transparent;
-$background-color_2: #8EC5FC;
 
 @keyframes blink_red {
 	to {
@@ -32,7 +34,6 @@ $background-color_2: #8EC5FC;
 	font-size: 12pt;
 	font-weight: bold;
 	border-radius: 2px;
-	transition-property: background-color;
 	transition-duration: 0.5s;
 }
 margins {
@@ -69,7 +70,7 @@ container {
 	animation-direction: alternate;
 }
 window#waybar {
-	background-color: $background-color_1;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 window {
 	>box {
@@ -202,7 +203,7 @@ tooltip {
 }
 #custom-media {
 	@extend container;
-	background-color: $background-color_2;
+	background-color: rgba(0, 0, 0, 0.5);
 	background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 	color: $color_13;
 }

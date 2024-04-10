@@ -155,12 +155,15 @@ riverctl rule-add -app-id "bar" csd
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 rivertile -view-padding 6 -outer-padding 6 &
+riverctl send-layout-cmd rivertile "main-ratio -0.1"
 
 # on start 
-waybar &
-swww init
-$PATH_SCRIPTS/changeWallpaper.sh
+riverctl spawn "swww init"
+
+# $PATH_SCRIPTS/changeWallpaper.sh
+riverctl spawn "bash /home/freerat/config_flake/home/scripts/changeWallpaper.sh"
 # $PATH_SCRIPTS/changeWallpaper.sh
 
+riverctl spawn waybar
 
 

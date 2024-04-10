@@ -5,5 +5,6 @@
     keyMode = "vi";
     shell = "${pkgs.fish}/bin/fish";
     terminal = "alacritty";
+	escapeTime = 0;
   };
 }

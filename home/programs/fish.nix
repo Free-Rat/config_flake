@@ -8,6 +8,7 @@
       keepassxc = "keepassxc -platform xcb";
 
 	  cw = "bash $PATH_SCRIPTS/changeWallpaper.sh";
+	  ccf = "cd $PATH_FLAKE_CONFIG";
 
       vi = "nvim";
       vim = "nvim";
@@ -20,6 +21,8 @@
 	  nd-c = "nix develop ~/nixDevShells/c --command fish";
 	  nd-sw = "nix develop ~/nixDevShells/swift --command fish";
 	  nd-w = "nix develop ~/nixDevShells/web --command fish";
+
+	  txk = "tmux kill-session";
     };
 
     interactiveShellInit = ''set fish_greeting ""'';

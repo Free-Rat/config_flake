@@ -60,7 +60,7 @@
       pulseaudio = {
         "scroll-step" = 1;
         "format" = "{icon} {volume}%";
-        "format-muted" = "󰖁 Muted";
+        "format-muted" = "  󰖁  ";
         "format-icons" = {
           "default" = [ "" "" "" ];
         };
