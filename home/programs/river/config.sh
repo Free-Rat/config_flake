@@ -6,7 +6,10 @@
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 # riverctl map normal Super+Shift Return spawn foot
 riverctl map normal Super Return spawn alacritty
+
 riverctl map normal Super Space spawn "rofi -show drun"
+
+# riverctl map normal Super P spawn "'grim -g $(slurp) - | wl-copy'"
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close
@@ -154,15 +157,15 @@ riverctl rule-add -app-id "bar" csd
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
-riverctl send-layout-cmd rivertile "main-ratio -0.1"
+rivertile -view-padding 6 -outer-padding 6 -main-ratio 0.5 &
+# riverctl send-layout-cmd rivertile "main-ratio -0.1"
 
 # on start 
 riverctl spawn "swww init"
 
 # $PATH_SCRIPTS/changeWallpaper.sh
-riverctl spawn "bash /home/freerat/config_flake/home/scripts/changeWallpaper.sh"
-# $PATH_SCRIPTS/changeWallpaper.sh
+riverctl spawn " bash /home/freerat/config_flake/home/scripts/changeWallpaper.sh" #sleep 0.1 &&
+# sleep 10 && $PATH_SCRIPTS/changeWallpaper.sh
 
 riverctl spawn waybar
 
