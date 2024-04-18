@@ -38,6 +38,9 @@
     gcc
     clang
     wget
+
+	qmk
+	keymapviz
   ];
 
   systemd.user.services = {
@@ -50,4 +53,11 @@
   };
 
   services.openssh.enable = true;
+
+  hardware.keyboard.qmk.enable = true;
+  services.udev.packages = [ 
+  	pkgs.via
+	pkgs.qmk-udev-rules
+  ];
+
 }

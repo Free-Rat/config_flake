@@ -1,13 +1,14 @@
-{ config, lib, pkgs, ... }:{
+{ config, lib, pkgs, pkgs-stable, ... }:{
 	imports = [ 
 		./waybar
 	];
 
-	home.packages = with pkgs; [
+	home.packages = (with pkgs; [
 		waybar
-		swww
 		brightnessctl
-	];
+	]) ++ (with pkgs-stable; [
+		swww
+	]);
 
 	wayland.windowManager.river = {
 		enable = true;

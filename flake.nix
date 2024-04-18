@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; #"github:NixOS/nixpkgs/nixos-23.05";
+	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +24,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+      pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
     in
     {
       nixosConfigurations = {
@@ -41,7 +43,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${user}" = import ./home/home.nix;
-              home-manager.extraSpecialArgs = { inherit hyprland user inputs; };
+              home-manager.extraSpecialArgs = { inherit hyprland user inputs pkgs-stable; };
             }
           ];
         };
