@@ -13,8 +13,8 @@
 
   programs.river = {
 	enable = true;
-	extraPackages = with pkgs; [
-		grim
-	];
+	# extraPackages = with pkgs; [
+	# 	grim
+	# ];
   };
 }

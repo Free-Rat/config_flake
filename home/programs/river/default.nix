@@ -1,14 +1,20 @@
-{ config, lib, pkgs, pkgs-stable, ... }:{
+{ config, lib, pkgs,  ... }:
+
+let
+	bundle-set = (import ../../bundles/wayland-pakgs-bundle.nix pkgs);
+	# extra-pkgs = (bundle-set pkgs).extra;
+in
+{
 	imports = [ 
 		./waybar
+		./swaylock.nix
 	];
 
 	home.packages = (with pkgs; [
 		waybar
 		brightnessctl
-	]) ++ (with pkgs-stable; [
 		swww
-	]);
+	]) ++ bundle-set;
 
 	wayland.windowManager.river = {
 		enable = true;

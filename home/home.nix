@@ -1,7 +1,7 @@
 { inputs, pkgs, user, ... }: {
 
   imports = [
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
     ./programs
     ./scripts
   ];
@@ -62,19 +62,18 @@
     rofi
     nitch
     wget
-    grim
+    # grim
     slurp
     wl-clipboard
     mpc-cli
     tty-clock
     btop
-    gh
-    ueberzugpp
+    # gh
+    # ueberzugpp
     xwaylandvideobridge
-    rpi-imager
+    # rpi-imager
     feh
-
-	foot
+	# foot
 	wallust
   ]) ++ (with pkgs.gnome; [
     nautilus

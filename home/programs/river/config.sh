@@ -161,10 +161,10 @@ rivertile -view-padding 6 -outer-padding 6 -main-ratio 0.5 &
 # riverctl send-layout-cmd rivertile "main-ratio -0.1"
 
 # on start 
-# riverctl spawn swww-daemon
- riverctl spawn "swww init"
+riverctl spawn "swww-daemon --format xrgb"
+# riverctl spawn "swww init"
 
-# $PATH_SCRIPTS/changeWallpaper.sh
+$PATH_SCRIPTS/changeWallpaper.sh
 # riverctl spawn " bash /home/freerat/config_flake/home/scripts/changeWallpaper.sh" #sleep 0.1 &&
 # sleep 10 && $PATH_SCRIPTS/changeWallpaper.sh
 

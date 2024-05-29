@@ -3,19 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; #"github:NixOS/nixpkgs/nixos-23.05";
-	nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+	# nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland";
     nixvim = {
       url = "github:Free-Rat/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
       user = "freerat";
@@ -24,7 +24,7 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
+      # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
     in
     {
       nixosConfigurations = {
@@ -38,12 +38,15 @@
             ./modules
 			# ./modules/awesome
 			./modules/river.nix
-            hyprland.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${user}" = import ./home/home.nix;
-              home-manager.extraSpecialArgs = { inherit hyprland user inputs pkgs-stable; };
+              home-manager.extraSpecialArgs = { inherit
+				user
+				inputs
+				# pkgs-stable
+				; };
             }
           ];
         };
@@ -58,12 +61,16 @@
 			# ./modules/hyprland.nix
 			# ./modules/awesome
 			./modules/river.nix
-            hyprland.nixosModules.default
+            # hyprland.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users."${user}" = import ./home/home.nix;
-              home-manager.extraSpecialArgs = { inherit hyprland user inputs; };
+              home-manager.extraSpecialArgs = { inherit 
+			  	# hyprland
+				user
+				inputs
+				; };
             }
           ];
         };
