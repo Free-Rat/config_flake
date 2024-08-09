@@ -23,6 +23,8 @@
 	  nd-w = "nix develop ~/nixDevShells/web --command fish";
 
 	  txk = "tmux kill-session";
+
+	  # kitty = "kitty --config $PATH_PROGRAMS/kitty/kitty.conf";
     };
 
     interactiveShellInit = ''set fish_greeting ""'';

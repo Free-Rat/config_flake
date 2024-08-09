@@ -1,13 +1,15 @@
 { config, lib, pkgs, ... }: {
  
  	imports = [
-		./waybar
+		# ./waybar
 	];
 
 	home.packages = with pkgs; [
-		waybar
+		# waybar
 		swww
 		swaylock
+		# swayidle # program to run a command after a certain amount of time
+		# swaync
 	];
 
 	wayland.windowManager.sway = {
@@ -15,6 +17,7 @@
 		config = {
 			modifier = "Mod4";
 			terminal = "alacritty";
+
 		};
 	};
 }

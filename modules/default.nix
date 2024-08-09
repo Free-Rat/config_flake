@@ -6,11 +6,13 @@
     # ./awesome
 	# if options.useHyprland = true then ./hyprland.nix else ./awesome.nix;
 	# lib.mkIf config.useHyprland ./hyprland.nix ./awesome.nix
+	# ./sway.nix
   ];
 
   environment.variables = {
     EDITOR = "nvim";
     SHELL = "fish";
+	KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
   };
 
   fonts.packages = with pkgs; [
@@ -26,11 +28,17 @@
   };
 
   environment.systemPackages = with pkgs; [
+  	# xorg.xbacklight
+	brightnessctl
+
 	swift
 	swiftpm
 	swiftPackages.Foundation
 
 	zig
+
+	rustc
+	cargo
 
 	lua
     networkmanager
@@ -60,4 +68,5 @@
 	pkgs.qmk-udev-rules
   ];
 
+  programs.light.enable = true;
 }

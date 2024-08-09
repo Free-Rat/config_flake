@@ -260,6 +260,16 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+
+    awful.key({ modkey, "Control"  }, "b",
+        function ()
+			for s in screen do
+				s.mywibox.visible = not s.mywibox.visible
+			end
+        end,
+        {description = "toogle wibar", group = "client"}
+    ),
+
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -311,7 +321,6 @@ globalkeys = gears.table.join(
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift", "Control"  }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
@@ -348,8 +357,6 @@ globalkeys = gears.table.join(
    awful.key({ modkey, "Shift" }, "space",
 		      function ()  awful.util.spawn('rofi -show') end,  -- awful.screen.focused().mypromptbox:run() end,
                    {description = "run prompt", group = "launcher"}),
-
-
    awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {

@@ -22,7 +22,8 @@
           family = "Monaspace Argon";
           style = "Medium";
         };
-        size = 12;
+        # size = 12;
+        size = 9;
       };
 
       colors = {
@@ -33,7 +34,7 @@
       };
 
       window = {
-        opacity = 0.8;
+        opacity = 0.9;
 		blur = true;
       };
 
@@ -47,8 +48,8 @@
 		args = [
 			# "-c"
 			# "-init-command"
-			"--init-command=bash -c $PATH_SCRIPTS/updateColors.sh"
-			"--command=tmux"
+			# "--init-command=bash -c $PATH_SCRIPTS/updateColors.sh"
+			# "--command=tmux"
 			# "bash -c $PATH_SCRIPTS/changeWallpaper.sh && exec fish"
 
 		];

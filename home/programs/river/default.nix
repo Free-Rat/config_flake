@@ -7,6 +7,7 @@ in
 {
 	imports = [ 
 		./waybar
+		./yambar
 		./swaylock.nix
 	];
 

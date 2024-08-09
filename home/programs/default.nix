@@ -2,7 +2,7 @@
 {
   imports = [
     ./alacritty
-    ./dunst
+    # ./dunst
     # ./kitty
     ./rofi
 	# ../bundles/sway-bundle.nix
@@ -10,7 +10,7 @@
 
 	# ./hypr
 	# ./sway
-	./river
+	# ./river
 
     ./zsh
     ./fish.nix

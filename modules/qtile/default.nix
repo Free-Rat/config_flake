@@ -21,15 +21,15 @@
         '';
       };
     };
-    windowManager.awesome = {
+    windowManager.qtile = {
       enable = true;
-      luaModules = with pkgs.luaPackages; [
-        #luarocks
-        #luadbi-mysql
-      ];
+	  # configFile = ./config.py; # whole directory is copied to ~/.config/qtile, defined in ../home/home.nix
+	  extraPackages = python3Packages: with python3Packages; [
+		  qtile-extras
+	  ];
+	};
     };
-  };
-  displayManager.defaultSession = "none+awesome";
+  displayManager.defaultSession = "qtile";
   };
 
   services.picom = {

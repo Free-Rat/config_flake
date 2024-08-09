@@ -9,7 +9,8 @@ current_wallpaper=$(cat $PATH_WALLPAPERS/.wallpaper)
 wallpaper=$(ls $PATH_WALLPAPERS | grep -v $current_wallpaper | shuf -n 1)
 
 # Set WALLPAPER
-swww img $PATH_WALLPAPERS/$wallpaper
+# swww img $PATH_WALLPAPERS/$wallpaper
+feh --bg-fill $PATH_WALLPAPERS/$wallpaper
 wallust run $PATH_WALLPAPERS/$wallpaper -q
 
 touch $PATH_WALLPAPERS/.wallpaper

@@ -16,10 +16,13 @@
       TERMINAL = "alacritty";
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
-      PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/home/scripts";
+      PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
       PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/home/wallpapers";
+      PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
 
       QT_QPA_PLATFORM = "xcb";
+
+	  # KITTY_CONFIG_DIRECTORY = "$HOME/config_flake/home/programs/kitty/kitty.conf";
     };
   };
 
@@ -27,6 +30,12 @@
     ".config/awesome" = {
       source = ../modules/awesome;
     };
+	".config/yambar/config.yml" = {
+		source = ./programs/river/yambar/config.yml;
+	};
+	".config/qtile" = {
+      source = ../modules/qtile;
+	};
   };
 
   home.packages = (with pkgs; [
@@ -36,6 +45,7 @@
     librewolf
     keepassxc
     alacritty
+	kitty
     lazygit
     vieb
     zathura
@@ -48,9 +58,9 @@
     catimg
     pavucontrol
     pamixer
-    light
+    # light # moved to modules 
     unzip
-    jq
+    # jq
     bat
     unzip
     tree
@@ -62,7 +72,6 @@
     rofi
     nitch
     wget
-    # grim
     slurp
     wl-clipboard
     mpc-cli
@@ -70,13 +79,14 @@
     btop
     # gh
     # ueberzugpp
-    xwaylandvideobridge
     # rpi-imager
     feh
-	# foot
 	wallust
-  ]) ++ (with pkgs.gnome; [
-    nautilus
+	nautilus
+	# youtrack
+  # ]) 
+  # ++ (with pkgs.gnome; [
+  #   nautilus
   ]);
 
   programs.git = {

@@ -3,6 +3,8 @@
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete
 # documentation.
 
+riverctl keyboard-layout pl
+
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 # riverctl map normal Super+Shift Return spawn foot
 riverctl map normal Super Return spawn alacritty
