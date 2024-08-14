@@ -5,6 +5,7 @@
 
     shellAliases = {
       nrf = "sudo nixos-rebuild switch --flake .";
+	  drf = "darwin-rebuild switch --flake .";
       keepassxc = "keepassxc -platform xcb";
 
 	  cw = "bash $PATH_SCRIPTS/changeWallpaper.sh";
@@ -41,7 +42,5 @@
       #   };
       # }
     ];
-
   };
-
 }

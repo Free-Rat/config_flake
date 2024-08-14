@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+        url = "github:LnL7/nix-darwin";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
     # hyprland.url = "github:hyprwm/Hyprland";
     nixvim = {
       url = "github:Free-Rat/nixvim";
@@ -16,10 +20,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, ... }@inputs:
     let
       lib = nixpkgs.lib;
       user = "freerat";
+      hyettaUser = "tomaszlawicki";
+      hyettaHost = "Tomaszs-MacBook-Air";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
@@ -28,8 +34,25 @@
       # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
     in
     {
-      nixosConfigurations = {
+     darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
+	  system = "aarch64-darwin";
+          specialArgs = { inherit inputs hyettaUser hyettaHost; };
+	     modules = [
+		     ./hosts/hyetta
+			 ./modules/darwin.nix
+          home-manager.darwinModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users."${hyettaUser}" = import ./home/darwin.nix;
+            home-manager.extraSpecialArgs = { inherit
+				hyettaUser
+				inputs
+				; };
+            }
+	     ];
+     };
 
+      nixosConfigurations = {
         #ranni - my laptop
         ranni = lib.nixosSystem rec {
           inherit system;

@@ -66,7 +66,6 @@
   services.udev.packages = [ 
   	pkgs.via
 	pkgs.qmk-udev-rules
-  ];
-
+  ]; 
   programs.light.enable = true;
 }
