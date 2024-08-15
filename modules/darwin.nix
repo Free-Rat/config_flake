@@ -19,6 +19,7 @@
 	enable = true;
 	casks = [
 		"microsoft-teams"
+		"sf-symbols"
 		# "microsoft-outlook"
 	];
   };

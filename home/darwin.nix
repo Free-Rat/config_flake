@@ -54,6 +54,7 @@
     neofetch
     wget
     btop
+	cmatrix
   ]);
 
   programs.home-manager.enable = true;
