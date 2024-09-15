@@ -16,7 +16,7 @@
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
-      PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/home/wallpapers";
+      PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
       PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
 
       QT_QPA_PLATFORM = "xcb";
@@ -24,6 +24,8 @@
 	  # KITTY_CONFIG_DIRECTORY = "$HOME/config_flake/home/programs/kitty/kitty.conf";
     };
   };
+
+  home.sessionPath = [ "$HOME/.cargo/bin" ];
 
   home.file = {
     ".config/awesome" = {
@@ -39,6 +41,7 @@
 
   home.packages = (with pkgs; [
     # User Apps
+	obsidian
     discord
     caprine-bin
     librewolf
@@ -46,8 +49,12 @@
     alacritty
 	kitty
     lazygit
-    vieb
     zathura
+
+    vieb
+	# vimb
+	qutebrowser
+	# nyxt
 
     # Utils
     ranger
