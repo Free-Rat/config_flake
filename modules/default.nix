@@ -31,6 +31,8 @@
   	# xorg.xbacklight
 	brightnessctl
 
+	elixir
+
 	swift
 	swiftpm
 	swiftPackages.Foundation
