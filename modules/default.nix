@@ -11,17 +11,18 @@
 
   environment.variables = {
     EDITOR = "nvim";
-    SHELL = "fish";
+    SHELL = "bash";
 	KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
   };
 
-  fonts.packages = with pkgs; [
-    monaspace
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    (nerdfonts.override { fonts = [ "Hack" "3270" ]; })
-  ];
+ #  fonts.packages = with pkgs; [
+ #    monaspace
+ #    noto-fonts
+ #    noto-fonts-cjk
+ #    noto-fonts-emoji
+ #    (nerdfonts.override { fonts = [
+	# ]; })
+ #  ];
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -31,26 +32,26 @@
   	# xorg.xbacklight
 	brightnessctl
 
-	elixir
+	# elixir
 
-	swift
-	swiftpm
-	swiftPackages.Foundation
+	# swift
+	# swiftpm
+	# swiftPackages.Foundation
 
-	zig
+	# zig
 
-	rustc
-	cargo
+	# rustc
+	# cargo
 
 	lua
     networkmanager
     networkmanagerapplet
-    gcc
-    clang
+    # gcc
+    # clang
     wget
 
-	qmk
-	keymapviz
+	# qmk
+	# keymapviz
   ];
 
   systemd.user.services = {
@@ -63,11 +64,10 @@
   };
 
   services.openssh.enable = true;
-
-  hardware.keyboard.qmk.enable = true;
-  services.udev.packages = [ 
-  	pkgs.via
-	pkgs.qmk-udev-rules
-  ]; 
-  programs.light.enable = true;
+ #  hardware.keyboard.qmk.enable = true;
+ #  services.udev.packages = [ 
+ #  	pkgs.via
+	# pkgs.qmk-udev-rules
+ #  ]; 
+  # programs.light.enable = true;
 }

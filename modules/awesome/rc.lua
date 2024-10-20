@@ -38,7 +38,7 @@ end
 -- {{{ Variable definitions
 beautiful.init("~/.config/awesome/theme.lua") -- Themes define colours, icons, font and wallpapers.
 
-local terminal = "alacritty" --"kitty"
+local terminal = "kitty" --"alacritty"
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
@@ -183,7 +183,7 @@ awful.screen.connect_for_each_screen(function(s)
         style    = {
             shape_border_width = 0,
             shape_border_color = '#777777',
-            shape  = gears.shape.rounded_bar,
+            -- shape  = gears.shape.rounded_bar,
         },
         layout   = {
             spacing = 5,

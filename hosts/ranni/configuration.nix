@@ -43,7 +43,9 @@
       "video"
     ];
     packages = with pkgs; [
-      firefox
+      # firefox
+      vim
+      git
     ];
   };
 

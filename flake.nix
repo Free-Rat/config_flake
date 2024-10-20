@@ -1,23 +1,24 @@
 {
   description = "Flake of a Dark Moon";
-
+  # Updaing only one input
+  # nix flake lock --update-input nixvim 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05"; 
 	# nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+     home-manager = {
+       url = "github:nix-community/home-manager";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
     nix-darwin = {
         url = "github:LnL7/nix-darwin";
         inputs.nixpkgs.follows = "nixpkgs";
     };
     # hyprland.url = "github:hyprwm/Hyprland";
-    nixvim = {
-      url = "github:Free-Rat/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+     nixvim = {
+       url = "github:Free-Rat/nixvim";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
   };
 
   outputs = { self, nixpkgs, home-manager, nix-darwin, ... }@inputs:
@@ -60,19 +61,19 @@
           modules = [
             ./hosts/ranni
             ./modules
-			# ./modules/awesome
-			./modules/qtile
+	    ./modules/awesome
+			# ./modules/qtile
 			# ./modules/river.nix
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users."${user}" = import ./home/home.nix;
-              home-manager.extraSpecialArgs = { inherit
-				user
-				inputs
-				# pkgs-stable
-				; };
-            }
+             home-manager.nixosModules.home-manager {
+               home-manager.useGlobalPkgs = true;
+               home-manager.useUserPackages = true;
+               home-manager.users."${user}" = import ./home/home.nix;
+               home-manager.extraSpecialArgs = { inherit
+				 user
+				 inputs
+				 # pkgs-stable
+				 ; };
+             }
           ];
         };
 

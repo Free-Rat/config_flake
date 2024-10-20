@@ -2,7 +2,10 @@
 
   imports = [
     # inputs.hyprland.homeManagerModules.default
-    ./programs
+	# ./programs/fish.nix
+	./programs/rofi
+	./programs/nixvim
+	# ./programs/starship
   ];
 
   home = {
@@ -12,7 +15,8 @@
     sessionVariables = {
       EDITOR = "nvim";
       BROWSER = "vieb";
-      TERMINAL = "alacritty";
+      # TERMINAL = "alacritty";
+      TERMINAL = "kitty";
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
@@ -41,20 +45,21 @@
 
   home.packages = (with pkgs; [
     # User Apps
-	obsidian
+	# obsidian
     discord
-    caprine-bin
-    librewolf
+	ncdu
+    # caprine-bin
+    # librewolf
     keepassxc
-    alacritty
-	kitty
     lazygit
-    zathura
+    # zathura
 
-    vieb
-	# vimb
-	qutebrowser
-	# nyxt
+    # vieb
+    # vimb
+    # qutebrowser
+    nyxt
+    firefox
+    kitty
 
     # Utils
     ranger
@@ -76,7 +81,7 @@
     cava
     playerctl
     rofi
-    nitch
+    # nitch
     wget
     slurp
     wl-clipboard
@@ -87,7 +92,7 @@
     # ueberzugpp
     # rpi-imager
     feh
-	wallust
+	# wallust
 	nautilus
 	# youtrack
   # ]) 
