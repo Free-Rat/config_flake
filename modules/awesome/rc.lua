@@ -43,7 +43,7 @@ local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
 
-require("config.layouts")
+require("layouts")
 -- }}}
 
 -- {{{ Menu
@@ -197,7 +197,7 @@ awful.screen.connect_for_each_screen(function(s)
                 halign = 'center',
                 widget = wibox.container.place,
             },
-            layout  = wibox.layout.flex.horizontal
+            layout  = wibox.layout.fixed.horizontal
         },
         widget_template = {
             {
@@ -223,29 +223,34 @@ awful.screen.connect_for_each_screen(function(s)
         bg = beautiful.bg_normal .. "00"
     })
 
+	local battery_widget = require("battery")
+	volume_widget = require("volume")
+	brightness_widget = require("brightness")
+
     local systray = wibox.widget.systray()
     systray.bg = beautiful.bg_normal .. "00"
 
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(s.mytaglist)
 
-    local middle_layout = wibox.layout.fixed.horizontal()
+	local middle_layout = wibox.layout.fixed.horizontal()
+	middle_layout:add(mytextclock)
 
     local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(brightness_widget)
+    right_layout:add(volume_widget)
+    right_layout:add(battery_widget)
     right_layout:add(systray)
-    -- right_layout:add(audio_widget())
-    right_layout:add(mytextclock)
     right_layout:add(mykeyboardlayout)
     right_layout:add(s.mylayoutbox)
 
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+		expand = "none",
         left_layout,
-        vert_sep,
-        -- middle_layout,
-        -- vert_sep,
-        right_layout,
-    }
+        middle_layout,
+        right_layout
+	}
 end)
 
 -- }}}
@@ -372,12 +377,44 @@ globalkeys = gears.table.join(
              {description = "show the menubar", group = "launcher"}),
 
    -- AudioVolume
-   awful.key({  }, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl -- set-sink-volume 0 +10%") end,
-             {description = "voleume up", group = "audio"}),
-   awful.key({  }, "XF86AudioLowerVolume", function () awful.util.spawn("pactl -- set-sink-volume 0 -10%") end,
-             {description = "voleume low", group = "audio"}),
-   awful.key({  }, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute 0 toggle") end,
-              {description = "mute", group = "audio"})
+	awful.key({  }, "XF86AudioRaiseVolume", function ()
+			awful.util.spawn("pamixer -i 10")
+			volume_widget:update()
+		end,
+		{description = "volume up", group = "audio"}),
+	awful.key({  }, "XF86AudioLowerVolume", function ()
+			awful.util.spawn("pamixer -d 10")
+			volume_widget:update()
+		end,
+		{description = "volume low", group = "audio"}),
+	awful.key({  }, "XF86AudioMute", function ()
+			awful.util.spawn("pamixer --toggle-mute")
+			volume_widget:update()
+		end,
+		{description = "mute", group = "audio"}),
+
+	-- Brightness 
+	awful.key({  }, "XF86MonBrightnessUp", function () 
+		awful.util.spawn("brightnessctl set +5%")
+		brightness_widget:update()
+	end,
+		{description = "brightness up", group = "brightness"}),
+	awful.key({  }, "XF86MonBrightnessDown", function ()
+		awful.util.spawn("brightnessctl set 5%-") 
+		brightness_widget:update()
+	end,
+		{description = "brightness up", group = "brightness"})
+
+   -- NOTE to self: if adding new bindings REMEMBER ABOUT COLON
+
+   --  "XF86AudioMedia",
+   -- ("playerctl play-pause"),
+   --  "XF86AudioPlay",
+   --  ("playerctl play-pause"),
+   --  "XF86AudioPrev",
+   --  ("playerctl previous"),
+   --   "XF86AudioNext",
+   --  ("playerctl next"),
 )
 
 clientkeys = gears.table.join(
@@ -615,13 +652,12 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Autostart
--- awful.spawn.with_shell( os.getenv("HOME") .. "/.config/awesome/autostart.sh")
--- awful.spawn.with_shell("./autorun.sh")
 do
   local cmds =
   {
     "picom",
-    "nm-applet"
+    "nm-applet",
+	"feh --bg-fill /home/freerat/config_flake/wallpapers/ranni3.jpg"
   }
 
   for _,i in pairs(cmds) do

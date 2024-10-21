@@ -46,6 +46,7 @@
       # firefox
       vim
       git
+      ncdu
     ];
   };
 

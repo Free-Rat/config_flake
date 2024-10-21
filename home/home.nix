@@ -92,6 +92,7 @@
     # ueberzugpp
     # rpi-imager
     feh
+	acpi
 	# wallust
 	nautilus
 	# youtrack

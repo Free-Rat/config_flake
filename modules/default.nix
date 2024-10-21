@@ -15,14 +15,14 @@
 	KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
   };
 
- #  fonts.packages = with pkgs; [
- #    monaspace
+  fonts.packages = with pkgs; [
+     monaspace
  #    noto-fonts
- #    noto-fonts-cjk
- #    noto-fonts-emoji
+     noto-fonts-cjk
+     noto-fonts-emoji
  #    (nerdfonts.override { fonts = [
 	# ]; })
- #  ];
+   ];
 
   nixpkgs = {
     config.allowUnfree = true;

@@ -64,16 +64,16 @@
 	    ./modules/awesome
 			# ./modules/qtile
 			# ./modules/river.nix
-             home-manager.nixosModules.home-manager {
-               home-manager.useGlobalPkgs = true;
-               home-manager.useUserPackages = true;
-               home-manager.users."${user}" = import ./home/home.nix;
-               home-manager.extraSpecialArgs = { inherit
-				 user
-				 inputs
-				 # pkgs-stable
-				 ; };
-             }
+              home-manager.nixosModules.home-manager {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users."${user}" = import ./home/home.nix;
+                home-manager.extraSpecialArgs = { inherit
+				  user
+				  inputs
+				  # pkgs-stable
+				  ; };
+              }
           ];
         };
 
