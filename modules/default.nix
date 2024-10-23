@@ -31,6 +31,7 @@
   environment.systemPackages = with pkgs; [
   	# xorg.xbacklight
 	brightnessctl
+	picom
 
 	# elixir
 

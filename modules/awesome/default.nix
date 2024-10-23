@@ -32,10 +32,20 @@ border-color = "#000000"
 		displayManager.defaultSession = "none+awesome";
 	};
 
-	services.picom = {
-		enable = true;
-		fade = true;
-		fadeDelta = 5;
-		vSync = true;
-	};
+	# services.picom = {
+	# 	enable = true;
+	# 	fade = true;
+	# 	fadeDelta = 5;
+	# 	vSync = true;
+	# 	settings = {
+	# 		blur = {
+	# 			method = "dual_kawase";
+	# 			strength = 3;
+	# 			background-exclude = {
+	# 				window_type = "dock";
+	# 				class_g = "Awesome";
+	# 			};
+	# 		};
+	# 	};
+	# };
 }

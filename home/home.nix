@@ -53,6 +53,8 @@
     keepassxc
     lazygit
     # zathura
+	maim # screenshot tool
+	xclip
 
     # vieb
     # vimb
@@ -76,8 +78,10 @@
     unzip
     tree
     neofetch
+	fd # faster find
 
     # Misc 
+	fzf
     cava
     playerctl
     rofi

@@ -13,7 +13,7 @@ local theme = {}
 
 theme.wallpaper = "/home/freerat/config_flake/home/wallpapers/ranni3.jpg"
 
-theme.font          =  "Monaspace Krypton Semibold 10" --"Roboto Mono 8" --"3270 Nerd Font 8"
+theme.font          =  "Monaspace Krypton Semibold 11" --"Roboto Mono 8" --"3270 Nerd Font 8"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c" -- "#6322f8"
