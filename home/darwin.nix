@@ -28,17 +28,22 @@
 
 
   home.packages = (with pkgs; [
+	dotnet-sdk_7
     discord
     caprine-bin
-    keepassxc
-    kitty
+    # kitty
     lazygit
-    vieb
+    # vieb
+	# vimb
+	# luakit
+	# nyxt
+	# qutebrowser
 
-	dbeaver-bin
+	# dbeaver-bin ; pobrane przez homebrew
 	openvpn
+	subversion
 
-	bruno
+	# bruno
 	atac
 	# postman
 
@@ -55,12 +60,15 @@
     wget
     btop
 	cmatrix
+	asciiquarium-transparent
   ]);
 
   programs.home-manager.enable = true;
   programs.git = {
   	enable = true;
 	package = pkgs.gitFull;
+    userName = "tomasz_lawicki";
+    userEmail = "tomasz.lawicki@lstsoft.com.pl";
   };
 
   home.stateVersion = "23.05";

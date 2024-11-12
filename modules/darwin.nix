@@ -6,7 +6,7 @@
     # noto-fonts
     # noto-fonts-cjk
     # noto-fonts-emoji
-    # (nerdfonts.override { fonts = [ "Hack" "3270" ]; })
+    (nerdfonts.override { fonts = [ "Hack" "3270" ]; })
   ];
 
 	# Create /etc/zshrc that loads the nix-darwin environment.
@@ -17,28 +17,57 @@
 
   homebrew = {
 	enable = true;
+	onActivation = {
+      cleanup = "uninstall";
+    };
 	casks = [
 		"microsoft-teams"
 		"sf-symbols"
+		"raycast"
+		"obsidian"
+		"spotify"
+		"keepassxc"
+		"openvpn-connect"
+		"colorpicker-materialdesign"
+		"qutebrowser"
+		"lm-studio"
+		"sourcetree"
+		"dbeaver-community"
+		"teamviewer"
 		# "microsoft-outlook"
+		"bruno"
+		"visual-studio-code"
+		"visual-studio"
+		"zoom"
+		# "libreoffice-still" # nie działa ??
+		"drawio"
 	];
   };
 
+  # Add ability to used TouchID for sudo authentication
+  security.pam.enableSudoTouchIdAuth = true;
+
 	# set some OSX preferences that I always end up hunting down and changing.
-  system.defaults = {
-	# minimal dock
-	  dock = {
-		  autohide = true;
-		  orientation = "left";
-		  show-process-indicators = false;
-		  show-recents = false;
-		  static-only = true;
-	  };
-	# a finder that tells me what I want to know and lets me work
-	  finder = {
-		  AppleShowAllExtensions = true;
-		  ShowPathbar = true;
-		  FXEnableExtensionChangeWarning = false;
+  system = {
+	  defaults = {
+# minimal dock
+		  dock = {
+			  autohide = true;
+			  orientation = "left";
+			  show-process-indicators = false;
+			  show-recents = false;
+			  static-only = true;
+		  };
+# a finder that tells me what I want to know and lets me work
+		  finder = {
+			  AppleShowAllExtensions = true;
+			  ShowPathbar = true;
+			  FXEnableExtensionChangeWarning = false;
+		  };
+		  loginwindow = {
+			GuestEnabled = false;  # disable guest user
+			SHOWFULLNAME = true;  # show full name in login window
+		  };
 	  };
   };
 }
