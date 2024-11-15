@@ -21,9 +21,9 @@ theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
+theme.fg_normal     = "#ffffff"
+theme.fg_focus      = "#aaffff"
+theme.fg_urgent     = "#ffeeaa"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(3)
@@ -36,9 +36,14 @@ theme.border_marked = "#91231c"
 -- overriding the default one when
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
+-- theme.taglist_bg_focus    = "#535d9c"
+theme.taglist_bg_focus    = "0" 
+theme.taglist_fg_focus    = "#ffffff"
+theme.taglist_fg_urgent   = "#ccaa88"
+theme.taglist_fg_occupied = "#999999" --598b8b
+theme.taglist_fg_empty    = "#444444"
+theme.taglist_fg_volatile = "#c685ec"
 -- tasklist_[bg|fg]_[focus|urgent]
-theme.taglist_bg_focus = "#535d9c"
-theme.taglist_fg_focus = "#ffffff"
 -- titlebar_[bg|fg]_[normal|focus]
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]

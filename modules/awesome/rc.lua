@@ -172,8 +172,8 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     local background = wibox.container.background
-    background.visible = true
-    background.bg = beautiful.border_focus .. "99"
+    background.visible = false 
+    -- background.bg = beautiful.border_focus .. "99"
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
@@ -182,8 +182,6 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons,
         style    = {
             shape_border_width = 0,
-            shape_border_color = '#777777',
-            -- shape  = gears.shape.rounded_bar,
         },
         layout   = {
             spacing = 5,
@@ -670,6 +668,7 @@ awful.rules.rules = {
      }
     },
 
+	--[[
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -699,7 +698,9 @@ awful.rules.rules = {
           "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true }
+	},
+	--]]
 
     -- Add titlebars to normal clients and dialogs
     -- { rule_any = {type = { "normal", "dialog" }
@@ -782,7 +783,7 @@ do
   {
     "picom --config /home/freerat/config_flake/modules/awesome/picom-config.conf --backend glx --vsync",
     "nm-applet",
-	"feh --bg-fill /home/freerat/config_flake/wallpapers/ranni3.jpg"
+	"feh --bg-fill /home/freerat/config_flake/wallpapers/ranni1.jpg"
   }
 
   for _,i in pairs(cmds) do
