@@ -13,7 +13,7 @@ local theme = {}
 
 theme.wallpaper = "/home/freerat/config_flake/home/wallpapers/ranni3.jpg"
 
-theme.font          =  "Monaspace Krypton Semibold 11" --"Roboto Mono 8" --"3270 Nerd Font 8"
+theme.font          =  "Monaspace Krypton Light 11" --"Roboto Mono 8" --"3270 Nerd Font 8"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c" -- "#6322f8"
@@ -27,9 +27,9 @@ theme.fg_urgent     = "#ffeeaa"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(3)
-theme.border_width  = dpi(2)
-theme.border_normal = "#000000"
-theme.border_focus  = "#535d6c" --535d6c --A48156
+theme.border_width  = dpi(1)
+theme.border_normal = "#00000000"
+theme.border_focus  = "#cccccc" --535d6c --A48156
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
