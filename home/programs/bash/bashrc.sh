@@ -1,13 +1,12 @@
-# export PS1="\u@\h:\w\ -> "
-# \n\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]
-
-# Function to calculate the padding
-# Function to calculate padding and print username@hostname on the right
-# Set PS1 with dynamic right alignment for user@hostname
-
-# elo="xd"
-# PS1='\[\033[0;35m\]\u@\h\[\033[0m\] \w\n$elo -> '
-# PS1='\[\033[0;35m\]Kocham \[\033[0m\] Pimpki -> '
+blue_c="\e[1;34m"
+magenta_c="\e[1;35m"
+cyan_c="\e[1;36m"
+white_c="\e[1;37m"
+back_c="\e[1;0m\]"
+# export PS1="\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u@\h \w >>\[\033[0m\] "
+# export PS1="$cyan_c\u$white_c@$blue_c\h $magenta_c\W $cyan_c>> $back_c"
+# TODO git in prompt
+export PS1=" $cyan_c\W $blue_c>> $back_c"
 
 PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
@@ -27,6 +26,7 @@ alias rg="ranger"
 alias vif="nvim \$(fzf --preview='bat --color=always {}')"
 alias cdf="cd \$(fd -t d | fzf)"
 alias bhf="eval \$(cat ~/.bash_history | sort | uniq | fzf)"
+alias open="xdg-open"
 alias cw="feh --bg-fill \$(fd . -t f \$PATH_WALLPAPERS | fzf --preview='kitten icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@77x1 {} > /dev/tty' )"
 # alias cw="feh --bg-fill \$PATH_WALLPAPERS/\$(ls \$PATH_WALLPAPERS | fzf --preview='chafa --fill=block \$PWD/{} 2> /dev/null' --preview-window=right:60%)"
 # alias cw="\$PATH_SCRIPTS/changeWallpaper.sh"
