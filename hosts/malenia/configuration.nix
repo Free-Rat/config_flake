@@ -15,6 +15,13 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.networkmanager.enable = true;
+
+  hardware.graphics = { 
+		enable = true;
+		# enalbe32
+  };
+
+  time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Warsaw";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
