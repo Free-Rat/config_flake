@@ -800,7 +800,9 @@ do
   {
     "picom --config /home/freerat/config_flake/modules/awesome/picom-config.conf --backend glx --vsync",
     "nm-applet",
-	"feh --bg-fill /home/freerat/config_flake/wallpapers/ranni1.jpg"
+	"feh --bg-fill /home/freerat/config_flake/wallpapers/ranni1.jpg",
+	"xrandr --output DP-3 --primary --mode 1920x1080 --pos 1680x0 --rotate normal \
+			--output DVI-D-1 --mode 1680x1050 --pos 0x0 --rotate normal"
   }
 
   for _,i in pairs(cmds) do
