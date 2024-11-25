@@ -14,10 +14,15 @@ local volume_widget = wibox.widget {
 -- Method to set volume
 function volume_widget:set_volume(volume, muted)
 	if muted then
-		self:get_children_by_id("volume_text")[1]:set_text("[ 音量:--% ]")
+		self:get_children_by_id("volume_text")[1]:set_text("[ v:--% ]")
 	else
-		self:get_children_by_id("volume_text")[1]:set_text("[ 音量:" .. volume .. "% ]")
+		self:get_children_by_id("volume_text")[1]:set_text("[ v:" .. volume .. "% ]")
 	end
+	-- if muted then
+	-- 	self:get_children_by_id("volume_text")[1]:set_text("[ 音量:--% ]")
+	-- else
+	-- 	self:get_children_by_id("volume_text")[1]:set_text("[ 音量:" .. volume .. "% ]")
+	-- end
 end
 
 -- Method to update volume widget

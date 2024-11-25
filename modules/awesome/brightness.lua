@@ -11,7 +11,8 @@ local brightness_widget = wibox.widget {
 }
 
 function brightness_widget:set_brightness(brightness)
-	self:get_children_by_id("brightness_text")[1]:set_text("[ 明度:" .. brightness .. "% ]")
+	-- self:get_children_by_id("brightness_text")[1]:set_text("[ 明度:" .. brightness .. "% ]")
+	self:get_children_by_id("brightness_text")[1]:set_text("[ b:" .. brightness .. "% ]")
 end
 
 function brightness_widget:update()
