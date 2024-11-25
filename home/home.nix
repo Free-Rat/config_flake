@@ -97,7 +97,7 @@
     # rpi-imager
     feh
 	acpi
-	# wallust
+	wallust
 	nautilus
 	# youtrack
   # ]) 

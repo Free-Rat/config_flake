@@ -13,6 +13,10 @@
     EDITOR = "nvim";
     SHELL = "bash";
 	KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
+	PATH_FLAKE_CONFIG="$HOME/config_flake";
+	PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts";
+	PATH_WALLPAPERS="$PATH_FLAKE_CONFIG/wallpapers";
+	PATH_PROGRAMS="$PATH_FLAKE_CONFIG/home/programs";
   };
 
   fonts.packages = with pkgs; [
