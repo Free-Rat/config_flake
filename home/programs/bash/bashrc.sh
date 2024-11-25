@@ -1,12 +1,14 @@
-blue_c="\e[1;34m"
-magenta_c="\e[1;35m"
-cyan_c="\e[1;36m"
-white_c="\e[1;37m"
-back_c="\e[1;0m\]"
+blue_c="\[\033[1;34m\]"
+magenta_c="\[\033[1;35m\]"
+cyan_c="\[\033[1;36m\]"
+white_c="\[\033[1;37m\]"
+back_c="\[\e[1;0m\]"
 # export PS1="\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u@\h \w >>\[\033[0m\] "
 # export PS1="$cyan_c\u$white_c@$blue_c\h $magenta_c\W $cyan_c>> $back_c"
 # TODO git in prompt
-export PS1=" $cyan_c\W $blue_c>> $back_c"
+# TODO vim mode  
+# TODO nix-shell
+export PS1="\n $cyan_c\W $blue_c>> $back_c"
 
 PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
