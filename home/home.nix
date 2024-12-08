@@ -112,6 +112,15 @@
 	};
   };
 
+	programs.cava = {
+		enable = true;
+		settings = {
+			general.framerate = 60;
+			input.method = "alsa";
+			smoothing.noise_reduction = 88;
+		};
+	};
+
   programs.home-manager.enable = true;
 
   home.stateVersion = "23.05";
