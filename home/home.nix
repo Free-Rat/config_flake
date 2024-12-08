@@ -1,7 +1,6 @@
 { inputs, pkgs, user, ... }: {
 
   imports = [
-    # inputs.hyprland.homeManagerModules.default
 	# ./programs/fish.nix
 	./programs/rofi
 	./programs/nixvim
@@ -22,10 +21,6 @@
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
       PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
       PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
-
-      QT_QPA_PLATFORM = "xcb";
-
-	  # KITTY_CONFIG_DIRECTORY = "$HOME/config_flake/home/programs/kitty/kitty.conf";
     };
   };
 

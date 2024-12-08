@@ -2,11 +2,6 @@
 {
   imports = [
     ./sound.nix
-    # ./hyprland.nix
-    # ./awesome
-	# if options.useHyprland = true then ./hyprland.nix else ./awesome.nix;
-	# lib.mkIf config.useHyprland ./hyprland.nix ./awesome.nix
-	# ./sway.nix
   ];
 
   environment.variables = {
@@ -24,8 +19,6 @@
  #    noto-fonts
      noto-fonts-cjk
      noto-fonts-emoji
- #    (nerdfonts.override { fonts = [
-	# ]; })
    ];
 
   nixpkgs = {
@@ -69,10 +62,5 @@
   };
 
   services.openssh.enable = true;
- #  hardware.keyboard.qmk.enable = true;
- #  services.udev.packages = [ 
- #  	pkgs.via
-	# pkgs.qmk-udev-rules
- #  ]; 
   # programs.light.enable = true;
 }
