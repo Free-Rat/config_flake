@@ -29,9 +29,8 @@ alias vif="nvim \$(fzf --preview='bat --color=always {}')"
 alias cdf="cd \$(fd -t d | fzf)"
 alias bhf="eval \$(cat ~/.bash_history | sort | uniq | fzf)"
 alias open="xdg-open"
-alias cw="feh --bg-fill \$(fd . -t f \$PATH_WALLPAPERS | fzf --preview='kitten icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@77x1 {} > /dev/tty' )"
-# alias cw="feh --bg-fill \$PATH_WALLPAPERS/\$(ls \$PATH_WALLPAPERS | fzf --preview='chafa --fill=block \$PWD/{} 2> /dev/null' --preview-window=right:60%)"
-# alias cw="\$PATH_SCRIPTS/changeWallpaper.sh"
+# alias cw="feh --bg-fill \$(fd . -t f \$PATH_WALLPAPERS | fzf --preview='kitten icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@77x1 {} > /dev/tty' )"
+alias cw="\$PATH_SCRIPTS/changeWallpaper.sh"
 
 # nix related
 alias nrf="sudo nixos-rebuild switch --flake \$PATH_FLAKE_CONFIG"
@@ -44,5 +43,6 @@ alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/home/programs/bash/bashrc.
 
 # other apps
 alias keepassxc="keepassxc -platform xcb"
-alias xcp="xclip -sel clip"
+alias copy="xclip -sel clip"
 
+wallust run $(cat ~/.wallpaper_path) -q -i background -C $PATH_PROGRAMS/wallust.toml -u
