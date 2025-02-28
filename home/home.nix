@@ -73,6 +73,7 @@
     unzip
     tree
     neofetch
+	fastfetch
 	fd # faster find
 
     # Misc 
@@ -94,6 +95,8 @@
 	acpi
 	wallust
 	nautilus
+	obsidian
+	libsecret
 	# youtrack
   # ]) 
   # ++ (with pkgs.gnome; [

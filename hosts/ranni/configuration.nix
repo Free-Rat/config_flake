@@ -36,6 +36,7 @@
       "wheel"
       "audio"
       "video"
+	  "dialout"
     ];
     packages = with pkgs; [
       # firefox
