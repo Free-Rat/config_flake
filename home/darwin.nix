@@ -28,7 +28,9 @@
 
 
   home.packages = (with pkgs; [
-	dotnet-sdk_7
+	fzf
+	yazi
+	dotnet-sdk_6
     discord
     caprine-bin
     # kitty
@@ -57,6 +59,7 @@
     unzip
     tree
     neofetch
+    fastfetch
     wget
     btop
 	cmatrix

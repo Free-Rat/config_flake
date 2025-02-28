@@ -20,17 +20,22 @@
 	onActivation = {
       cleanup = "uninstall";
     };
+	brews = [
+	# 	"r"
+		"mono"
+	];
+
 	casks = [
 		"microsoft-teams"
 		"sf-symbols"
-		"raycast"
+		# "raycast"
 		"obsidian"
 		"spotify"
 		"keepassxc"
 		"openvpn-connect"
 		"colorpicker-materialdesign"
-		"qutebrowser"
-		"lm-studio"
+		# "qutebrowser"
+		# "lm-studio"
 		"sourcetree"
 		"dbeaver-community"
 		"teamviewer"
@@ -41,6 +46,10 @@
 		"zoom"
 		# "libreoffice-still" # nie działa ??
 		"drawio"
+		# "anki"
+		"microsoft-remote-desktop"
+		# "rstudio"
+		"krita"
 	];
   };
 
