@@ -19,6 +19,10 @@
        url = "github:Free-Rat/nixvim";
        inputs.nixpkgs.follows = "nixpkgs";
      };
+     nvf = {
+       url = "github:Free-Rat/nvf";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
   };
 
   outputs = { self, nixpkgs, home-manager, nix-darwin, ... }@inputs:

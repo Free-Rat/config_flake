@@ -17,7 +17,7 @@
   fonts.packages = with pkgs; [
      monaspace
  #    noto-fonts
-     noto-fonts-cjk
+     noto-fonts-cjk-sans
      noto-fonts-emoji
    ];
 

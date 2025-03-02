@@ -3,7 +3,8 @@
   imports = [
 	# ./programs/fish.nix
 	./programs/rofi
-	./programs/nixvim
+	# ./programs/nixvim
+	./programs/nvf
 	# ./programs/starship
   ];
 
