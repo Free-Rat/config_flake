@@ -45,4 +45,4 @@ alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/home/programs/bash/bashrc.
 alias keepassxc="keepassxc -platform xcb"
 alias copy="xclip -sel clip"
 
-wallust run $(cat ~/.wallpaper_path) -q -i background -C $PATH_PROGRAMS/wallust.toml -u
+wallust run $(cat ~/.wallpaper_path) -I background -q -C $PATH_PROGRAMS/wallust.toml -u

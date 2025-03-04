@@ -4,6 +4,6 @@ wallpaper=$(fd . -t f $PATH_WALLPAPERS | fzf --preview="kitten icat --clear --tr
 
 feh --bg-fill $wallpaper
 
-wallust run $wallpaper -q -i background -C $PATH_PROGRAMS/wallust.toml
+wallust run $wallpaper -q -I background -C $PATH_PROGRAMS/wallust.toml
 
 echo $wallpaper > ~/.wallpaper_path

@@ -511,11 +511,11 @@
         "nvf": "nvf_2"
       },
       "locked": {
-        "lastModified": 1740914685,
-        "narHash": "sha256-BTz7CT4NDdil4EiOGnKmV/cdREoilSSRw6R0RVzesnI=",
+        "lastModified": 1741081157,
+        "narHash": "sha256-zHW39AqJDoaouZrGwjcrD1UEQ8ba9pqC5UUnRsrunD8=",
         "owner": "Free-Rat",
         "repo": "nvf",
-        "rev": "aed5f006c22723febf16c8dda905339fe160cbf7",
+        "rev": "945834803e8ba6af80901537c3ef36a541c31fe4",
         "type": "github"
       },
       "original": {

@@ -97,7 +97,7 @@
 	wallust
 	nautilus
 	obsidian
-	libsecret
+	# libsecret
 	# youtrack
   # ]) 
   # ++ (with pkgs.gnome; [
