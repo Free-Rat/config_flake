@@ -4,8 +4,16 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader = {
+		efi.canTouchEfiVariables = true;
+		grub = { 
+			enable = true;
+			useOSProber = true;
+  			efiSupport = true;
+  			devices = [ "nodev" ];
+		};
+  };
 
   networking.hostName = "malenia";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
