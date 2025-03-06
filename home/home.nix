@@ -1,11 +1,16 @@
-{ inputs, pkgs, user, ... }: {
-
+{
+  inputs,
+  pkgs,
+  user,
+  ...
+}: {
   imports = [
-	# ./programs/fish.nix
-	./programs/rofi
-	# ./programs/nixvim
-	./programs/nvf
-	# ./programs/starship
+    # ./programs/fish.nix
+    ./programs/rofi
+    # ./programs/nixvim
+    ./programs/nvf
+    ./programs/ghostty
+    # ./programs/starship
   ];
 
   home = {
@@ -25,32 +30,32 @@
     };
   };
 
-  home.sessionPath = [ "$HOME/.cargo/bin" ];
+  home.sessionPath = ["$HOME/.cargo/bin"];
 
   home.file = {
     ".config/awesome" = {
       source = ../modules/awesome;
     };
-	".config/yambar/config.yml" = {
-		source = ./programs/river/yambar/config.yml;
-	};
-	".config/qtile" = {
+    ".config/yambar/config.yml" = {
+      source = ./programs/river/yambar/config.yml;
+    };
+    ".config/qtile" = {
       source = ../modules/qtile;
-	};
+    };
   };
 
-  home.packages = (with pkgs; [
+  home.packages = with pkgs; [
     # User Apps
-	# obsidian
+    # obsidian
     discord
-	ncdu
+    ncdu
     # caprine-bin
     # librewolf
     keepassxc
     lazygit
     # zathura
-	maim # screenshot tool
-	xclip
+    maim # screenshot tool
+    xclip
 
     # vieb
     # vimb
@@ -67,18 +72,18 @@
     catimg
     pavucontrol
     pamixer
-    # light # moved to modules 
+    # light # moved to modules
     unzip
     # jq
     bat
     unzip
     tree
     neofetch
-	fastfetch
-	fd # faster find
+    fastfetch
+    fd # faster find
 
-    # Misc 
-	fzf
+    # Misc
+    fzf
     cava
     playerctl
     rofi
@@ -93,37 +98,37 @@
     # ueberzugpp
     # rpi-imager
     feh
-	acpi
-	wallust
-	nautilus
-	obsidian
-	# libsecret
-	# youtrack
-  # ]) 
-  # ++ (with pkgs.gnome; [
-  #   nautilus
-  ]);
+    acpi
+    wallust
+    nautilus
+    obsidian
+    # libsecret
+    # youtrack
+    # ])
+    # ++ (with pkgs.gnome; [
+    #   nautilus
+  ];
 
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
     userName = "Free-Rat";
     userEmail = "lawicki02@gmail.com";
-	extraConfig = {
-		core = {
-			askpass = "";
-		};
-	};
+    extraConfig = {
+      core = {
+        askpass = "";
+      };
+    };
   };
 
-	programs.cava = {
-		enable = true;
-		settings = {
-			general.framerate = 60;
-			input.method = "alsa";
-			smoothing.noise_reduction = 88;
-		};
-	};
+  programs.cava = {
+    enable = true;
+    settings = {
+      general.framerate = 60;
+      input.method = "alsa";
+      smoothing.noise_reduction = 88;
+    };
+  };
 
   programs.home-manager.enable = true;
 

@@ -42,7 +42,8 @@ end
 -- {{{ Variable definitions
 beautiful.init("~/.config/awesome/theme.lua") -- Themes define colours, icons, font and wallpapers.
 
-local terminal = "kitty"                      --"alacritty"
+-- local terminal = "kitty"                      --"alacritty"
+local terminal = "ghostty"
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = terminal .. " -e " .. editor
 local modkey = "Mod4"
@@ -738,11 +739,11 @@ client.connect_signal("manage", function(c)
 end)
 
 -- rounded_rect
-client.connect_signal("manage", function(c)
-    c.shape = function(cr, w, h)
-        gears.shape.rounded_rect(cr, w, h, 17)
-    end
-end)
+-- client.connect_signal("manage", function(c)
+--     c.shape = function(cr, w, h)
+--         gears.shape.rounded_rect(cr, w, h, 17)
+--     end
+-- end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
