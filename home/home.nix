@@ -99,9 +99,15 @@
     # rpi-imager
     feh
     acpi
+    ncdu
+    linuxquota
     wallust
     nautilus
     obsidian
+    man
+    manix
+    man-pages
+    man-pages-posix
     # libsecret
     # youtrack
     # ])
