@@ -1,10 +1,15 @@
-{ inputs, pkgs, hyettaUser, ... }: {
-
+{
+  inputs,
+  pkgs,
+  hyettaUser,
+  ...
+}: {
   imports = [
     # ./programs/kitty
     ./programs/wezterm
     ./programs/fish.nix
-    ./programs/nixvim
+    # ./programs/nixvim
+    ./programs/nvf
     ./programs/starship
   ];
   home = {
@@ -15,7 +20,7 @@
       EDITOR = "nvim";
       BROWSER = "vieb";
       TERMINAL = "kitty";
-	  SHELL = "fish";
+      SHELL = "fish";
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
@@ -26,30 +31,29 @@
     };
   };
 
-
-  home.packages = (with pkgs; [
-	fzf
-	yazi
-	dotnet-sdk_6
+  home.packages = with pkgs; [
+    fzf
+    yazi
+    # dotnet-sdk_6
     discord
     caprine-bin
     # kitty
     lazygit
     # vieb
-	# vimb
-	# luakit
-	# nyxt
-	# qutebrowser
+    # vimb
+    # luakit
+    # nyxt
+    # qutebrowser
 
-	# dbeaver-bin ; pobrane przez homebrew
-	openvpn
-	subversion
+    # dbeaver-bin ; pobrane przez homebrew
+    openvpn
+    subversion
 
-	# bruno
-	atac
-	# postman
+    # bruno
+    atac
+    # postman
 
-	termshark
+    termshark
 
     ranger
     curl
@@ -62,14 +66,14 @@
     fastfetch
     wget
     btop
-	cmatrix
-	asciiquarium-transparent
-  ]);
+    cmatrix
+    asciiquarium-transparent
+  ];
 
   programs.home-manager.enable = true;
   programs.git = {
-  	enable = true;
-	package = pkgs.gitFull;
+    enable = true;
+    package = pkgs.gitFull;
     userName = "tomasz_lawicki";
     userEmail = "tomasz.lawicki@lstsoft.com.pl";
   };
