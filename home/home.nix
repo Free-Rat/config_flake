@@ -50,7 +50,8 @@
     discord
     ncdu
     # caprine-bin
-    # librewolf
+    librewolf
+    nyxt
     keepassxc
     lazygit
     # zathura
@@ -99,7 +100,6 @@
     # rpi-imager
     feh
     acpi
-    ncdu
     linuxquota
     wallust
     nautilus
