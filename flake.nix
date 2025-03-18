@@ -130,7 +130,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."${user}" = import ./home/home.nix;
+              users."${user}" = import ./home/melina.nix;
               extraSpecialArgs = {
                 inherit
                   # hyprland
