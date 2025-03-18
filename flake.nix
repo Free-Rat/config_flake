@@ -37,10 +37,6 @@
     hyettaUser = "tomaszlawicki";
     hyettaHost = "Tomaszs-MacBook-Air";
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
     # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
   in {
     darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
@@ -51,14 +47,17 @@
         ./modules/darwin.nix
         home-manager.darwinModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users."${hyettaUser}" = import ./home/darwin.nix;
-          home-manager.extraSpecialArgs = {
-            inherit
-              hyettaUser
-              inputs
-              ;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users."${hyettaUser}" = import ./home/darwin.nix;
+            extraSpecialArgs = {
+              inherit
+                # hyprland
+                hyettaUser
+                inputs
+                ;
+            };
           };
         }
       ];
@@ -77,15 +76,17 @@
           # ./modules/river.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${user}" = import ./home/home.nix;
-            home-manager.extraSpecialArgs = {
-              inherit
-                user
-                inputs
-                # pkgs-stable
-                ;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${user}" = import ./home/home.nix;
+              extraSpecialArgs = {
+                inherit
+                  # hyprland
+                  user
+                  inputs
+                  ;
+              };
             };
           }
         ];
@@ -103,15 +104,17 @@
           # hyprland.nixosModules.default
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${user}" = import ./home/home.nix;
-            home-manager.extraSpecialArgs = {
-              inherit
-                # hyprland
-                user
-                inputs
-                ;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${user}" = import ./home/home.nix;
+              extraSpecialArgs = {
+                inherit
+                  # hyprland
+                  user
+                  inputs
+                  ;
+              };
             };
           }
         ];
@@ -122,6 +125,21 @@
         modules = [
           ./hosts/melina
           ./modules
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${user}" = import ./home/home.nix;
+              extraSpecialArgs = {
+                inherit
+                  # hyprland
+                  user
+                  inputs
+                  ;
+              };
+            };
+          }
         ];
       };
 
