@@ -14,7 +14,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland";
     nixvim = {
       url = "github:Free-Rat/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,7 +71,8 @@
         modules = [
           ./hosts/ranni
           ./modules
-          ./modules/awesome
+          # ./modules/awesome
+          ./modules/hyprland
           # ./modules/qtile
           # ./modules/river.nix
           home-manager.nixosModules.home-manager

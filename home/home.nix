@@ -11,6 +11,7 @@
     ./programs/nvf
     ./programs/ghostty
     # ./programs/starship
+    # ./programs/hypr
   ];
 
   home = {
@@ -42,9 +43,14 @@
     ".config/qtile" = {
       source = ../modules/qtile;
     };
+    ".config/hypr/hyprland.conf" = {
+      source = ../modules/hyprland/hyprland.conf;
+    };
   };
 
   home.packages = with pkgs; [
+    swww
+    yazi
     # User Apps
     # obsidian
     discord
@@ -110,6 +116,7 @@
     man-pages-posix
     # libsecret
     # youtrack
+    clippy
     # ])
     # ++ (with pkgs.gnome; [
     #   nautilus

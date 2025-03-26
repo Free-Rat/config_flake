@@ -31,6 +31,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.fabric-bar.packages.${pkgs.system}.default
+
     # xorg.xbacklight
     brightnessctl
     picom
