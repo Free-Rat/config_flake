@@ -23,6 +23,9 @@
       url = "github:Free-Rat/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fabric-bar = {
+      url = "github:Free-Rat/fabric-bar-nix";
+    };
   };
 
   outputs = {
