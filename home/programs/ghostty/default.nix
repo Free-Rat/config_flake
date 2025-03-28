@@ -10,9 +10,9 @@
       font-family-bold-italic = "Monaspace Neon Bold Italic";
       font-size = 11;
       window-decoration = "none";
-      background-opacity = 0.5;
+      background-opacity = 0.7;
       background = "#000000";
-      cursor-opacity = 0.8;
+      cursor-opacity = 0.9;
       cursor-style = "block";
       shell-integration-features = "no-cursor";
     };
