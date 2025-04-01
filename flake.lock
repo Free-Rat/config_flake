@@ -82,11 +82,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1742994771,
-        "narHash": "sha256-C3lU/ipzdO8+A5CZkMS0hbMORjCabzWdEbtdZGquW6w=",
+        "lastModified": 1743464804,
+        "narHash": "sha256-2fiJUT+LjAR/gUqyb8UZcPY+2R2xKKvsuH9BrsPHSAg=",
         "owner": "Free-Rat",
         "repo": "fabric-bar-nix",
-        "rev": "6ee4fc2099774366c5b53eb7cdf0ccc5fdfa38f7",
+        "rev": "d25a54977ae4448e0f54d77e8efbc5dd0883af6e",
         "type": "github"
       },
       "original": {

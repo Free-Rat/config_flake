@@ -49,6 +49,8 @@
   };
 
   home.packages = with pkgs; [
+    tcpdump
+    kakoune
     swww
     yazi
     # User Apps
@@ -81,7 +83,7 @@
     pamixer
     # light # moved to modules
     unzip
-    # jq
+    jq
     bat
     unzip
     tree
