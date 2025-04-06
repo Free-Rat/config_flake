@@ -57,7 +57,11 @@
 
     # qmk
     # keymapviz
+
+    # libimobiledevice # 4:iOS mounting
+    # ifuse # 4:iOS mounting
   ];
+  # services.usbmuxd.enable = true; # 4:iOS mounting
 
   systemd.user.services = {
     nm-applet = {
