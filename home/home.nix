@@ -12,6 +12,8 @@
     ./programs/ghostty
     # ./programs/starship
     # ./programs/hypr
+    # ./programs/river
+    # ./programs/sway
   ];
 
   home = {
@@ -37,14 +39,17 @@
     ".config/awesome" = {
       source = ../modules/awesome;
     };
-    ".config/yambar/config.yml" = {
-      source = ./programs/river/yambar/config.yml;
-    };
+    # ".config/yambar/config.yml" = {
+    #   source = ./programs/river/yambar/config.yml;
+    # };
     ".config/qtile" = {
       source = ../modules/qtile;
     };
     ".config/hypr/hyprland.conf" = {
       source = ../modules/hyprland/hyprland.conf;
+    };
+    ".config/sway/config" = {
+      source = ../modules/sway/sway.conf;
     };
   };
 
@@ -106,16 +111,21 @@
     # gh
     # ueberzugpp
     # rpi-imager
+    gurk-rs # signal client
     feh
     acpi
     linuxquota
-    wallust
+    # wallust
     nautilus
     obsidian
     man
     manix
     man-pages
     man-pages-posix
+    libheif
+    trayer
+
+    element-desktop
     # libsecret
     # youtrack
     clippy
@@ -140,10 +150,27 @@
     enable = true;
     settings = {
       general.framerate = 60;
-      input.method = "alsa";
+      input.method = "pipewire";
       smoothing.noise_reduction = 88;
     };
   };
+
+  # services.trayer = {
+  # enable = true;
+  #   settings = {
+  #     align = "right";
+  #     edge = "top";
+  #     height = 17;
+  #     transparent = true;
+  #     tint = "#000000";
+  #     width = 5;
+  #     widthtype = "request";
+  #     SetDockType = true;
+  #     SetPartialStrut = true;
+  #     expand = true;
+  #   };
+  # };
+  # services.network-manager-applet.enable = true;
 
   programs.home-manager.enable = true;
 

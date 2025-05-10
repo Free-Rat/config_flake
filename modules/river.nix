@@ -1,6 +1,10 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   services.xserver = {
-	xkb.layout = "pl";
+    xkb.layout = "pl";
     xkb.variant = "";
     enable = true;
     displayManager = {
@@ -12,9 +16,10 @@
   };
 
   programs.river = {
-	enable = true;
-	# extraPackages = with pkgs; [
-	# 	grim
-	# ];
+    enable = true;
+    extraPackages = with pkgs; [
+      # grim
+      ristate
+    ];
   };
 }

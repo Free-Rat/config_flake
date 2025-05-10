@@ -6,7 +6,7 @@ back_c="\[\e[1;0m\]"
 # export PS1="\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u@\h \w >>\[\033[0m\] "
 # export PS1="$cyan_c\u$white_c@$blue_c\h $magenta_c\W $cyan_c>> $back_c"
 # TODO git in prompt
-# TODO vim mode  
+# TODO vim mode
 # TODO nix-shell
 export PS1="\n $cyan_c\W $blue_c>> $back_c"
 
@@ -45,4 +45,4 @@ alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/home/programs/bash/bashrc.
 alias keepassxc="keepassxc -platform xcb"
 alias copy="xclip -sel clip"
 
-wallust run $(cat ~/.wallpaper_path) -I background -q -C $PATH_PROGRAMS/wallust.toml -u
+# wallust run $(cat ~/.wallpaper_path) -I background -q -C $PATH_PROGRAMS/wallust.toml -u

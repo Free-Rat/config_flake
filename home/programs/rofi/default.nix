@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.rofi = {
     enable = true;
     terminal = "alacritty";
-    theme = ./themes/spotlight-dark-Kypton.rasi;
+    theme = ./themes/squared-everforest.rasi;
   };
 }

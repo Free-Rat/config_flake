@@ -1,6 +1,10 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   services.xserver = {
-	xkb.layout = "pl";
+    xkb.layout = "pl";
     xkb.variant = "";
     enable = true;
     displayManager = {
@@ -13,5 +17,8 @@
 
   programs.sway = {
     enable = true;
+    xwayland.enable = true;
   };
+
+  security.pam.services.swaylock = {};
 }

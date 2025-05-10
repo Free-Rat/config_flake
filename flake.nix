@@ -74,10 +74,12 @@
         modules = [
           ./hosts/ranni
           ./modules
+          # ./modules/xmonad
           # ./modules/awesome
           ./modules/hyprland
           # ./modules/qtile
           # ./modules/river.nix
+          # ./modules/sway
           home-manager.nixosModules.home-manager
           {
             home-manager = {

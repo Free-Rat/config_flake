@@ -1,23 +1,31 @@
-{ config, lib, pkgs, ... }: {
- 
- 	imports = [
-		# ./waybar
-	];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./swaylock.nix
+  ];
 
-	home.packages = with pkgs; [
-		# waybar
-		swww
-		swaylock
-		# swayidle # program to run a command after a certain amount of time
-		# swaync
-	];
+  home.packages = with pkgs; [
+    swww
+    # swaylock
+    # swayidle # program to run a command after a certain amount of time
+    # swaync
+  ];
 
-	wayland.windowManager.sway = {
-		enable = true;
-		config = {
-			modifier = "Mod4";
-			terminal = "alacritty";
+  # home.file = {
+  #   ".config/sway/config" = {
+  #     source = ./sway.conf;
+  #   };
+  # };
 
-		};
-	};
+  # wayland.windowManager.sway = {
+  #   enable = true;
+  #   # config = {
+  #   #   modifier = "Mod4";
+  #   #   terminal = "ghostty";
+  #   # };
+  # };
 }

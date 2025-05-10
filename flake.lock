@@ -960,11 +960,11 @@
         "nvf": "nvf_2"
       },
       "locked": {
-        "lastModified": 1742123284,
-        "narHash": "sha256-G5/s/pu9A8hnpjAQKy4da6vtFkbU58r0JPJGn2wjuHo=",
+        "lastModified": 1746088437,
+        "narHash": "sha256-bhJb2O5h4iYNxXBBWN6vsvQAyaA1DVT0AyMY2zRa8FY=",
         "owner": "Free-Rat",
         "repo": "nvf",
-        "rev": "c00ecd426d76177c91581947b15437e544a1403b",
+        "rev": "17d66731113644d7ec604c38a095c78a9cd73d7a",
         "type": "github"
       },
       "original": {

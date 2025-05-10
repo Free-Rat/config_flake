@@ -46,22 +46,32 @@
     # zig
 
     rustc
+    rust-script
     cargo
 
     lua
     networkmanager
     networkmanagerapplet
-    # gcc
+    gcc
     clang
     wget
 
+    btrfs-progs
     # qmk
     # keymapviz
 
     # libimobiledevice # 4:iOS mounting
     # ifuse # 4:iOS mounting
+    libheif
+    libheif.out
   ];
+  environment.pathsToLink = ["share/thumbnailers"];
   # services.usbmuxd.enable = true; # 4:iOS mounting
+
+  # programs.nm-applet = {
+  #   enable = true;
+  #   #   # indicator = false;
+  # };
 
   systemd.user.services = {
     nm-applet = {
@@ -71,6 +81,8 @@
       serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
     };
   };
+
+  # services.rpcbind.enable = true; # laby npw - rpc
 
   services.openssh.enable = true;
   # programs.light.enable = true;
