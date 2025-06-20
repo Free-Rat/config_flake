@@ -13,6 +13,7 @@
   # Used for backwards compatibility. please read the changelog
   # before changing: `darwin-rebuild changelog`.
   system.stateVersion = 4;
+  system.primaryUser = "tomaszlawicki";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # Declare the user that will be running `nix-darwin`.
@@ -22,6 +23,8 @@
   };
   programs.zsh.enable = true;
 
-  # environment.systemPackages = with pkgs; [
-  # ];
+  environment.systemPackages = with pkgs; [
+    rustc
+    cargo
+  ];
 }

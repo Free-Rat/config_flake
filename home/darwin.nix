@@ -5,12 +5,14 @@
   ...
 }: {
   imports = [
-    # ./programs/kitty
+    ./programs/kitty
+    ./programs/alacritty
     ./programs/wezterm
     ./programs/fish.nix
     # ./programs/nixvim
     ./programs/nvf
     ./programs/starship
+    # ./programs/ghostty # currently broken on macos
   ];
   home = {
     username = "${hyettaUser}";
@@ -32,6 +34,9 @@
   };
 
   home.packages = with pkgs; [
+    # libreoffice
+    # swiftlint
+    zed-editor
     fzf
     yazi
     # dotnet-sdk_6
@@ -44,6 +49,7 @@
     # luakit
     # nyxt
     # qutebrowser
+    librewolf
 
     # dbeaver-bin ; pobrane przez homebrew
     openvpn

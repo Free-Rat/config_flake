@@ -25,9 +25,18 @@
     brews = [
       # 	"r"
       "mono"
+      "swiftlint"
     ];
 
     casks = [
+      # "libreoffice"
+      # {
+      #   name = "libreoffice";
+      #   version = "25.2.4";
+      #   url = "https://download.documentfoundation.org/libreoffice/stable/25.2.4/mac/aarch64/LibreOffice_25.2.4_MacOS_aarch64.dmg";
+      #   # sha256 = "";
+      # }
+      # "cellprofiler"
       "microsoft-teams"
       "sf-symbols"
       # "raycast"
