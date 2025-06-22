@@ -29,6 +29,7 @@
   nixpkgs = {
     config.allowUnfree = true;
   };
+  # services.upower.enable = true;
 
   environment.systemPackages = with pkgs; [
     inputs.fabric-bar.packages.${pkgs.system}.default

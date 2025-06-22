@@ -18,7 +18,7 @@
         #     family = "Monaspace Argon";
         #     style = "Medium";
         #   };
-        size = 20;
+        size = 12;
       };
 
       # colors:

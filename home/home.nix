@@ -12,8 +12,9 @@
     ./programs/ghostty
     # ./programs/starship
     # ./programs/hypr
-    # ./programs/river
+    ./programs/river
     # ./programs/sway
+    ./programs/alacritty
   ];
 
   home = {
@@ -56,7 +57,8 @@
   home.packages = with pkgs; [
     tcpdump
     kakoune
-    swww
+    bruno
+    # swww
     yazi
     # User Apps
     # obsidian
@@ -64,7 +66,7 @@
     ncdu
     # caprine-bin
     librewolf
-    nyxt
+    # nyxt
     keepassxc
     lazygit
     # zathura
@@ -74,7 +76,7 @@
     # vieb
     # vimb
     # qutebrowser
-    nyxt
+    # nyxt
     firefox
     kitty
 
@@ -124,6 +126,7 @@
     man-pages-posix
     libheif
     trayer
+    anki-bin
 
     element-desktop
     # libsecret

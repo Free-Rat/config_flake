@@ -14,8 +14,8 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    mpd = {
-      enable = true;
-    };
+    # mpd = {
+    #   enable = true;
+    # };
   };
 }

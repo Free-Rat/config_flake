@@ -14,7 +14,7 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland";
     nixvim = {
       url = "github:Free-Rat/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,9 +76,9 @@
           ./modules
           # ./modules/xmonad
           # ./modules/awesome
-          ./modules/hyprland
+          # ./modules/hyprland
           # ./modules/qtile
-          # ./modules/river.nix
+          ./modules/river.nix
           # ./modules/sway
           home-manager.nixosModules.home-manager
           {

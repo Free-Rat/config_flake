@@ -15,6 +15,8 @@
     };
   };
 
+  xdg.portal.enable = true;
+
   programs.river = {
     enable = true;
     extraPackages = with pkgs; [
