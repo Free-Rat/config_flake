@@ -54,6 +54,9 @@
     };
   };
 
+  xdg.configFile."niri/config.kdl".source = ../modules/niri/config.kdl;
+  xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
+
   home.packages = with pkgs; [
     tcpdump
     kakoune
@@ -81,6 +84,9 @@
     kitty
 
     # Utils
+    entr # Run arbitrary commands when files change
+    pandoc # Conversion between documentation formats
+    texliveSmall # TeX Live environment
     ranger
     wlr-randr
     curl
@@ -102,7 +108,7 @@
     fzf
     cava
     playerctl
-    rofi
+    # rofi
     # nitch
     wget
     slurp

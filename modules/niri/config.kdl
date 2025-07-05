@@ -1,0 +1,447 @@
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
+
+// Miscellaneous top-level stuff
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H%M%S.png"
+spawn-at-startup "~/.config/niri/init.sh"
+
+// Named workspaces
+workspace "m"
+workspace "n"
+workspace "e"
+workspace "d"
+workspace "w"
+
+input {
+	keyboard {
+		xkb {
+			layout "pl"
+		}
+		repeat-delay 250
+		repeat-rate 30
+	}
+
+	touchpad {
+		tap
+	}
+	focus-follows-mouse max-scroll-amount="0%"
+
+}
+
+cursor {
+	xcursor-theme "Adwaita"
+	xcursor-size 2
+    hide-after-inactive-ms 1000
+    hide-when-typing
+}
+
+layout {
+    gaps 1
+	always-center-single-column
+	// background-color "transparent"
+	background-color "000000"
+
+	preset-column-widths {
+		proportion 0.33333
+		proportion 0.5
+		proportion 0.66667
+	}
+
+	preset-window-heights {
+		proportion 0.33333
+		proportion 0.5
+		proportion 0.66667
+	}
+
+	default-column-width { proportion 0.7; }
+
+	focus-ring {
+		width 0
+		// active-gradient from="#73003f" to="#ff4f00" angle=45
+		// inactive-gradient from="#333333" to="#666666" angle=30
+	}
+
+	border {
+		width 0
+		// active-gradient from="#d3003f" to="#ff8f00" angle=30
+		// inactive-color "#111111"
+	}
+
+	shadow {
+		on
+		softness 30
+		spread 5
+		offset x=0 y=5
+		color "#0007"
+	}
+
+	struts {
+		left 1
+		right 1
+        bottom 1
+        top 1
+	}
+}
+
+overview {
+	workspace-shadow {
+		off
+	}
+}
+
+binds {
+	// Basic keybindings
+	Mod+Shift+Slash { show-hotkey-overlay; }
+	Mod+Return { spawn "alacritty"; }
+	Mod+Space { spawn "rofi" "-show" "drun"; }
+	Mod+Shift+Q { spawn "quitmenu"; }
+	Mod+G { toggle-overview; }
+
+	// Volume control
+	Mod+equal allow-when-locked=true hotkey-overlay-title="Increase Volume" {
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; 
+    }
+	Mod+minus allow-when-locked=true hotkey-overlay-title="Decrease Volume" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
+	Mod+BackSpace allow-when-locked=true hotkey-overlay-title="Toggle Mute" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+	XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title="Increase Volume" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
+	XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title="Decrease Volume" { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
+	XF86AudioMute        allow-when-locked=true hotkey-overlay-title="Toggle Mute" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+	XF86AudioMicMute     allow-when-locked=true hotkey-overlay-title="Toggle Microphone" { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+	// MPD
+	XF86AudioPlay allow-when-locked=true hotkey-overlay-title="Play/Pause MPD" { spawn "playerctl" "play-pause"; }
+	XF86AudioStop allow-when-locked=true hotkey-overlay-title="Stop MPD" { spawn "playerctl" "play-pause"; }
+	XF86AudioPrev allow-when-locked=true hotkey-overlay-title="Prev Track MPD" { spawn "playerctl" "previous"; }
+	XF86AudioNext allow-when-locked=true hotkey-overlay-title="Next Track MPD" { spawn "playerctl" "next"; }
+	// Shift+XF86AudioPrev allow-when-locked=true hotkey-overlay-title="Rewind MPD" { spawn "mpc" "seek" "-5"; }
+	// Shift+XF86AudioNext allow-when-locked=true hotkey-overlay-title="Fast-Forward MPD" { spawn "mpc" "seek" "+5"; }
+	// Mod+P allow-when-locked=true hotkey-overlay-title="Play/Pause MPD" { spawn "mpc" "toggle"; }
+	// Mod+Shift+P allow-when-locked=true hotkey-overlay-title="Stop MPD" { spawn "mpc" "stop"; }
+	// Mod+semicolon allow-when-locked=true hotkey-overlay-title="Previous Track MPD" { spawn "mpc" "prev"; }
+	// Mod+apostrophe allow-when-locked=true hotkey-overlay-title="Next Track MPD" { spawn "mpc" "next"; }
+	// Mod+Shift+semicolon allow-when-locked=true hotkey-overlay-title="Rewind MPD" { spawn "mpc" "seek" "-5"; }
+	// Mod+Shift+apostrophe allow-when-locked=true hotkey-overlay-title="Fast-Forward MPD" { spawn "mpc" "seek" "+5"; }
+
+	// Audio sink picker
+	// Mod+Control+P hotkey-overlay-title="Select Audio Sink" { spawn "~/.scripts/choose_default_sink.sh"; }
+
+	// Windows and columns
+	Mod+H             { focus-column-left; }
+	Mod+J             { focus-window-or-workspace-down; }
+	Mod+K             { focus-window-or-workspace-up; }
+	Mod+L             { focus-column-right; }
+	Mod+Shift+H       { move-column-left; }
+	Mod+Shift+J       { move-window-down-or-to-workspace-down; }
+	Mod+Shift+L       { move-column-right; }
+	Mod+Shift+K       { move-window-up-or-to-workspace-up; }
+	Mod+Ctrl+Shift+N  { center-window; }
+
+	// Stacking columns
+	Mod+BracketLeft         { consume-or-expel-window-left; }
+	Mod+BracketRight        { consume-or-expel-window-right; }
+	Mod+Shift+BracketLeft   { consume-window-into-column; }
+	Mod+Shift+BracketRight  { expel-window-from-column; }
+
+	// Resizing windows/columns
+	Mod+Ctrl+H         { set-column-width "-5%"; }
+	Mod+Ctrl+L         { set-column-width "+5%"; }
+	Mod+Ctrl+K         { set-window-height "-5%"; }
+	Mod+Ctrl+J         { set-window-height "+5%"; }
+	Mod+Ctrl+Shift+L   { expand-column-to-available-width; }
+	Mod+Ctrl+Shift+H   { set-column-width "50%"; }
+	Mod+Ctrl+Shift+J   { switch-preset-window-height; }
+	Mod+Ctrl+Shift+K   { reset-window-height; }
+
+	// Other layouting actions
+	Mod+Q              { close-window; }
+	Mod+A              { focus-column-first; }
+	Mod+S              { focus-column-last; }
+	Mod+Shift+A        { move-column-to-first; }
+	Mod+Shift+S        { move-column-to-last; }
+	Mod+Escape         { maximize-column; }
+	Mod+Shift+Escape   { toggle-column-tabbed-display; }
+	Mod+F              { fullscreen-window; }
+	Mod+Shift+F        { toggle-windowed-fullscreen; }
+
+	// Floating windows
+	Mod+Shift+V  { toggle-window-floating; }
+	Mod+V        { switch-focus-between-floating-and-tiling; }
+
+	// Workspaces
+	Mod+U        { focus-workspace-down; }
+	Mod+I        { focus-workspace-up; }
+	Mod+Shift+U  { move-workspace-down; }
+	Mod+Shift+I  { move-workspace-up; }
+	Mod+Tab      { focus-workspace-previous; }
+	Mod+M   { focus-workspace "m"; }
+	Mod+N   { focus-workspace "n"; }
+	Mod+E   { focus-workspace "e"; }
+	Mod+D   { focus-workspace "d"; }
+	Mod+W   { focus-workspace "w"; }
+	Mod+1   { focus-workspace 6; }
+	Mod+2   { focus-workspace 7; }
+	Mod+3   { focus-workspace 8; }
+	Mod+4   { focus-workspace 9; }
+	Mod+5   { focus-workspace 10; }
+	Mod+6   { focus-workspace 11; }
+	Mod+7   { focus-workspace 12; }
+	Mod+8   { focus-workspace 13; }
+	Mod+9   { focus-workspace 14; }
+	Mod+Shift+M  { move-column-to-workspace "m"; }
+	Mod+Shift+N  { move-column-to-workspace "n"; }
+	Mod+Shift+E  { move-column-to-workspace "e"; }
+	Mod+Shift+D  { move-column-to-workspace "d"; }
+	Mod+Shift+W  { move-column-to-workspace "w"; }
+	Mod+Shift+1  { move-column-to-workspace 6; }
+	Mod+Shift+2  { move-column-to-workspace 7; }
+	Mod+Shift+3  { move-column-to-workspace 8; }
+	Mod+Shift+4  { move-column-to-workspace 9; }
+	Mod+Shift+5  { move-column-to-workspace 10; }
+	Mod+Shift+6  { move-column-to-workspace 11; }
+	Mod+Shift+7  { move-column-to-workspace 12; }
+	Mod+Shift+8  { move-column-to-workspace 13; }
+	Mod+Shift+9  { move-column-to-workspace 14; }
+
+	// Monitors
+	Mod+comma                 { focus-monitor-previous; }
+	Mod+period                { focus-monitor-next; }
+	Mod+Shift+comma           { move-column-to-monitor-previous; }
+	Mod+Shift+period          { move-column-to-monitor-next; }
+	Mod+Control+Shift+comma   { move-workspace-to-monitor-previous; }
+	Mod+Control+Shift+period  { move-workspace-to-monitor-next; }
+
+	// Mouse
+	Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+	Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+	Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+	Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+	Mod+WheelScrollRight                     { focus-column-right; }
+	Mod+WheelScrollLeft                      { focus-column-left; }
+	Mod+Ctrl+WheelScrollRight                { move-column-right; }
+	Mod+Ctrl+WheelScrollLeft                 { move-column-left; }
+	Mod+Shift+WheelScrollDown                { focus-column-right; }
+	Mod+Shift+WheelScrollUp                  { focus-column-left; }
+	Mod+Ctrl+Shift+WheelScrollDown           { move-column-right; }
+	Mod+Ctrl+Shift+WheelScrollUp             { move-column-left; }
+
+	// Applications such as remote-desktop clients and software KVM switches may
+	// request that niri stops processing the keyboard shortcuts defined here
+	// so they may, for example, forward the key presses as-is to a remote machine.
+	// It's a good idea to bind an escape hatch to toggle the inhibitor,
+	// so a buggy application can't hold your session hostage.
+	//
+	// The allow-inhibiting=false property can be applied to other binds as well,
+	// which ensures niri always processes them, even when an inhibitor is active.
+	Mod+Ctrl+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+	// Launchers
+	// Mod+C               hotkey-overlay-title="Copy Snippet" { spawn "snippet"; }
+	// Mod+Shift+O         hotkey-overlay-title="Copy Password" { spawn "~/.scripts/passcpy"; }
+	// Mod+Ctrl+O          hotkey-overlay-title="Copy Username" { spawn "~/.scripts/usercpy"; }
+	// Mod+Shift+Y         hotkey-overlay-title="View Note" { spawn "sh" "-c" "note --bemenu || notify-send -u critical note 'Exited with error'"; }
+	// Mod+Ctrl+Y          hotkey-overlay-title="Edit Note" { spawn "sh" "-c" "note --bemenu -e || notify-send -u critical note 'Exited with error'"; }
+	// Mod+Ctrl+Equal      hotkey-overlay-title="Add To Playlist" { spawn "~/.scripts/pladd_select"; }
+	// Control+Alt+H       hotkey-overlay-title="Spawn htop" { spawn "foot" "-W" "150x45" "-a" "floatme" "htop"; }
+	// Control+Alt+W       hotkey-overlay-title="Spawn Firefox" { spawn "firefox"; }
+	// Control+Alt+E       hotkey-overlay-title="Spawn Thunderbird" { spawn "thunderbird"; }
+	// Control+Alt+D       hotkey-overlay-title="Spawn Discord" { spawn "vesktop"; }
+	// Control+Alt+M       hotkey-overlay-title="Spawn ncmpcpp" { spawn "foot" "ncmpcpp"; }
+	// Control+Alt+N       hotkey-overlay-title="Spawn newsraft" { spawn "foot" "newsraft"; }
+	// Control+Alt+Slash   hotkey-overlay-title="Spawn qalc" { spawn "foot" "qalc"; }
+	// Control+Alt+T       hotkey-overlay-title="Open todo.txt" { spawn "sh" "-c" "$TERMINAL $EDITOR ~/Sync/todo.txt"; }
+	// Control+Alt+B       hotkey-overlay-title="Open Book" { spawn "~/.scripts/book"; }
+	// Control+Alt+L       hotkey-overlay-title="Lock" { spawn "swaylock"; }
+	// Control+Alt+A       hotkey-overlay-title="Spawn Anki" { spawn "anki"; }
+
+	// Status bar
+	// Mod+B               hotkey-overlay-title="Toggle Status Bar" { spawn "sh" "-c" "pkill -x yambar || yambar"; }
+
+	// Wallpaper
+	// Mod+Control+Shift+Slash  hotkey-overlay-title="Clear Wallpaper" { spawn "swww" "clear" "111111"; }
+	// Mod+Control+Slash        hotkey-overlay-title="Randomize Wallpaper" { spawn "~/.scripts/wallpaper_random.sh"; }
+
+	// Notifications
+	Control+Grave  hotkey-overlay-title="Dismiss All Notifications" { spawn "makoctl" "dismiss" "-a"; }
+	Mod+Grave      hotkey-overlay-title="Restore Last Notification" { spawn "makoctl" "restore"; }
+
+	// Backlight
+	XF86MonBrightnessUp     hotkey-overlay-title="Increase Monitor Brightness" { spawn "brightnessctl" "set" "--" "+5%"; }
+	XF86MonBrightnessDown   hotkey-overlay-title="Decrease Monitor Brightness" { spawn "brightnessctl" "set" "--" "-5%"; }
+
+	// Screenshots
+	// Print hotkey-overlay-title="Flameshot" { spawn "flameshot" "gui"; }
+	Ctrl+Print { screenshot-screen; }
+	Alt+Print { screenshot-window; }
+}
+
+hotkey-overlay {
+	skip-at-startup
+}
+
+environment {
+	// Make XWayland work (when xwayland-satellite is running)
+	// DISPLAY ":0"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    NIXOS_OZONE_WL "1"
+}
+
+// Configure status bar
+layer-rule {
+	match namespace="panel"
+	match at-startup=true
+
+	opacity 0.8
+	block-out-from "screen-capture"
+
+	shadow {
+		// on
+		// softness 20
+		// spread 4
+		// offset x=0 y=5
+		// draw-behind-window true
+		// color "#00000064"
+        off
+	}
+}
+
+// Stationary wallpaper (https://github.com/YaLTeR/niri/wiki/Overview#backdrop-customization)
+// layer-rule {
+// 	match namespace="^swww-daemon$"
+// 	place-within-backdrop true
+// }
+
+// Block notifications from screen capture
+layer-rule {
+	match namespace="notifications"
+	block-out-from "screen-capture"
+}
+
+// Global window rules
+window-rule {
+	clip-to-geometry true
+	geometry-corner-radius 0
+	// tab-indicator {
+	// 	active-gradient from="yellow" to="red"
+	// 	inactive-color "#211a"
+	// }
+}
+
+// focused not transprent
+window-rule {
+    match is-active=true
+    opacity 1.0
+}
+
+// unfocused transprent
+window-rule {
+    match is-active=false
+    opacity 0.7
+}
+
+// Floats
+window-rule {
+	match app-id="floatme"
+	open-floating true
+}
+
+// Firefox
+// window-rule {
+// 	match app-id="firefox" at-startup=true
+// 	open-maximized true
+// 	open-on-workspace "w"
+// }
+// window-rule {
+// 	match app-id="firefox" title="Picture-in-Picture"
+// 	open-floating true
+// }
+
+// Thunderbird
+// window-rule {
+// 	match app-id="thunderbird"
+// 	open-maximized true
+// 	open-on-workspace "e"
+// }
+
+// Discord
+// window-rule {
+// 	match app-id="discord|vesktop"
+// 	open-maximized true
+// 	open-on-workspace "d"
+// }
+
+// Flameshot
+// window-rule {
+// 	match app-id="flameshot" title="flameshot-pin"
+// 	open-floating true
+// 	shadow {
+// 		off
+// 	}
+// 	border {
+// 		off
+// 	}
+// 	focus-ring {
+// 		width 4
+// 	}
+// }
+// window-rule {
+// 	match app-id="flameshot" title="Save screenshot"
+// 	open-floating true
+// }
+
+// GPG Pinentry
+// window-rule {
+// 	match app-id="Pinentry"
+// 	open-floating true
+// }
+
+// Ardour
+// window-rule {
+// 	match app-id="Ardour" at-startup=true
+// 	open-maximized true
+// }
+// window-rule {
+// 	match app-id="Ardour-"
+// 	match app-id="Ardour" title="Add Existing Media"
+// 	open-floating true
+// }
+
+// sfizz
+// window-rule {
+// 	match app-id="zenity" title="Load SFZ file"
+// 	open-floating true
+// }
+
+// Hydrogen
+// window-rule {
+// 	match app-id="hydrogen" at-startup=true
+// 	open-maximized true
+// }
+// window-rule {
+// 	match app-id="hydrogen" title="Audio File Browser"
+// 	match app-id="hydrogen" title="Mixer"
+// 	open-floating true
+// }
+
+// Olive Editor
+// window-rule {
+// 	match app-id="Olive"
+// 	open-floating true
+// 	open-fullscreen false
+// }
+// window-rule {
+// 	match app-id="Olive" title=r#"^Olive [0-9\.]+-[0-9a-f]+ - .*$"#
+// 	open-floating false
+// 	open-maximized true
+// }
+
+// XDG Open Files dialog
+// window-rule {
+// 	match app-id="xdg-desktop-portal-gtk" title="Open Files"
+// 	open-floating true
+// }
+
+// sfizz
+// window-rule {
+// 	match app-id="xdg-desktop-portal-gtk" title="Load SFZ file"
+// 	open-floating true
+// }

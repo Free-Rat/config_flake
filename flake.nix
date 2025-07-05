@@ -23,9 +23,9 @@
       url = "github:Free-Rat/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fabric-bar = {
-      url = "github:Free-Rat/fabric-bar-nix";
-    };
+    # fabric-bar = {
+    #   url = "github:Free-Rat/fabric-bar-nix";
+    # };
   };
 
   outputs = {
@@ -78,7 +78,8 @@
           # ./modules/awesome
           # ./modules/hyprland
           # ./modules/qtile
-          ./modules/river.nix
+          # ./modules/river.nix
+          ./modules/niri
           # ./modules/sway
           home-manager.nixosModules.home-manager
           {
