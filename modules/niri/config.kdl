@@ -9,7 +9,7 @@ spawn-at-startup "~/.config/niri/init.sh"
 workspace "m"
 workspace "n"
 workspace "e"
-workspace "d"
+workspace "browser"
 workspace "w"
 
 input {
@@ -89,12 +89,17 @@ overview {
 	}
 }
 
+animations {
+    off
+}
+
 binds {
 	// Basic keybindings
 	Mod+Shift+Slash { show-hotkey-overlay; }
 	Mod+Return { spawn "alacritty"; }
 	Mod+Space { spawn "rofi" "-show" "drun"; }
-	Mod+Shift+Q { spawn "quitmenu"; }
+	// Mod+Shift+Q { spawn "quitmenu"; }
+	Mod+Shift+Q { quit; }
 	Mod+G { toggle-overview; }
 
 	// Volume control
@@ -176,7 +181,7 @@ binds {
 	Mod+M   { focus-workspace "m"; }
 	Mod+N   { focus-workspace "n"; }
 	Mod+E   { focus-workspace "e"; }
-	Mod+D   { focus-workspace "d"; }
+	Mod+B   { focus-workspace "browser"; }
 	Mod+W   { focus-workspace "w"; }
 	Mod+1   { focus-workspace 6; }
 	Mod+2   { focus-workspace 7; }
@@ -326,6 +331,12 @@ window-rule {
 	// }
 }
 
+// Newly open windows are fosued
+window-rule {
+    match app-id=".*"
+    open-focused true
+}
+
 // focused not transprent
 window-rule {
     match is-active=true
@@ -345,11 +356,11 @@ window-rule {
 }
 
 // Firefox
-// window-rule {
-// 	match app-id="firefox" at-startup=true
-// 	open-maximized true
-// 	open-on-workspace "w"
-// }
+window-rule {
+	match app-id="firefox" at-startup=true
+	open-maximized true
+	open-on-workspace "browser"
+}
 // window-rule {
 // 	match app-id="firefox" title="Picture-in-Picture"
 // 	open-floating true

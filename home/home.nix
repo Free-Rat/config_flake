@@ -15,6 +15,7 @@
     ./programs/river
     # ./programs/sway
     ./programs/alacritty
+    ./programs/kakoune
   ];
 
   home = {
@@ -58,8 +59,10 @@
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
+    kicad
     tcpdump
-    kakoune
+    # kakoune
+    libnotify # notify-send
     bruno
     # swww
     yazi
@@ -76,11 +79,13 @@
     maim # screenshot tool
     xclip
 
-    # vieb
+    vieb
     # vimb
     # qutebrowser
     # nyxt
     firefox
+    brave
+
     kitty
 
     # Utils
@@ -90,7 +95,7 @@
     ranger
     wlr-randr
     curl
-    dunst
+    #dunst
     catimg
     pavucontrol
     pamixer

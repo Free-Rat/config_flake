@@ -1,0 +1,163 @@
+# bash
+[language.bash.grammar.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-bash"
+pin = "275effdfc0edce774acf7d481f9ea195c6c403cd"
+
+[language.bash.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "bash.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.bash.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.bash.queries]
+path = "runtime/queries/bash"
+
+# cmake
+[language.cmake.grammar.source.git]
+url = "https://github.com/uyha/tree-sitter-cmake"
+pin = "6e51463ef3052dd3b328322c22172eda093727ad"
+
+[language.cmake.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "../scanner.cc", "-I", ".."]
+compile_flags = ["-O3", "-flto=auto", "-march=native"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "scanner.o", "-o", "cmake.so"]
+link_flags = ["-O3", "-lstdc++", "-flto=auto"]
+
+[language.cmake.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.cmake.queries]
+path = "runtime/queries/cmake"
+
+# c bugfix for default config
+[language.c.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+# cpp
+[language.cpp.grammar.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-cpp"
+pin = "670404d7c689be1c868a46f919ba2a3912f2b7ef"
+
+[language.cpp.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "cpp.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.cpp.queries.source.git]
+url = "https://git.sr.ht/~hadronized/kak-tree-sitter"
+pin = "b0ecb0d376c94d2fa4814816b41986bf5d735384"
+
+[language.cpp.queries]
+path = "runtime/queries/cpp"
+
+# dart
+# TODO
+
+# html
+[language.html.grammar.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-html"
+pin = "86c253e675e7fdd1c0482efe0706f24bafbc3a7d"
+
+[language.html.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "../scanner.cc", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "html.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.html.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.html.queries]
+path = "runtime/queries/html"
+
+# lua
+# TODO
+
+# ocaml
+# TODO
+
+# ocaml-interface
+# TODO
+
+# python
+[language.python.grammar.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-python"
+pin = "de221eccf9a221f5b85474a553474a69b4b5784d"
+
+[language.python.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "python.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.python.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.python.queries]
+path = "runtime/queries/python"
+
+# ruby
+[language.ruby.grammar.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-ruby"
+pin = "206c7077164372c596ffa8eaadb9435c28941364"
+
+[language.ruby.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "c++"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "ruby.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.ruby.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.ruby.queries]
+path = "runtime/queries/ruby"
+
+# yaml
+[language.yaml.grammar.source.git]
+url = "https://github.com/ikatyang/tree-sitter-yaml"
+pin = "0e36bed171768908f331ff7dff9d956bae016efb"
+
+[language.yaml.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "yaml.so"]
+link_flags = ["-O3", "-lstdc++"]
+
+[language.yaml.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.yaml.queries]
+path = "runtime/queries/yaml"

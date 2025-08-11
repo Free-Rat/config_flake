@@ -3,10 +3,12 @@
   pkgs,
   ...
 }: {
-  services.xserver = {
-    xkb.layout = "pl";
-    xkb.variant = "";
-    enable = true;
+  services = {
+    xserver = {
+    	xkb.layout = "pl";
+    	xkb.variant = "";
+    	enable = true;
+    };
     displayManager = {
       gdm = {
         enable = true;

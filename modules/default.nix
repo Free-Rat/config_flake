@@ -4,19 +4,22 @@
   lib,
   config,
   ...
-}: {
+}: let
+  config_path = "/home/freerat/config_flake";
+in {
   imports = [
     ./sound.nix
   ];
 
-  environment.variables = {
+  environment.variables = rec {
     EDITOR = "nvim";
     SHELL = "bash";
     KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
     PATH_FLAKE_CONFIG = "$HOME/config_flake";
-    PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
-    PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
-    PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
+    PATH_SCRIPTS = "${PATH_FLAKE_CONFIG}/scripts";
+    PATH_WALLPAPERS = "${PATH_FLAKE_CONFIG}/wallpapers";
+    PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/home/programs";
+    KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
   };
 
   fonts.packages = with pkgs; [
