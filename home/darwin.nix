@@ -34,12 +34,17 @@
   };
 
   home.packages = with pkgs; [
+    ios-deploy #
     # libreoffice
     # swiftlint
     zed-editor
     fzf
     yazi
+
     # dotnet-sdk_6
+    dotnet-sdk_9
+    upgrade-assistant
+
     discord
     caprine-bin
     # kitty
@@ -60,6 +65,7 @@
     # postman
 
     termshark
+    pika # color picker
 
     ranger
     curl

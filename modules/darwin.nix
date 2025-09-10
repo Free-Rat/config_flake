@@ -26,6 +26,7 @@
       # 	"r"
       "mono"
       "swiftlint"
+      # "ios-deploy"
     ];
 
     casks = [
@@ -53,7 +54,7 @@
       # "microsoft-outlook"
       "bruno"
       "visual-studio-code"
-      "visual-studio"
+      # "visual-studio"
       "zoom"
       # "libreoffice-still" # nie działa ??
       "drawio"

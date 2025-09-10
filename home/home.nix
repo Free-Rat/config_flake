@@ -78,6 +78,7 @@
     # zathura
     maim # screenshot tool
     xclip
+    shellcheck # sh script validator
 
     vieb
     # vimb
