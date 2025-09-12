@@ -20,6 +20,7 @@ in {
     PATH_WALLPAPERS = "${PATH_FLAKE_CONFIG}/wallpapers";
     PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/home/programs";
     KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
+    WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm";
   };
 
   fonts.packages = with pkgs; [

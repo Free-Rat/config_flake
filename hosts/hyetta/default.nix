@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: 
+let
+  myHome = config.users.users.tomaszlawicki.home;
+  flake = "${myHome}/config_flake";
+  programsDir = "${flake}/home/programs";
+in
+{
   # services.nix-daemon.enable = true;
   nix = {
     enable = true;
@@ -12,7 +18,8 @@
 
   # Used for backwards compatibility. please read the changelog
   # before changing: `darwin-rebuild changelog`.
-  system.stateVersion = 4;
+  # ids.gids.nixbld = 350;
+  system.stateVersion = 6;
   system.primaryUser = "tomaszlawicki";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -20,6 +27,7 @@
   users.users.tomaszlawicki = {
     name = "tomaszlawicki";
     home = "/Users/tomaszlawicki";
+    shell = pkgs.bash;
   };
   programs.zsh.enable = true;
 
@@ -27,4 +35,16 @@
     rustc
     cargo
   ];
+
+  environment.shells = with pkgs; [ bash ];
+
+  launchd.user.envVariables = {
+    PATH_FLAKE_CONFIG   = flake;
+    PATH_SCRIPTS        = "${flake}/scripts";
+    PATH_WALLPAPERS     = "${flake}/wallpapers";
+    PATH_PROGRAMS       = programsDir;
+    KAKOUNE_CONFIG_DIR  = "${programsDir}/kakoune";
+    WEZTERM_CONFIG_DIR  = "${programsDir}/wezterm";
+    WEZTERM_CONFIG_FILE = "${programsDir}/wezterm/wezterm.lua";
+  };
 }

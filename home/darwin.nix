@@ -5,48 +5,58 @@
   ...
 }: {
   imports = [
-    ./programs/kitty
-    ./programs/alacritty
+    #./programs/kitty
+    #./programs/alacritty
     ./programs/wezterm
-    ./programs/fish.nix
+    #./programs/fish.nix
     # ./programs/nixvim
     ./programs/nvf
-    ./programs/starship
+    ./programs/nushell
+    # ./programs/kakoune
+    #./programs/starship
     # ./programs/ghostty # currently broken on macos
   ];
   home = {
     username = "${hyettaUser}";
     #homeDirectory = "/home/${hyettaUser}";
 
-    sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "vieb";
-      TERMINAL = "kitty";
-      SHELL = "fish";
-
-      PATH_FLAKE_CONFIG = "$HOME/config_flake";
-      PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
-      PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
-      PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
-
-      # KITTY_CONFIG_DIRECTORY = "$HOME/config_flake/home/programs/kitty/kitty.conf";
-    };
+    # sessionVariables DO NOT WORK ;-;
+    # sessionVariables = rec {
+    #   EDITOR = "nvim";
+    #   # BROWSER = "vieb";
+    #   # TERMINAL = "kitty";
+    #   # SHELL = "fish";
+    #
+    #   PATH_FLAKE_CONFIG = "$HOME/config_flake";
+    #   PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
+    #   PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
+    #   PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
+    #
+    #   KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
+    #   WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm/wezterm.lua";
+    #   WEZTERM_CONFIG_DIR = "${PATH_PROGRAMS}/wezterm";
+    #
+    #   # KITTY_CONFIG_DIRECTORY = "$HOME/config_flake/home/programs/kitty/kitty.conf";
+    # };
   };
 
   home.packages = with pkgs; [
-    ios-deploy #
+    ios-deploy 
     # libreoffice
     # swiftlint
-    zed-editor
+    # zed-editor
     fzf
-    yazi
+    nushell
+    fd
+    ripgrep
+    # yazi
 
     # dotnet-sdk_6
-    dotnet-sdk_9
-    upgrade-assistant
+    # dotnet-sdk_9
+    # upgrade-assistant
 
-    discord
-    caprine-bin
+    # discord
+    # caprine-bin
     # kitty
     lazygit
     # vieb
@@ -54,18 +64,19 @@
     # luakit
     # nyxt
     # qutebrowser
-    librewolf
+    # librewolf
+    firefox
 
     # dbeaver-bin ; pobrane przez homebrew
     openvpn
-    subversion
+    # subversion
 
     # bruno
     atac
     # postman
 
-    termshark
-    pika # color picker
+    # termshark
+    # pika # color picker
 
     ranger
     curl
@@ -74,7 +85,7 @@
     bat
     unzip
     tree
-    neofetch
+    # neofetch
     fastfetch
     wget
     btop
