@@ -17,7 +17,7 @@
 
   xdg.portal.enable = true;
 
-  programs.river = {
+  programs.river-classic = {
     enable = true;
     extraPackages = with pkgs; [
       # grim

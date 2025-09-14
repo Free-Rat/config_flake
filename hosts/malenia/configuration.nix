@@ -1,27 +1,38 @@
-{ pkgs, ... } : {
-  imports = [ ./hardware-configuration.nix ];
+{pkgs, ...}: {
+  imports = [./hardware-configuration.nix];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  nixpkgs.config.allowUnfree = true;
+
+  # virtualisation.virtualbox = {
+  #   host.enable = true;
+  #   host.enableExtensionPack = true;
+  #   guest.enable = true;
+  #   guest.dragAndDrop = true;
+  # };
+  # users.extraGroups.vboxusers.members = ["freerat"];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
   boot.loader = {
-		efi.canTouchEfiVariables = true;
-		grub = { 
-			enable = true;
-			useOSProber = true;
-  			efiSupport = true;
-  			devices = [ "nodev" ];
-		};
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      useOSProber = true;
+      efiSupport = true;
+      devices = ["nodev"];
+    };
   };
+  # boot.kernelParams = ["kvm.enable_virt_at_load=0"];
 
   networking.hostName = "malenia";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.networkmanager.enable = true;
 
-  hardware.graphics = { 
-		enable = true;
+  hardware.graphics = {
+    enable = true;
   };
 
   time.hardwareClockInLocalTime = true;
@@ -46,7 +57,7 @@
   users.users.freerat = {
     isNormalUser = true;
     description = "Free-Rat";
-    extraGroups = [ 
+    extraGroups = [
       "networkmanager"
       "wheel"
       "audio"
@@ -54,7 +65,7 @@
     ];
     packages = with pkgs; [
       firefox
-	  vim
+      vim
     ];
   };
 
@@ -63,6 +74,9 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
+
+  services.printing.enable = true;
+  services.printing.drivers = [pkgs.hplip];
 
   system.stateVersion = "23.11";
 }

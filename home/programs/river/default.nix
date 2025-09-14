@@ -20,7 +20,7 @@
   ];
   # ]) ++ bundle-set;
 
-  wayland.windowManager.river = {
+  wayland.windowManager.river-classic = {
     enable = true;
     extraConfig = builtins.readFile ./config.sh;
     xwayland.enable = true;

@@ -2,12 +2,13 @@
 {
   programs.bash = {
     enable = true;
-    interactiveShellInit = builtins.readFile ./bashrc.sh;
+    # interactiveShellInit = builtins.readFile ./bashrc.sh;
+    profileExtra = "source $PATH_PROGRAMS/bash/bashrc.sh";
   };
 
-  home.packages = with pkgs; [
-    bash
-    bash-completion
-  ];
+  # home.packages = with pkgs; [
+  #   bash
+  #   # bash-completion
+  # ];
 }
 

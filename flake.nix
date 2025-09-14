@@ -106,7 +106,8 @@
         modules = [
           ./hosts/malenia
           ./modules
-          ./modules/hyprland
+          #./modules/hyprland
+          ./modules/niri
           # ./modules/awesome
           # hyprland.nixosModules.default
           home-manager.nixosModules.home-manager

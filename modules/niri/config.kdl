@@ -96,7 +96,7 @@ animations {
 binds {
 	// Basic keybindings
 	Mod+Shift+Slash { show-hotkey-overlay; }
-	Mod+Return { spawn "alacritty"; }
+	Mod+Return { spawn "wezterm"; }
 	Mod+Space { spawn "rofi" "-show" "drun"; }
 	// Mod+Shift+Q { spawn "quitmenu"; }
 	Mod+Shift+Q { quit; }

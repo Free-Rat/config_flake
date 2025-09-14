@@ -9,13 +9,16 @@
     ./programs/rofi
     # ./programs/nixvim
     ./programs/nvf
-    ./programs/ghostty
+    # ./programs/ghostty
     # ./programs/starship
     # ./programs/hypr
-    ./programs/river
+    # ./programs/river
     # ./programs/sway
     ./programs/alacritty
     ./programs/kakoune
+    ./programs/wezterm
+    ./programs/nushell
+    # ./programs/bash
   ];
 
   home = {
@@ -24,9 +27,7 @@
 
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "vieb";
       # TERMINAL = "alacritty";
-      TERMINAL = "kitty";
 
       PATH_FLAKE_CONFIG = "$HOME/config_flake";
       PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
@@ -77,17 +78,16 @@
     lazygit
     # zathura
     maim # screenshot tool
-    xclip
+    # xclip
     shellcheck # sh script validator
 
-    vieb
+    # vieb
     # vimb
-    # qutebrowser
+    qutebrowser
     # nyxt
     firefox
-    brave
-
-    kitty
+    # brave
+    # kitty
 
     # Utils
     entr # Run arbitrary commands when files change
