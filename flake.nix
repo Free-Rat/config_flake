@@ -33,6 +33,7 @@
     nixpkgs,
     home-manager,
     nix-darwin,
+    # hyprland,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -76,10 +77,10 @@
           ./modules
           # ./modules/xmonad
           # ./modules/awesome
-          # ./modules/hyprland
+          ./modules/hyprland
           # ./modules/qtile
           # ./modules/river.nix
-          ./modules/niri
+          # ./modules/niri
           # ./modules/sway
           home-manager.nixosModules.home-manager
           {

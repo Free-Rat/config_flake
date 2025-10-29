@@ -8,6 +8,23 @@
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "freerat" ];
+  boot.kernelModules = [
+    "ip_tables"
+    "iptable_filter"
+    "iptable_nat"
+    "nf_conntrack"
+    "nf_conntrack_ipv4" # opcjonalnie
+    "nf_nat"
+    "xt_conntrack"
+  ];
+  # trwałe ustawienie sysctl (net.ipv4.ip_forward)
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
+  virtualisation.docker.enable = true;
+
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
@@ -42,6 +59,7 @@
       "audio"
       "video"
       "dialout"
+      "docker"
     ];
     packages = with pkgs; [
       # firefox

@@ -24,16 +24,16 @@
   home = {
     username = "${user}";
     homeDirectory = "/home/${user}";
-
-    sessionVariables = {
-      EDITOR = "nvim";
-      # TERMINAL = "alacritty";
-
-      PATH_FLAKE_CONFIG = "$HOME/config_flake";
-      PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
-      PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
-      PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
-    };
+    #
+    # sessionVariables = {
+    #   EDITOR = "nvim";
+    #   # TERMINAL = "alacritty";
+    #
+    #   PATH_FLAKE_CONFIG = "$HOME/config_flake";
+    #   PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
+    #   PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
+    #   PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
+    # };
   };
 
   home.sessionPath = ["$HOME/.cargo/bin"];
@@ -60,12 +60,13 @@
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
+    krita
     kicad
     tcpdump
     # kakoune
     libnotify # notify-send
     bruno
-    # swww
+    swww
     yazi
     # User Apps
     # obsidian
@@ -88,6 +89,9 @@
     firefox
     # brave
     # kitty
+
+    signal-cli
+    signal-desktop
 
     # Utils
     entr # Run arbitrary commands when files change
