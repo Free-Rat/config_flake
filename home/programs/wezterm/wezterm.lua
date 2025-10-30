@@ -14,7 +14,8 @@ config.colors = my_colors
 config.tab_bar_at_bottom = false
 
 -- config.color_scheme = 'MonaLisa'
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.7
+config.text_background_opacity = 0.5
 config.automatically_reload_config = true
 config.macos_window_background_blur = 20
 config.font_size = 17.0

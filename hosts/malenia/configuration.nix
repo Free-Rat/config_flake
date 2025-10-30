@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  imports = [./hardware-configuration.nix];
+  imports = [
+        ./hardware-configuration.nix
+        ../../infra/piaseczny_cache.nix
+    ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
