@@ -54,6 +54,9 @@
     ".config/sway/config" = {
       source = ../modules/sway/sway.conf;
     };
+    ".local/share/icons/miku-cursor-linux" = {
+      source = ../modules/hyprland/miku-cursor-linux; 
+    };
   };
 
   xdg.configFile."niri/config.kdl".source = ../modules/niri/config.kdl;
@@ -81,6 +84,9 @@
     maim # screenshot tool
     # xclip
     shellcheck # sh script validator
+
+    grim
+    slurp # screenshot duo
 
     # vieb
     # vimb

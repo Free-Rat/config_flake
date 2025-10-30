@@ -18,7 +18,7 @@ config.window_background_opacity = 0.7
 config.text_background_opacity = 0.5
 config.automatically_reload_config = true
 config.macos_window_background_blur = 20
-config.font_size = 17.0
+config.font_size = 12.0
 config.native_macos_fullscreen_mode = true
 -- config.macos_fullscreen_extend_behind_notch = false
 
