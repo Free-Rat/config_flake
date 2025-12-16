@@ -46,6 +46,10 @@ config.ssh_domains = {
         remote_address = "10.0.2.49",
         username = "tomasz_lawicki",
     },
-}
+}  
 
+config.font = wezterm.font('Monaspace Krypton', { weight = 'Regular' })
+-- config.font = wezterm.font('DepartureMono Nerd Font')
+-- config.font = wezterm.font('ProggyClean CE Nerd Font')
+-- config.font = wezterm.font('Hack Nerd Font')
 return config

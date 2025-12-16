@@ -63,8 +63,8 @@
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
-    krita
-    kicad
+    # krita
+    # kicad
     tcpdump
     # kakoune
     libnotify # notify-send
@@ -74,12 +74,16 @@
     # User Apps
     # obsidian
     discord
+    swayimg
+    loupe
     ncdu
     # caprine-bin
     librewolf
     # nyxt
     keepassxc
     lazygit
+    lazydocker
+    lazyjournal
     # zathura
     maim # screenshot tool
     # xclip
@@ -93,7 +97,7 @@
     qutebrowser
     # nyxt
     firefox
-    # brave
+    brave
     # kitty
 
     signal-cli
@@ -129,7 +133,7 @@
     wget
     slurp
     wl-clipboard
-    mpc-cli
+    mpc
     tty-clock
     btop
     # gh

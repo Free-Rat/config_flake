@@ -59,7 +59,7 @@
     wget
     slurp
     wl-clipboard
-    mpc-cli
+    mpc
     tty-clock
     btop
     linuxquota

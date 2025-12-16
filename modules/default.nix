@@ -26,9 +26,14 @@ in {
 
   fonts.packages = with pkgs; [
     monaspace
+
     #    noto-fonts
+    nerd-fonts.hack
+    # nerd-fonts.iosevka
+    # nerd-fonts.proggy-clean-tt
+    # nerd-fonts.departure-mono
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   nixpkgs = {

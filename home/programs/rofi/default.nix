@@ -7,7 +7,9 @@
     enable = true;
     terminal = "alacritty";
     # theme = ./themes/squared-everforest.rasi;
-    theme = ./sniedz.rasi;
-    package = pkgs.rofi-wayland;
+    # theme = ./sniedz.rasi;
+    theme = ./themes/nord.rasi;
+    # package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
   };
 }
