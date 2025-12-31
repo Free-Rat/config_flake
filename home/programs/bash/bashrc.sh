@@ -1,3 +1,5 @@
+#!/bin/bash
+
 blue_c="\[\033[1;34m\]"
 magenta_c="\[\033[1;35m\]"
 cyan_c="\[\033[1;36m\]"
@@ -14,6 +16,8 @@ PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
 PATH_WALLPAPERS="$PATH_FLAKE_CONFIG/wallpapers"
 PATH_PROGRAMS="$PATH_FLAKE_CONFIG/home/programs"
+PATH="$PATH:$HOME/.cargo/bin"
+PATH="/home/freerat/.local/bin:$PATH"
 
 set -o vi
 source <(fzf --bash)
@@ -46,3 +50,11 @@ alias keepassxc="keepassxc -platform xcb"
 alias copy="xclip -sel clip"
 
 # wallust run $(cat ~/.wallpaper_path) -I background -q -C $PATH_PROGRAMS/wallust.toml -u
+
+# unlimited Bash history
+export HISTSIZE=-1
+export HISTFILESIZE=-1
+# Ensure Bash appends to history instead of overwriting across sessions
+shopt -s histappend
+# This skips duplicate commands and those starting with a space
+export HISTCONTROL=ignoreboth:erasedups
