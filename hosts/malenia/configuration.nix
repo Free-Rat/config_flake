@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
         ./hardware-configuration.nix
-        ../../infra/piaseczny_cache.nix
+        # ../../infra/piaseczny_cache.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -28,14 +28,23 @@
     };
   };
   # boot.kernelParams = ["kvm.enable_virt_at_load=0"];
+  boot.kernelParams = [
+        # "acpi=force"
+        # "reboot=acpi"
+        # "amd_pstate=active"
+        "amdgpu.gpu_recovery=1"
+    ];
 
   networking.hostName = "malenia";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.networkmanager.enable = true;
 
+  virtualisation.docker.enable = true;
+
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
 
   time.hardwareClockInLocalTime = true;
@@ -65,6 +74,7 @@
       "wheel"
       "audio"
       "video"
+      "docker"
     ];
     packages = with pkgs; [
       firefox

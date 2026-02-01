@@ -24,6 +24,7 @@
       xkb.layout = "pl";
       xkb.variant = "";
       enable = true;
+      videoDrivers = [ "amdgpu" ];
     };
     displayManager = {
       gdm = {

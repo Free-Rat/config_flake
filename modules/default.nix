@@ -22,6 +22,8 @@ in {
     KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
     WEZTERM_CONFIG_DIR = "${PATH_PROGRAMS}/wezterm";
     WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm/wezterm.lua";
+
+    AMD_VULKAN_ICD = "RADV";
   };
 
   fonts.packages = with pkgs; [
