@@ -15,10 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # hyprland.url = "github:hyprwm/Hyprland";
-    nixvim = {
-      url = "github:Free-Rat/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixvim = {
+    #   url = "github:Free-Rat/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nvf = {
       url = "github:Free-Rat/nvf";
       inputs.nixpkgs.follows = "nixpkgs";

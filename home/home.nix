@@ -75,10 +75,10 @@
     # obsidian
     discord
     swayimg
-    loupe
+    loupe # podgląd zdjęć
     ncdu
     # caprine-bin
-    librewolf
+    # librewolf
     # nyxt
     keepassxc
     lazygit
@@ -166,9 +166,9 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    userName = "Free-Rat";
-    userEmail = "lawicki02@gmail.com";
-    extraConfig = {
+    settings = {
+        user.name = "Free-Rat";
+        user.email = "lawicki02@gmail.com";
       core = {
         askpass = "";
       };
