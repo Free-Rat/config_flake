@@ -76,6 +76,7 @@
     discord
     swayimg
     loupe # podgląd zdjęć
+    viu # podgląd zdjęc w terminalu
     ncdu
     # caprine-bin
     # librewolf
