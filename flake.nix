@@ -44,6 +44,7 @@
     # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
   in {
     darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
+      # hyetta - macbook
       system = "aarch64-darwin";
       specialArgs = {inherit inputs hyettaUser hyettaHost;};
       modules = [
@@ -129,7 +130,7 @@
         ];
       };
 
-      #melina - my server
+      #melina - rasberypi server
       melina = lib.nixosSystem {
         modules = [
           ./hosts/melina
@@ -152,12 +153,28 @@
         ];
       };
 
-      #vyke - my windows pc vm
-      vyke = lib.nixosSystem {
+      #maliketh - mini pc server
+      maliketh = lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs user;};
         modules = [
-          /etc/nixos/configuration.nix
+          ./hosts/maliketh
+          ./modules
+          ./modules/hyprland
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${user}" = import ./home/home.nix;
+              extraSpecialArgs = {
+                inherit
+                  user
+                  inputs
+                  ;
+              };
+            };
+          }
         ];
       };
     };
