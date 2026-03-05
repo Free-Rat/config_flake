@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, user, ...}: {
   imports = [
         ./hardware-configuration.nix
         # ../../infra/piaseczny_cache.nix
@@ -66,7 +66,7 @@
   # services.printing.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.freerat = {
+  users.users.${user} = {
     isNormalUser = true;
     description = "Free-Rat";
     extraGroups = [
@@ -75,10 +75,6 @@
       "audio"
       "video"
       "docker"
-    ];
-    packages = with pkgs; [
-      firefox
-      vim
     ];
   };
 

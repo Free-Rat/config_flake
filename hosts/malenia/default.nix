@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-	imports = [ 
-	    ./configuration.nix
-		];
+  imports = [
+    ./configuration.nix
+  ];
 }

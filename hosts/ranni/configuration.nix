@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, user, ...}: {
   imports = [./hardware-configuration.nix];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -50,7 +50,7 @@
     LC_TIME = "pl_PL.UTF-8";
   };
 
-  users.users.freerat = {
+  users.users.${user} = {
     isNormalUser = true;
     description = "Free-Rat";
     extraGroups = [
@@ -60,12 +60,6 @@
       "video"
       "dialout"
       "docker"
-    ];
-    packages = with pkgs; [
-      # firefox
-      vim
-      git
-      ncdu
     ];
   };
 

@@ -48,7 +48,7 @@ in {
 
     # xorg.xbacklight
     brightnessctl
-    picom
+    # picom
 
     # elixir
 
@@ -63,8 +63,8 @@ in {
     cargo
 
     lua
-    networkmanager
-    networkmanagerapplet
+    # networkmanager
+    # networkmanagerapplet
     gcc
     clang
     wget
@@ -86,14 +86,14 @@ in {
   #   #   # indicator = false;
   # };
 
-  systemd.user.services = {
-    nm-applet = {
-      description = "Network manager applet";
-      wantedBy = ["graphical-session.target"];
-      partOf = ["graphical-session.target"];
-      serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-    };
-  };
+  # systemd.user.services = {
+  #   nm-applet = {
+  #     description = "Network manager applet";
+  #     wantedBy = ["graphical-session.target"];
+  #     partOf = ["graphical-session.target"];
+  #     serviceConfig.ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+  #   };
+  # };
 
   # services.rpcbind.enable = true; # laby npw - rpc
 
