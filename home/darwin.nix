@@ -49,6 +49,7 @@
     nushell
     fd
     ripgrep
+    opencode
     # yazi
 
     # dotnet-sdk_6
@@ -91,6 +92,9 @@
     btop
     cmatrix
     asciiquarium-transparent
+
+    bash
+    bash-completion
   ];
 
   programs.home-manager.enable = true;

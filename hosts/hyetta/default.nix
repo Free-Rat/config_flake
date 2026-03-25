@@ -28,6 +28,7 @@ in
     name = "tomaszlawicki";
     home = "/Users/tomaszlawicki";
     shell = pkgs.bash;
+    uid = 501;
   };
   programs.zsh.enable = true;
 

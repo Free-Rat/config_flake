@@ -30,7 +30,7 @@
     ];
 
     casks = [
-      # "libreoffice"
+      "libreoffice"
       # {
       #   name = "libreoffice";
       #   version = "25.2.4";
@@ -43,7 +43,7 @@
       "sf-symbols"
       # "raycast"
       "obsidian"
-      # "spotify"
+      "spotify"
       "keepassxc"
       "openvpn-connect"
       # "colorpicker-materialdesign"
@@ -59,7 +59,7 @@
       # "zoom"
       # "libreoffice-still" # nie działa ??
       # "drawio"
-      # "anki"
+      "anki"
       "microsoft-remote-desktop"
       # "rstudio"
       # "krita"
