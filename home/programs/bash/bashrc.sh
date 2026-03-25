@@ -53,7 +53,7 @@ case "$HOST" in
         COLOR=$red_l_c
         ;;
     ranni)
-        COLOR=$blue_l_c
+        COLOR=$cyan_l_c
         ;;
     melina)
         COLOR=$magenta_l_c
