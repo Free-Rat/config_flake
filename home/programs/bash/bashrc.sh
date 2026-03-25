@@ -1,16 +1,73 @@
 #!/bin/bash
 
-blue_c="\[\033[1;34m\]"
-magenta_c="\[\033[1;35m\]"
-cyan_c="\[\033[1;36m\]"
-white_c="\[\033[1;37m\]"
+# Reset
 back_c="\[\e[1;0m\]"
+reset_c="\[\033[0m\]"
+
+# Regular colors
+black_c="\[\033[0;30m\]"
+red_c="\[\033[0;31m\]"
+green_c="\[\033[0;32m\]"
+yellow_c="\[\033[0;33m\]"
+blue_c="\[\033[0;34m\]"
+magenta_c="\[\033[0;35m\]"
+cyan_c="\[\033[0;36m\]"
+white_d_c="\[\033[0;37m\]"
+
+# Bright (bold) colors
+black_l_c="\[\033[1;30m\]"
+red_l_c="\[\033[1;31m\]"
+green_l_c="\[\033[1;32m\]"
+yellow_l_c="\[\033[1;33m\]"
+blue_l_c="\[\033[1;34m\]"
+magenta_l_c="\[\033[1;35m\]"
+cyan_l_c="\[\033[1;36m\]"
+white_l_c="\[\033[1;37m\]"
+
+# Optional: background colors
+bg_black_c="\[\033[40m\]"
+bg_red_c="\[\033[41m\]"
+bg_green_c="\[\033[42m\]"
+bg_yellow_c="\[\033[43m\]"
+bg_blue_c="\[\033[44m\]"
+bg_magenta_c="\[\033[45m\]"
+bg_cyan_c="\[\033[46m\]"
+bg_white_c="\[\033[47m\]"
+
 # export PS1="\[\033[1;32m\]\[\e]0;\u@\h: \w\a\]\u@\h \w >>\[\033[0m\] "
 # export PS1="$cyan_c\u$white_c@$blue_c\h $magenta_c\W $cyan_c>> $back_c"
 # TODO git in prompt
 # TODO vim mode
 # TODO nix-shell
-export PS1="\n $cyan_c\W $blue_c>> $back_c"
+
+# Get hostname
+HOST=$(hostname)
+
+
+# Change color depending on hostname
+case "$HOST" in
+    maliketh)
+        COLOR=$black_l_c
+        ;;
+    malenia)
+        COLOR=$red_l_c
+        ;;
+    ranni)
+        COLOR=$blue_l_c
+        ;;
+    melina)
+        COLOR=$magenta_l_c
+        ;;
+    MacBookAir.home)
+        COLOR=$yellow_l_c
+        ;;
+    *)
+        COLOR=$green_c
+        ;;
+esac
+
+# Set PS1
+export PS1="\n ${COLOR}\W $white_d_c>$white_l_c> $back_c ${reset_c}"
 
 PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
