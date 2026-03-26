@@ -1,4 +1,11 @@
 {
+  # pc: sellia
+  # thinkpad: lucaria or raya-lucaria
+  # macbook: leyndell or midra-manse or manse
+  # minipc(public ip): stromveil
+  # rasberypi: jarburg
+  # old thosiba: morne or castle-morne or nokstella or deeproot
+
   description = "Flake of a Dark Moon";
   # Updaing only one input
   # nix flake lock --update-input nixvim
@@ -28,155 +35,158 @@
     # };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-darwin,
-    # hyprland,
-    ...
-  } @ inputs: let
-    lib = nixpkgs.lib;
-    user = "freerat";
-    hyettaUser = "tomaszlawicki";
-    hyettaHost = "Tomaszs-MacBook-Air";
-    system = "x86_64-linux";
-    # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
-  in {
-    darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
-      # hyetta - macbook
-      system = "aarch64-darwin";
-      specialArgs = {inherit inputs hyettaUser hyettaHost;};
-      modules = [
-        ./hosts/hyetta
-        ./modules/darwin.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users."${hyettaUser}" = import ./home/darwin.nix;
-            extraSpecialArgs = {
-              inherit
-                # hyprland
-                hyettaUser
-                inputs
-                ;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-darwin,
+      # hyprland,
+      ...
+    }@inputs:
+    let
+      lib = nixpkgs.lib;
+      user = "freerat";
+      hyettaUser = "tomaszlawicki";
+      hyettaHost = "Tomaszs-MacBook-Air";
+      system = "x86_64-linux";
+      # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
+    in
+    {
+      darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
+        # hyetta - macbook
+        system = "aarch64-darwin";
+        specialArgs = { inherit inputs hyettaUser hyettaHost; };
+        modules = [
+          ./hosts/hyetta
+          ./modules/darwin.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users."${hyettaUser}" = import ./home/darwin.nix;
+              extraSpecialArgs = {
+                inherit
+                  # hyprland
+                  hyettaUser
+                  inputs
+                  ;
+              };
             };
-          };
-        }
-      ];
+          }
+        ];
+      };
+
+      nixosConfigurations = {
+        #ranni - my laptop
+        ranni = lib.nixosSystem rec {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            ./hosts/ranni
+            ./modules
+            # ./modules/xmonad
+            # ./modules/awesome
+            ./modules/hyprland
+            # ./modules/qtile
+            # ./modules/river.nix
+            # ./modules/niri
+            # ./modules/sway
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users."${user}" = import ./home/home.nix;
+                extraSpecialArgs = {
+                  inherit
+                    # hyprland
+                    user
+                    inputs
+                    ;
+                };
+              };
+            }
+          ];
+        };
+
+        #malenia - my desktop
+        malenia = lib.nixosSystem rec {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            ./hosts/malenia
+            ./modules
+            ./modules/hyprland
+            # ./modules/niri
+            # ./modules/awesome
+            # hyprland.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users."${user}" = import ./home/home.nix;
+                extraSpecialArgs = {
+                  inherit
+                    # hyprland
+                    user
+                    inputs
+                    ;
+                };
+              };
+            }
+          ];
+        };
+
+        #melina - rasberypi server
+        melina = lib.nixosSystem {
+          modules = [
+            ./hosts/melina
+            ./modules
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users."${user}" = import ./home/melina.nix;
+                extraSpecialArgs = {
+                  inherit
+                    # hyprland
+                    user
+                    inputs
+                    ;
+                };
+              };
+            }
+          ];
+        };
+
+        #maliketh - mini pc server
+        maliketh = lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            ./hosts/maliketh
+            ./modules
+            ./modules/hyprland
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users."${user}" = import ./home/home.nix;
+                extraSpecialArgs = {
+                  inherit
+                    user
+                    inputs
+                    ;
+                };
+              };
+            }
+          ];
+        };
+      };
     };
-
-    nixosConfigurations = {
-      #ranni - my laptop
-      ranni = lib.nixosSystem rec {
-        inherit system;
-        specialArgs = {inherit inputs user;};
-        modules = [
-          ./hosts/ranni
-          ./modules
-          # ./modules/xmonad
-          # ./modules/awesome
-          ./modules/hyprland
-          # ./modules/qtile
-          # ./modules/river.nix
-          # ./modules/niri
-          # ./modules/sway
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${user}" = import ./home/home.nix;
-              extraSpecialArgs = {
-                inherit
-                  # hyprland
-                  user
-                  inputs
-                  ;
-              };
-            };
-          }
-        ];
-      };
-
-      #malenia - my desktop
-      malenia = lib.nixosSystem rec {
-        inherit system;
-        specialArgs = {inherit inputs user;};
-        modules = [
-          ./hosts/malenia
-          ./modules
-          ./modules/hyprland
-          # ./modules/niri
-          # ./modules/awesome
-          # hyprland.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${user}" = import ./home/home.nix;
-              extraSpecialArgs = {
-                inherit
-                  # hyprland
-                  user
-                  inputs
-                  ;
-              };
-            };
-          }
-        ];
-      };
-
-      #melina - rasberypi server
-      melina = lib.nixosSystem {
-        modules = [
-          ./hosts/melina
-          ./modules
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${user}" = import ./home/melina.nix;
-              extraSpecialArgs = {
-                inherit
-                  # hyprland
-                  user
-                  inputs
-                  ;
-              };
-            };
-          }
-        ];
-      };
-
-      #maliketh - mini pc server
-      maliketh = lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs user;};
-        modules = [
-          ./hosts/maliketh
-          ./modules
-          ./modules/hyprland
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${user}" = import ./home/home.nix;
-              extraSpecialArgs = {
-                inherit
-                  user
-                  inputs
-                  ;
-              };
-            };
-          }
-        ];
-      };
-    };
-  };
 }

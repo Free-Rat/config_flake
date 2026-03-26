@@ -63,6 +63,7 @@
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
+    opencode
     # krita
     # kicad
     tcpdump
@@ -121,7 +122,7 @@
     bat
     unzip
     tree
-    neofetch
+    # neofetch [*]
     fastfetch
     fd # faster find
 
