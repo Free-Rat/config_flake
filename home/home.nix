@@ -64,7 +64,7 @@
 
   home.packages = with pkgs; [
     opencode
-    # krita
+    krita
     # kicad
     tcpdump
     # kakoune
@@ -163,6 +163,7 @@
     # ])
     # ++ (with pkgs.gnome; [
     #   nautilus
+    sshfs
   ];
 
   programs.git = {
@@ -206,4 +207,14 @@
   programs.home-manager.enable = true;
 
   home.stateVersion = "23.05";
+
+
+  programs.ssh = {
+        enable = true;
+        matchBlocks.hetzner = {
+            host = "hetzner";
+            hostname = "u555363.your-storagebox.de";
+            user = "u555363";
+        };
+  };
 }
