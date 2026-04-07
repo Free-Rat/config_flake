@@ -33,7 +33,7 @@ in {
     nerd-fonts.hack
     # nerd-fonts.iosevka
     # nerd-fonts.proggy-clean-tt
-    # nerd-fonts.departure-mono
+    nerd-fonts.departure-mono
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];
