@@ -19,7 +19,7 @@ config.window_background_opacity = 0.7
 config.text_background_opacity = 0.5
 config.automatically_reload_config = true
 config.macos_window_background_blur = 20
-config.font_size = 12.0
+config.font_size = 16.0
 config.native_macos_fullscreen_mode = true
 -- config.macos_fullscreen_extend_behind_notch = false
 
@@ -62,7 +62,8 @@ config.ssh_domains = {
 
 -- config.font = wezterm.font('DepartureMono Nerd Font')
 -- config.font = wezterm.font('Monaspace Krypton', { weight = 'Regular' })
-config.font = wezterm.font("DepartureMono Nerd Font Mono")
+-- config.font = wezterm.font("DepartureMono Nerd Font Mono")
+config.font = wezterm.font("Eirian")
 -- config.font = wezterm.font('ProggyClean CE Nerd Font')
 -- config.font = wezterm.font('Hack Nerd Font')
 return config

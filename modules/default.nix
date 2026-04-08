@@ -28,6 +28,7 @@ in {
 
   fonts.packages = with pkgs; [
     monaspace
+    inputs.eirian-font.packages.x86_64-linux.default
 
     #    noto-fonts
     nerd-fonts.hack

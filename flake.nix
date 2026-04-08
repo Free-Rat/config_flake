@@ -33,6 +33,7 @@
     # fabric-bar = {
     #   url = "github:Free-Rat/fabric-bar-nix";
     # };
+    eirian-font.url = "github:Free-Rat/eirian-font-nix-pkgs";
   };
 
   outputs =
