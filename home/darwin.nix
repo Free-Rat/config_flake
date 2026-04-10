@@ -41,7 +41,7 @@
   };
 
   home.packages = with pkgs; [
-    ios-deploy 
+    # ios-deploy 
     # libreoffice
     # swiftlint
     # zed-editor

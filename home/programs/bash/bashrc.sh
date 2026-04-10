@@ -61,6 +61,9 @@ case "$HOST" in
     MacBookAir.home)
         COLOR=$yellow_l_c
         ;;
+    Tomaszs-MacBook-Air.local)
+        COLOR=$yellow_l_c
+        ;;
     *)
         COLOR=$green_c
         ;;
@@ -76,11 +79,13 @@ PATH_PROGRAMS="$PATH_FLAKE_CONFIG/home/programs"
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="/home/freerat/.local/bin:$PATH"
 
+EDITOR="nvim"
+
 set -o vi
 source <(fzf --bash)
 
 # general
-alias ll="ls -lF"
+alias ll="ls -lF --color=always"
 alias la="ls -A"
 alias vi="nvim"
 alias rg="ranger"
@@ -95,7 +100,7 @@ alias cw="\$PATH_SCRIPTS/changeWallpaper.sh"
 
 # nix related
 alias nrf="sudo nixos-rebuild switch --flake \$PATH_FLAKE_CONFIG"
-alias drf="darwin-rebuild switch --flake PATH_FLAKE_CONFIG"
+alias drf="sudo darwin-rebuild switch --flake \$PATH_FLAKE_CONFIG"
 alias nd="nix develop "
 alias ns="nix-shell -p "
 alias clean_nix="\$PATH_SCRIPTS/clean_nix.sh"
@@ -105,6 +110,10 @@ alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/home/programs/bash/bashrc.
 # other apps
 alias keepassxc="keepassxc -platform xcb"
 alias copy="xclip -sel clip"
+
+# work
+alias ccw="cd ~/work"
+alias ccp="cd ~/projects"
 
 # wallust run $(cat ~/.wallpaper_path) -I background -q -C $PATH_PROGRAMS/wallust.toml -u
 

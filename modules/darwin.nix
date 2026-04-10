@@ -69,6 +69,9 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
+    # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
   # set some OSX preferences that I always end up hunting down and changing.
   system = {
     defaults = {
