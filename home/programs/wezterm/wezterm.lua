@@ -63,7 +63,8 @@ config.ssh_domains = {
 -- config.font = wezterm.font('DepartureMono Nerd Font')
 -- config.font = wezterm.font('Monaspace Krypton', { weight = 'Regular' })
 -- config.font = wezterm.font("DepartureMono Nerd Font Mono")
-config.font = wezterm.font("Eirian")
+-- config.font = wezterm.font("Eirian")
+config.font = wezterm.font("Miracode")
 -- config.font = wezterm.font('ProggyClean CE Nerd Font')
 -- config.font = wezterm.font('Hack Nerd Font')
 return config

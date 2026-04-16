@@ -1,10 +1,27 @@
-{pkgs, user, ...}: {
+{ pkgs, user, ... }:
+{
   imports = [
-        ./hardware-configuration.nix
-        # ../../infra/piaseczny_cache.nix
-    ];
+    ./hardware-configuration.nix
+    # ../../infra/piaseczny_cache.nix
+  ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  hardware.amdgpu.opencl.enable = true;
+  nixpkgs.config.rocmSupport = true;
+
+  environment.systemPackages = with pkgs; [
+    clinfo
+    llama-cpp-rocm
+  ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+  };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -24,16 +41,17 @@
       enable = true;
       useOSProber = true;
       efiSupport = true;
-      devices = ["nodev"];
+      devices = [ "nodev" ];
     };
   };
   # boot.kernelParams = ["kvm.enable_virt_at_load=0"];
   boot.kernelParams = [
-        # "acpi=force"
-        # "reboot=acpi"
-        # "amd_pstate=active"
-        "amdgpu.gpu_recovery=1"
-    ];
+    # "acpi=force"
+    # "reboot=acpi"
+    # "amd_pstate=active"
+    "amdgpu.gpu_recovery=1"
+  ];
+  virtualisation.libvirtd.enable = true;
 
   networking.hostName = "malenia";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -75,6 +93,8 @@
       "audio"
       "video"
       "docker"
+      "libvirtd"
+      "kvm"
     ];
   };
 
@@ -85,7 +105,7 @@
   };
 
   services.printing.enable = true;
-  services.printing.drivers = [pkgs.hplip];
+  services.printing.drivers = [ pkgs.hplip ];
 
   system.stateVersion = "23.11";
 }

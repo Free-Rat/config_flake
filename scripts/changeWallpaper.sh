@@ -10,7 +10,7 @@ wallpaper=$(
 )
 
 # feh --bg-fill $wallpaper
-swww img $wallpaper
+awww img $wallpaper
 
 wallust run $wallpaper -q -I background -C $PATH_PROGRAMS/wallust.toml
 

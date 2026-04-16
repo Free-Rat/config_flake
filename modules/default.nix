@@ -29,12 +29,13 @@ in {
   fonts.packages = with pkgs; [
     monaspace
     inputs.eirian-font.packages.x86_64-linux.default
+    miracode
 
     #    noto-fonts
     nerd-fonts.hack
     # nerd-fonts.iosevka
     # nerd-fonts.proggy-clean-tt
-    nerd-fonts.departure-mono
+    # nerd-fonts.departure-mono
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
   ];

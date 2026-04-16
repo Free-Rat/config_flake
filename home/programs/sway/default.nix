@@ -9,7 +9,7 @@
   ];
 
   home.packages = with pkgs; [
-    swww
+    # awww 
     # swaylock
     # swayidle # program to run a command after a certain amount of time
     # swaync

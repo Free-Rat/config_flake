@@ -3,7 +3,8 @@
   pkgs,
   user,
   ...
-}: {
+}:
+{
   imports = [
     # ./programs/fish.nix
     ./programs/rofi
@@ -36,7 +37,7 @@
     # };
   };
 
-  home.sessionPath = ["$HOME/.cargo/bin"];
+  home.sessionPath = [ "$HOME/.cargo/bin" ];
 
   home.file = {
     ".config/awesome" = {
@@ -55,7 +56,7 @@
       source = ../modules/sway/sway.conf;
     };
     ".local/share/icons/miku-cursor-linux" = {
-      source = ../modules/hyprland/miku-cursor-linux; 
+      source = ../modules/hyprland/miku-cursor-linux;
     };
   };
 
@@ -70,7 +71,7 @@
     # kakoune
     libnotify # notify-send
     bruno
-    swww
+    awww
     yazi
     # User Apps
     # obsidian
@@ -170,8 +171,8 @@
     enable = true;
     package = pkgs.gitFull;
     settings = {
-        user.name = "Free-Rat";
-        user.email = "lawicki02@gmail.com";
+      user.name = "Free-Rat";
+      user.email = "lawicki02@gmail.com";
       core = {
         askpass = "";
       };
@@ -208,13 +209,12 @@
 
   home.stateVersion = "23.05";
 
-
   programs.ssh = {
-        enable = true;
-        matchBlocks.hetzner = {
-            host = "hetzner";
-            hostname = "u555363.your-storagebox.de";
-            user = "u555363";
-        };
+    enable = true;
+    matchBlocks.hetzner = {
+      host = "hetzner";
+      hostname = "u555363.your-storagebox.de";
+      user = "u555363";
+    };
   };
 }

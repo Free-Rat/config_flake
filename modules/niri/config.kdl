@@ -262,7 +262,7 @@ binds {
 	// Mod+B               hotkey-overlay-title="Toggle Status Bar" { spawn "sh" "-c" "pkill -x yambar || yambar"; }
 
 	// Wallpaper
-	// Mod+Control+Shift+Slash  hotkey-overlay-title="Clear Wallpaper" { spawn "swww" "clear" "111111"; }
+	// Mod+Control+Shift+Slash  hotkey-overlay-title="Clear Wallpaper" { spawn "awww" "clear" "111111"; }
 	// Mod+Control+Slash        hotkey-overlay-title="Randomize Wallpaper" { spawn "~/.scripts/wallpaper_random.sh"; }
 
 	// Notifications
