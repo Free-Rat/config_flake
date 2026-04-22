@@ -3,6 +3,7 @@
 
   fonts.packages = with pkgs; [
     monaspace
+    miracode
     # noto-fonts
     # noto-fonts-cjk
     # noto-fonts-emoji
