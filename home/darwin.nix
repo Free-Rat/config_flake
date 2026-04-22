@@ -3,7 +3,8 @@
   pkgs,
   hyettaUser,
   ...
-}: {
+}:
+{
   imports = [
     #./programs/kitty
     #./programs/alacritty
@@ -11,6 +12,7 @@
     #./programs/fish.nix
     # ./programs/nixvim
     ./programs/nvf
+    ./programs/bash
     ./programs/nushell
     # ./programs/kakoune
     #./programs/starship
@@ -18,7 +20,9 @@
   ];
   home = {
     username = "${hyettaUser}";
-    #homeDirectory = "/home/${hyettaUser}";
+    # homeDirectory = "/home/${hyettaUser}";
+    homeDirectory = "/Users/${hyettaUser}";
+    # homeDirectory = "/Users/tomasz.lawicki";
 
     # sessionVariables DO NOT WORK ;-;
     # sessionVariables = rec {
@@ -40,8 +44,13 @@
     # };
   };
 
+  targets.darwin = {
+    linkApps.enable = false;
+    copyApps.enable = true;
+  };
+
   home.packages = with pkgs; [
-    # ios-deploy 
+    # ios-deploy
     # libreoffice
     # swiftlint
     # zed-editor

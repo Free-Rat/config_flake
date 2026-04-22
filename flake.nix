@@ -48,13 +48,13 @@
     let
       lib = nixpkgs.lib;
       user = "freerat";
-      hyettaUser = "tomaszlawicki";
+      hyettaUser = "tomasz.lawicki";
       hyettaHost = "Tomaszs-MacBook-Air";
       system = "x86_64-linux";
       # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
     in
     {
-      darwinConfigurations.Tomaszs-MacBook-Air = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.MacBook-Air-Tomasz = nix-darwin.lib.darwinSystem {
         # hyetta - macbook
         system = "aarch64-darwin";
         specialArgs = { inherit inputs hyettaUser hyettaHost; };

@@ -1,13 +1,14 @@
-{pkgs, config, ...}: 
+{pkgs, lib, config, hyettaUser, hyettaHost, ...}: 
 let
-  myHome = config.users.users.tomaszlawicki.home;
+  myHome = config.users.users.${hyettaUser}.home;
   flake = "${myHome}/config_flake";
   programsDir = "${flake}/home/programs";
 in
 {
   # services.nix-daemon.enable = true;
   nix = {
-    enable = true;
+    #	enable = true;
+    enable = false;
     package = pkgs.nix;
     settings = {
       "extra-experimental-features" = ["nix-command" "flakes"];
@@ -20,24 +21,30 @@ in
   # before changing: `darwin-rebuild changelog`.
   # ids.gids.nixbld = 350;
   system.stateVersion = 6;
-  system.primaryUser = "tomaszlawicki";
+  system.primaryUser = "${hyettaUser}";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # Declare the user that will be running `nix-darwin`.
-  users.users.tomaszlawicki = {
-    name = "tomaszlawicki";
-    home = "/Users/tomaszlawicki";
-    shell = pkgs.bash;
-    uid = 501;
+  users.knownUsers = [ hyettaUser ];
+
+  users.users.${hyettaUser} = {
+    name = "${hyettaUser}";
+    home = "/Users/${hyettaUser}";
+    # home = lib.mkForce "/Users/tomasz.lawicki";
+    shell = pkgs.bashInteractive;
+    uid = 502;
   };
-  programs.zsh.enable = true;
+  programs = {
+    bash.enable = true;
+    zsh.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     rustc
     cargo
   ];
 
-  environment.shells = with pkgs; [ bash ];
+  environment.shells = with pkgs; [ bashInteractive ];
 
   launchd.user.envVariables = {
     PATH_FLAKE_CONFIG   = flake;
