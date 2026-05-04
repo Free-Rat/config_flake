@@ -61,7 +61,7 @@ case "$HOST" in
     MacBookAir.home)
         COLOR=$yellow_l_c
         ;;
-    Tomaszs-MacBook-Air.local)
+    MacBook-Air-Tomasz.local)
         COLOR=$yellow_l_c
         ;;
     *)
