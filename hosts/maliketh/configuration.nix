@@ -5,10 +5,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -55,8 +57,11 @@
   users.users.freerat = {
     isNormalUser = true;
     description = "freerat";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
@@ -65,10 +70,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     neovim
-     git
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    neovim
+    git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -82,9 +87,29 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PubkeyAuthentication = true;
+      KbdInteractiveAuthentication = false;
+      LogLevel = "DEBUG3"; # Dostępne poziomy: DEBUG, DEBUG1, DEBUG2, DEBUG3
+    };
+  };
+
+  programs.wayvnc = {
+    enable = true;
+    # openFirewall = true;
+  };
 
   # Open ports in the firewall.
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    22
+    80
+    443
+    5900
+  ];
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.

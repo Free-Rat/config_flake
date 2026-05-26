@@ -8,7 +8,6 @@
   imports = [
     # ./programs/fish.nix
     ./programs/rofi
-    # ./programs/nixvim
     ./programs/nvf
     # ./programs/ghostty
     # ./programs/starship
@@ -20,6 +19,7 @@
     ./programs/wezterm
     ./programs/nushell
     # ./programs/bash
+    ./programs/cava
   ];
 
   home = {
@@ -121,7 +121,6 @@
     unzip
     jq
     bat
-    unzip
     tree
     # neofetch [*]
     fastfetch
@@ -129,12 +128,10 @@
 
     # Misc
     fzf
-    cava
     playerctl
     # rofi
     # nitch
     wget
-    slurp
     wl-clipboard
     mpc
     tty-clock
@@ -176,15 +173,6 @@
       core = {
         askpass = "";
       };
-    };
-  };
-
-  programs.cava = {
-    enable = true;
-    settings = {
-      general.framerate = 60;
-      input.method = "pipewire";
-      smoothing.noise_reduction = 88;
     };
   };
 
