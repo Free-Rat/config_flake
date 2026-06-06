@@ -60,10 +60,30 @@
     };
   };
 
+  # ── Ensure pi global settings.json points extensions to the flake source ──
+  # Uses jq to idempotently add the path without touching runtime-managed settings
+  home.activation.piExtensions = ''
+    SETTINGS="$HOME/.pi/agent/settings.json"
+    EXTS_PATH="/home/freerat/config_flake/home/programs/pi/extensions/"
+
+    if [ ! -f "$SETTINGS" ]; then
+      mkdir -p "$(dirname "$SETTINGS")"
+      echo '{}' > "$SETTINGS"
+    fi
+
+    ${pkgs.jq}/bin/jq --arg path "$EXTS_PATH" '
+      if .extensions then
+        if (.extensions | index($path)) then . else .extensions += [$path] end
+      else .extensions = [$path] end
+    ' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+  '';
+
   xdg.configFile."niri/config.kdl".source = ../modules/niri/config.kdl;
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
+    inputs.tuxedo.packages.${pkgs.system}.default
+    inputs.pi.packages.${pkgs.system}.default
     opencode
     krita
     # kicad

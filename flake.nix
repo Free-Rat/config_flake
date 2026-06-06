@@ -26,6 +26,10 @@
     #   url = "github:Free-Rat/nixvim";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    tuxedo = {
+      url = "github:Free-Rat/tuxedo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvf = {
       url = "github:Free-Rat/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +38,10 @@
     #   url = "github:Free-Rat/fabric-bar-nix";
     # };
     eirian-font.url = "github:Free-Rat/eirian-font-nix-pkgs";
+    pi = {
+      url = "github:Free-Rat/pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
