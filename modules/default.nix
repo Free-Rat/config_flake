@@ -4,9 +4,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   config_path = "/home/freerat/config_flake";
-in {
+in
+{
   imports = [
     ./sound.nix
   ];
@@ -28,6 +30,7 @@ in {
 
   fonts.packages = with pkgs; [
     monaspace
+    libertinus
     inputs.eirian-font.packages.x86_64-linux.default
     miracode
 
@@ -44,6 +47,10 @@ in {
     config.allowUnfree = true;
   };
   # services.upower.enable = true;
+
+  # program.steam = {
+  #   enable = true;
+  # };
 
   environment.systemPackages = with pkgs; [
     # inputs.fabric-bar.packages.${pkgs.system}.default
@@ -80,7 +87,7 @@ in {
     libheif
     libheif.out
   ];
-  environment.pathsToLink = ["share/thumbnailers"];
+  environment.pathsToLink = [ "share/thumbnailers" ];
   # services.usbmuxd.enable = true; # 4:iOS mounting
 
   # programs.nm-applet = {

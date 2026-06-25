@@ -99,11 +99,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776046499,
-        "narHash": "sha256-Wzc4nn07/0RL21ypPHRzNDQZcjhIC8LaYo7QJQjM5T4=",
+        "lastModified": 1782051614,
+        "narHash": "sha256-xBRAhYLEXcjp8hM2tkkTTLb6PWU7VDxDoogl25g7Ezs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "287f84846c1eb3b72c986f5f6bebcff0bd67440d",
+        "rev": "d1ccd0721ec599866622665f3651e19e6e2d4c6a",
         "type": "github"
       },
       "original": {
@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775037210,
-        "narHash": "sha256-KM2WYj6EA7M/FVZVCl3rqWY+TFV5QzSyyGE2gQxeODU=",
+        "lastModified": 1781761792,
+        "narHash": "sha256-rCPytmKNjctLloB6UgK5CRrHSwV4b0ygxtJLPPp8R14=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "06648f4902343228ce2de79f291dd5a58ee12146",
+        "rev": "a1fa429e945becaf60468600daf649be4ba0350c",
         "type": "github"
       },
       "original": {
@@ -203,16 +203,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1775710090,
-        "narHash": "sha256-ar3rofg+awPB8QXDaFJhJ2jJhu+KqN/PRCXeyuXR76E=",
+        "lastModified": 1781216227,
+        "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4c1018dae018162ec878d42fec712642d214fdfa",
+        "rev": "a0374025a863d007d98e3297f6aa46cc3141c2f0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -285,11 +285,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780781093,
-        "narHash": "sha256-ZgGxZVduDzVRzSGvzUispg4ymcjLACI4oFcadq8XFbo=",
+        "lastModified": 1780823482,
+        "narHash": "sha256-GeOhInW4sZ0IwJeQgP7a4rqyWraBEJBUuzelm28tPCc=",
         "owner": "Free-Rat",
         "repo": "pi",
-        "rev": "4021f96fadd167feb9275b0977e50202a4c13b89",
+        "rev": "9d3f8ca8a2cda27eb5adc251f7397d164dcc1761",
         "type": "github"
       },
       "original": {
@@ -347,11 +347,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780685149,
-        "narHash": "sha256-qhYLOq29l7PyGc80yzh1n2chnKyoqxBd4NeNHo0/+OM=",
+        "lastModified": 1780686899,
+        "narHash": "sha256-ff1DQ1+vOfOeQmcqjOrqjdUDChcaFnnk7QT4yA+2S+Y=",
         "owner": "Free-Rat",
         "repo": "tuxedo",
-        "rev": "01f9e79da6f5e680ede8567ed54368eaf776b694",
+        "rev": "60b4fe9cac907383999cdfbee094db38079069d3",
         "type": "github"
       },
       "original": {

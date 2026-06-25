@@ -5,7 +5,6 @@
     # ../../infra/piaseczny_cache.nix
   ];
 
-  hardware.amdgpu.opencl.enable = true;
   nixpkgs.config.rocmSupport = true;
 
   environment.systemPackages = with pkgs; [
@@ -13,9 +12,20 @@
     llama-cpp-rocm
   ];
 
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = true;
+  };
+
   services.ollama = {
     enable = true;
     package = pkgs.ollama-rocm;
+    environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = "98304";
+      OLLAMA_FLASH_ATTENTION = "1";
+      OLLAMA_KV_CACHE_TYPE = "q4_0";
+      # OLLAMA_NUM_PARALLEL = "1";
+    };
   };
 
   nix.settings.experimental-features = [
@@ -50,7 +60,9 @@
     # "reboot=acpi"
     # "amd_pstate=active"
     "amdgpu.gpu_recovery=1"
+    "gspca_ov534"
   ];
+  boot.blacklistedKernelModules = [ "hid_uclogic" ];
   virtualisation.libvirtd.enable = true;
 
   networking.hostName = "malenia";
@@ -64,6 +76,7 @@
     enable = true;
     enable32Bit = true;
   };
+  hardware.amdgpu.opencl.enable = true;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Warsaw";
@@ -95,6 +108,7 @@
       "docker"
       "libvirtd"
       "kvm"
+      "input"
     ];
   };
 
