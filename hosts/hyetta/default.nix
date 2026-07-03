@@ -2,7 +2,7 @@
 let
   myHome = config.users.users.${hyettaUser}.home;
   flake = "${myHome}/config_flake";
-  programsDir = "${flake}/home/programs";
+  programsDir = "${flake}/programs";
 in
 {
   # services.nix-daemon.enable = true;

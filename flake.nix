@@ -7,37 +7,35 @@
   # old thosiba: morne or castle-morne or nokstella or deeproot
 
   description = "Flake of a Dark Moon";
-  # Updaing only one input
-  # nix flake lock --update-input nixvim
+
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # nixvim = {
-    #   url = "github:Free-Rat/nixvim";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+
     tuxedo = {
       url = "github:Free-Rat/tuxedo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nvf = {
       url = "github:Free-Rat/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # fabric-bar = {
-    #   url = "github:Free-Rat/fabric-bar-nix";
-    # };
+
     eirian-font.url = "github:Free-Rat/eirian-font-nix-pkgs";
+
     pi = {
       url = "github:Free-Rat/pi";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,157 +43,198 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      nix-darwin,
-      # hyprland,
-      ...
-    }@inputs:
-    let
-      lib = nixpkgs.lib;
-      user = "freerat";
-      hyettaUser = "tomasz.lawicki";
-      hyettaHost = "Tomaszs-MacBook-Air";
-      system = "x86_64-linux";
-      # pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
-    in
-    {
-      darwinConfigurations.MacBook-Air-Tomasz = nix-darwin.lib.darwinSystem {
-        # hyetta - macbook
-        system = "aarch64-darwin";
-        specialArgs = { inherit inputs hyettaUser hyettaHost; };
-        modules = [
-          ./hosts/hyetta
-          ./modules/darwin.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users."${hyettaUser}" = import ./home/darwin.nix;
-              extraSpecialArgs = {
-                inherit
-                  # hyprland
-                  hyettaUser
-                  inputs
-                  ;
-              };
-            };
-          }
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { self, ... }:
+      let
+        hm = self.homeModules;
+      in
+      {
+        imports = [
+          ./parts/parts-options.nix
         ];
-      };
 
-      nixosConfigurations = {
-        #ranni - my laptop
-        ranni = lib.nixosSystem rec {
-          inherit system;
-          specialArgs = { inherit inputs user; };
+        flake.homeModules = {
+          base.common = ./parts/home-common.nix;
+          base.cli = ./parts/home-cli.nix;
+          base.gitPersonal = ./parts/git-personal.nix;
+          base.gitWork = ./parts/git-work.nix;
+          base.desktopFiles = ./parts/desktop-files.nix;
+
+          programs.alacritty = ./programs/alacritty;
+          programs.bash = ./programs/bash;
+          programs.cava = ./programs/cava;
+          programs.dunst = ./programs/dunst;
+          programs.eww = ./programs/eww;
+          programs.ghostty = ./programs/ghostty;
+          programs.helix = ./programs/helix;
+          programs.kakoune = ./programs/kakoune;
+          programs.kitty = ./programs/kitty;
+          programs.nushell = ./programs/nushell;
+          programs.nvf = ./programs/nvf;
+          programs.river = ./programs/river;
+          programs.rofi = ./programs/rofi;
+          programs.starship = ./programs/starship;
+          programs.sway = ./programs/sway;
+          programs.tmux = ./programs/tmux;
+          programs.wezterm = ./programs/wezterm;
+          programs.zsh = ./programs/zsh;
+
+          profiles.linuxDesktop = ./parts/linux-desktop.nix;
+          profiles.linuxServer = ./parts/linux-server.nix;
+          profiles.darwin = ./parts/darwin.nix;
+        };
+
+        flake.nixosModules = {
+          common = ./modules;
+          hyprland = ./modules/hyprland;
+          awesome = ./modules/awesome;
+          darwinCommon = ./modules/darwin.nix;
+        };
+
+        flake.nixosConfigurations =
+          let
+            mkHost =
+              {
+                name,
+                user ? "freerat",
+                system ? "x86_64-linux",
+                nixosModules ? [ ],
+                homeModules,
+              }:
+              inputs.nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = { inherit inputs user; };
+                modules = [
+                  ./hosts/${name}
+                  self.nixosModules.common
+                  inputs.home-manager.nixosModules.home-manager
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      users.${user} = {
+                        imports = homeModules;
+                      };
+                      extraSpecialArgs = {
+                        inherit inputs user;
+                        username = user;
+                        homeDirectory = "/home/${user}";
+                      };
+                    };
+                  }
+                ]
+                ++ nixosModules;
+              };
+          in
+          {
+            ranni = mkHost {
+              name = "ranni";
+              nixosModules = [ self.nixosModules.hyprland ];
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.base.desktopFiles
+                hm.programs.nvf
+                hm.programs.rofi
+                hm.programs.alacritty
+                hm.programs.wezterm
+                hm.programs.nushell
+                hm.programs.cava
+                hm.programs.kakoune
+                hm.profiles.linuxDesktop
+              ];
+            };
+
+            malenia = mkHost {
+              name = "malenia";
+              nixosModules = [ self.nixosModules.hyprland ];
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.base.desktopFiles
+                hm.programs.nvf
+                hm.programs.rofi
+                hm.programs.alacritty
+                hm.programs.wezterm
+                hm.programs.nushell
+                hm.programs.cava
+                hm.programs.kakoune
+                hm.profiles.linuxDesktop
+              ];
+            };
+
+            maliketh = mkHost {
+              name = "maliketh";
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.programs.nvf
+                hm.programs.ghostty
+                hm.profiles.linuxServer
+              ];
+            };
+
+            melina = mkHost {
+              name = "melina";
+              system = "aarch64-linux";
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.programs.nvf
+                hm.programs.ghostty
+                hm.profiles.linuxServer
+              ];
+            };
+          };
+
+        flake.darwinConfigurations.MacBook-Air-Tomasz = inputs.nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit inputs;
+            hyettaUser = "tomasz.lawicki";
+            hyettaHost = "Tomaszs-MacBook-Air";
+          };
           modules = [
-            ./hosts/ranni
-            ./modules
-            # ./modules/xmonad
-            # ./modules/awesome
-            ./modules/hyprland
-            # ./modules/qtile
-            # ./modules/river.nix
-            # ./modules/niri
-            # ./modules/sway
-            home-manager.nixosModules.home-manager
+            ./hosts/hyetta
+            self.nixosModules.darwinCommon
+            inputs.home-manager.darwinModules.home-manager
             {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users."${user}" = import ./home/home.nix;
+                users."tomasz.lawicki" = {
+                  imports = [
+                    hm.base.common
+                    hm.base.cli
+                    hm.base.gitWork
+                    hm.programs.wezterm
+                    hm.programs.nvf
+                    hm.programs.bash
+                    hm.programs.nushell
+                    hm.profiles.darwin
+                  ];
+                };
                 extraSpecialArgs = {
-                  inherit
-                    # hyprland
-                    user
-                    inputs
-                    ;
+                  inherit inputs;
+                  hyettaUser = "tomasz.lawicki";
+                  username = "tomasz.lawicki";
+                  homeDirectory = "/Users/tomasz.lawicki";
                 };
               };
             }
           ];
         };
 
-        #malenia - my desktop
-        malenia = lib.nixosSystem rec {
-          inherit system;
-          specialArgs = { inherit inputs user; };
-          modules = [
-            ./hosts/malenia
-            ./modules
-            ./modules/hyprland
-            # ./modules/niri
-            # ./modules/awesome
-            # hyprland.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users."${user}" = import ./home/home.nix;
-                extraSpecialArgs = {
-                  inherit
-                    # hyprland
-                    user
-                    inputs
-                    ;
-                };
-              };
-            }
-          ];
-        };
-
-        #melina - rasberypi server
-        melina = lib.nixosSystem {
-          modules = [
-            ./hosts/melina
-            ./modules
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users."${user}" = import ./home/melina.nix;
-                extraSpecialArgs = {
-                  inherit
-                    # hyprland
-                    user
-                    inputs
-                    ;
-                };
-              };
-            }
-          ];
-        };
-
-        #maliketh - mini pc server
-        maliketh = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs user; };
-          modules = [
-            ./hosts/maliketh
-            ./modules
-            ./modules/hyprland
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users."${user}" = import ./home/home.nix;
-                extraSpecialArgs = {
-                  inherit
-                    user
-                    inputs
-                    ;
-                };
-              };
-            }
-          ];
-        };
-      };
-    };
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ];
+      }
+    );
 }

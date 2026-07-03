@@ -5,9 +5,6 @@
   config,
   ...
 }:
-let
-  config_path = "/home/freerat/config_flake";
-in
 {
   imports = [
     ./sound.nix
@@ -16,11 +13,11 @@ in
   environment.variables = rec {
     EDITOR = "nvim";
     SHELL = "bash";
-    KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/home/programs/kitty";
+    KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/programs/kitty";
     PATH_FLAKE_CONFIG = "$HOME/config_flake";
     PATH_SCRIPTS = "${PATH_FLAKE_CONFIG}/scripts";
     PATH_WALLPAPERS = "${PATH_FLAKE_CONFIG}/wallpapers";
-    PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/home/programs";
+    PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/programs";
     KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
     WEZTERM_CONFIG_DIR = "${PATH_PROGRAMS}/wezterm";
     WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm/wezterm.lua";
@@ -53,10 +50,10 @@ in
   # };
 
   environment.systemPackages = with pkgs; [
-    # inputs.fabric-bar.packages.${pkgs.system}.default
+    # inputs.fabric-bar.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # xorg.xbacklight
-    brightnessctl
+    # brightnessctl
     # picom
 
     # elixir
@@ -68,7 +65,7 @@ in
     # zig
 
     rustc
-    rust-script
+    # rust-script
     cargo
 
     lua
@@ -84,10 +81,10 @@ in
 
     # libimobiledevice # 4:iOS mounting
     # ifuse # 4:iOS mounting
-    libheif
-    libheif.out
+    # libheif
+    # libheif.out
   ];
-  environment.pathsToLink = [ "share/thumbnailers" ];
+  # environment.pathsToLink = [ "share/thumbnailers" ];
   # services.usbmuxd.enable = true; # 4:iOS mounting
 
   # programs.nm-applet = {

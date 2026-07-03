@@ -14,7 +14,7 @@ let
 
         package = mkOption {
           type = types.package;
-          default = inputs.nvf.packages.${pkgs.system}.default;
+          default = inputs.nvf.packages.${pkgs.stdenv.hostPlatform.system}.default;
           description = "The Neovim package to use.";
         };
 

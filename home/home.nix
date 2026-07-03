@@ -82,21 +82,27 @@
   xdg.configFile."niri/init.sh".source = ../modules/niri/init.sh;
 
   home.packages = with pkgs; [
+    spotifywm
+
     inputs.tuxedo.packages.${pkgs.system}.default
     inputs.pi.packages.${pkgs.system}.default
+    blender
+    osu-lazer
+    nodejs_22
+
     opencode
     krita
     # kicad
     tcpdump
     # kakoune
     libnotify # notify-send
-    bruno
+    # bruno
     awww
     yazi
     # User Apps
     # obsidian
-    discord
-    swayimg
+    discord-ptb
+    # swayimg
     loupe # podgląd zdjęć
     viu # podgląd zdjęc w terminalu
     ncdu
@@ -117,10 +123,11 @@
 
     # vieb
     # vimb
-    qutebrowser
+    # qutebrowser
     # nyxt
     firefox
-    brave
+    # firefox-unwrapped
+    # brave
     # kitty
 
     signal-cli
@@ -154,13 +161,13 @@
     wget
     wl-clipboard
     mpc
-    tty-clock
+    # tty-clock
     btop
     # gh
     # ueberzugpp
     # rpi-imager
     gurk-rs # signal client
-    feh
+    # feh
     acpi
     linuxquota
     # wallust
@@ -171,10 +178,10 @@
     man-pages
     man-pages-posix
     libheif
-    trayer
-    anki-bin
+    # trayer
+    # anki-bin
 
-    element-desktop
+    # element-desktop
     # libsecret
     # youtrack
     clippy

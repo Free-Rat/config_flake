@@ -18,7 +18,7 @@
   };
 
   services.ollama = {
-    enable = true;
+    enable = false;
     package = pkgs.ollama-rocm;
     environmentVariables = {
       OLLAMA_CONTEXT_LENGTH = "98304";

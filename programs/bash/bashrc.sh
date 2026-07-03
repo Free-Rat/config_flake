@@ -75,7 +75,7 @@ export PS1="\n ${COLOR}\W $white_d_c>$white_l_c> $back_c ${reset_c}"
 PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
 PATH_WALLPAPERS="$PATH_FLAKE_CONFIG/wallpapers"
-PATH_PROGRAMS="$PATH_FLAKE_CONFIG/home/programs"
+PATH_PROGRAMS="$PATH_FLAKE_CONFIG/programs"
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="/home/freerat/.local/bin:$PATH"
 
@@ -105,7 +105,7 @@ alias nd="nix develop "
 alias ns="nix-shell -p "
 alias clean_nix="\$PATH_SCRIPTS/clean_nix.sh"
 alias ccf="cd \$PATH_FLAKE_CONFIG"
-alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/home/programs/bash/bashrc.sh"
+alias update_bashrc="cp ~/.bashrc \$PATH_FLAKE_CONFIG/programs/bash/bashrc.sh"
 
 # other apps
 alias keepassxc="keepassxc -platform xcb"

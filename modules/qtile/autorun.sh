@@ -7,7 +7,7 @@ run() {
         "$@" &
     fi
 }
-run "kitty --config /home/freerat/config_flake/home/programs/kitty/kitty.conf"
+run "kitty --config /home/freerat/config_flake/programs/kitty/kitty.conf"
 # run "volumeicon"
 
 run "nm-applet"

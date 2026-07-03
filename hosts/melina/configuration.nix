@@ -44,7 +44,7 @@ in {
   services.openssh.enable = true;
 
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
     users."${user}" = {
       isNormalUser = true;
       # password = password;
