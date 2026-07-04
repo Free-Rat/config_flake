@@ -15,12 +15,12 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -89,7 +89,10 @@
           common = ./modules;
           hyprland = ./modules/hyprland;
           awesome = ./modules/awesome;
-          darwinCommon = ./modules/darwin.nix;
+        };
+
+        flake.darwinModules = {
+          common = ./modules/darwin.nix;
         };
 
         flake.nixosConfigurations =
@@ -201,7 +204,7 @@
           };
           modules = [
             ./hosts/hyetta
-            self.nixosModules.darwinCommon
+            self.darwinModules.common
             inputs.home-manager.darwinModules.home-manager
             {
               home-manager = {

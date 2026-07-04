@@ -21,7 +21,10 @@
   homebrew = {
     enable = true;
     onActivation = {
-      cleanup = "uninstall";
+      # Work around newer Homebrew Bundle rejecting nix-darwin's deprecated
+      # `--force-cleanup` flag while keeping automatic cleanup on activation.
+      cleanup = "none";
+      extraFlags = [ "--cleanup" ];
     };
     brews = [
       # 	"r"
