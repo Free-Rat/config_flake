@@ -22,7 +22,7 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `modules/darwin.nix` — macOS-specific module
 - `home/` — home-manager configs; `home.nix` for GUI hosts, `melina.nix` for headless, `darwin.nix` for macOS
 - `home/programs/` — per-program home-manager modules (nvf, kitty, alacritty, wezterm, rofi, nushell, etc.)
-- `infra/` — infrastructure modules (e.g. binary cache)
+- `infra/` — infrastructure modules (`piaseczny_cache.nix` binary cache, `maliketh_services.nix` caddy + personal website)
 - `scripts/` — utility shell scripts (wallpaper change, color update, nix cleanup)
 - `colors/` — generated color palettes
 - `wallpapers/` — image files used by wallust theming
@@ -34,6 +34,8 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `scripts/clean_nix.sh` uses `sudo nixos-rebuild switch --flake /home/freerat/config_flake` (no hostname qualifier — targets current system)
 - Wallpaper workflow: `scripts/changeWallpaper.sh` (fzf picker + wallust), `scripts/updateColors.sh` reads `~/.wallpaper_path`
 - `.gitignore` excludes generated files: `home/wallpapers/.colors.scss`, `home/wallpapers/.wallpaper`, waybar colors
+- `infra/maliketh_services.nix` enables Caddy reverse proxy + personal website on `free-rat.dev`; the `package` option is explicitly set to the personal-website input package (avoids `self` ambiguity)
+- Maliketh has a static IP (192.168.1.107) — if the interface name changes, update `hosts/maliketh/configuration.nix`
 
 ## Flake commands
 
@@ -59,3 +61,4 @@ nix flake update
 - `nix-darwin` — follows nixpkgs
 - `nvf` — neovim config (github:Free-Rat/nvf), follows nixpkgs
 - `eirian-font` — custom font (github:Free-Rat/eirian-font-nix-pkgs)
+- `personal-website` — personal website (github:Free-Rat/personal-website), follows nixpkgs

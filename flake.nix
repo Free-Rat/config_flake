@@ -40,6 +40,10 @@
       url = "github:Free-Rat/pi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    personal-website = {
+      url = "git+ssh://git@github.com/Free-Rat/personal-website?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
