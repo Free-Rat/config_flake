@@ -93,6 +93,8 @@
           common = ./modules;
           hyprland = ./modules/hyprland;
           awesome = ./modules/awesome;
+
+          infra-services = ./infra/maliketh_services.nix;
         };
 
         flake.darwinModules = {
@@ -175,12 +177,13 @@
 
             maliketh = mkHost {
               name = "maliketh";
+              nixosModules = [ self.nixosModules.infra-services ];
               homeModules = [
                 hm.base.common
                 hm.base.cli
                 hm.base.gitPersonal
                 hm.programs.nvf
-                hm.programs.ghostty
+                hm.programs.wezterm
                 hm.profiles.linuxServer
               ];
             };

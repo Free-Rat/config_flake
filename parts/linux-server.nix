@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -10,10 +10,21 @@
     PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/programs";
   };
 
-  home.file = {
-    ".config/awesome".source = ../modules/awesome;
-    ".config/qtile".source = ../modules/qtile;
-  };
+  home.activation.piExtensions = ''
+    SETTINGS="$HOME/.pi/agent/settings.json"
+    EXTS_PATH="/home/freerat/config_flake/programs/pi/extensions/"
+
+    if [ ! -f "$SETTINGS" ]; then
+      mkdir -p "$(dirname "$SETTINGS")"
+      echo '{}' > "$SETTINGS"
+    fi
+
+    ${pkgs.jq}/bin/jq --arg path "$EXTS_PATH" '
+      if .extensions then
+        if (.extensions | index($path)) then . else .extensions += [$path] end
+      else .extensions = [$path] end
+    ' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+  '';
 
   home.packages = with pkgs; [
     clippy
@@ -21,5 +32,9 @@
     slurp
     tty-clock
     wl-clipboard
+
+    # dev tools
+    inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
+    opencode
   ];
 }
