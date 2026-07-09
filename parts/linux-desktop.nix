@@ -19,8 +19,10 @@
   '';
 
   home.packages = with pkgs; [
+    protonmail-desktop
     inputs.tuxedo.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
+    spotifywm
     blender
     osu-lazer
     nodejs_22

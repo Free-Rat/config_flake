@@ -92,6 +92,7 @@
         flake.nixosModules = {
           common = ./modules;
           hyprland = ./modules/hyprland;
+          niri = ./modules/niri;
           awesome = ./modules/awesome;
 
           infra-services = ./infra/maliketh_services.nix;
