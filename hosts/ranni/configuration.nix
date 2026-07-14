@@ -12,8 +12,6 @@
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true; # optional GUI tool
 
   # virtualisation.virtualbox.host.enable = true;
   # users.extraGroups.vboxusers.members = [ "freerat" ];
