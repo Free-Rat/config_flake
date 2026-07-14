@@ -96,6 +96,8 @@
           awesome = ./modules/awesome;
 
           infra-services = ./infra/maliketh_services.nix;
+          ollama = ./infra/ollama.nix;
+          bluetooth = ./modules/bluetooth.nix;
         };
 
         flake.darwinModules = {
@@ -140,7 +142,7 @@
           {
             ranni = mkHost {
               name = "ranni";
-              nixosModules = [ self.nixosModules.hyprland ];
+              nixosModules = [ self.nixosModules.hyprland self.nixosModules.bluetooth ];
               homeModules = [
                 hm.base.common
                 hm.base.cli
@@ -159,7 +161,7 @@
 
             malenia = mkHost {
               name = "malenia";
-              nixosModules = [ self.nixosModules.hyprland ];
+              nixosModules = [ self.nixosModules.hyprland self.nixosModules.ollama self.nixosModules.bluetooth ];
               homeModules = [
                 hm.base.common
                 hm.base.cli
