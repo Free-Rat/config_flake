@@ -73,7 +73,7 @@ Each service uses its own built-in authentication.
 | Vaultwarden | vault.free-rat.dev | 8222 | `infra/vaultwarden.nix` |
 | n8n | n8n.free-rat.dev | 5678 | `infra/n8n.nix` |
 | Nextcloud | cloud.free-rat.dev | 8091 (nginx) | `infra/nextcloud.nix` |
-| Homepage | home.free-rat.dev | 8082 | `infra/homepage-dashboard.nix` |
+| Homepage | dash.free-rat.dev | 8082 | `infra/homepage-dashboard.nix` |
 | Caddy proxy | — | 80/443 | `infra/maliketh_services.nix` |
 
 ### Setup notes

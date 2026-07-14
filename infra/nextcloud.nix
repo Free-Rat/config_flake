@@ -14,12 +14,11 @@
       adminuser = "admin";
 
       adminpassFile = "/var/lib/nextcloud/admin-pass";
+    };
 
-      trustedProxies = [
-        "127.0.0.1"
-      ];
-
-      overwriteProtocol = "https";
+    settings = {
+      trusted_proxies = [ "127.0.0.1" ];
+      overwriteprotocol = "https";
     };
 
     phpOptions = {
@@ -57,6 +56,11 @@
         ensureDBOwnership = true;
       }
     ];
+  };
+
+  systemd.services.nextcloud-setup = {
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
   };
 
   systemd.services.nextcloud-admin-pass = {

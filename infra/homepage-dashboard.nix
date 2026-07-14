@@ -3,6 +3,7 @@
   services.homepage-dashboard = {
     enable = true;
     listenPort = 8082;
+    allowedHosts = "dash.free-rat.dev,localhost:8082,127.0.0.1:8082";
 
     settings = {
       title = "free-rat";
@@ -77,7 +78,7 @@
     ];
   };
 
-  services.caddy.virtualHosts."home.free-rat.dev".extraConfig = ''
+  services.caddy.virtualHosts."dash.free-rat.dev".extraConfig = ''
     reverse_proxy localhost:8082
   '';
 }
