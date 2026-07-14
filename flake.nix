@@ -98,6 +98,13 @@
           infra-services = ./infra/maliketh_services.nix;
           ollama = ./infra/ollama.nix;
           bluetooth = ./modules/bluetooth.nix;
+
+          forgejo = ./infra/forgejo.nix;
+          vaultwarden = ./infra/vaultwarden.nix;
+          n8n = ./infra/n8n.nix;
+          nextcloud = ./infra/nextcloud.nix;
+          homepage = ./infra/homepage-dashboard.nix;
+
         };
 
         flake.darwinModules = {
@@ -180,7 +187,14 @@
 
             maliketh = mkHost {
               name = "maliketh";
-              nixosModules = [ self.nixosModules.infra-services ];
+              nixosModules = [
+                self.nixosModules.infra-services
+                self.nixosModules.forgejo
+                self.nixosModules.vaultwarden
+                self.nixosModules.n8n
+                self.nixosModules.nextcloud
+                self.nixosModules.homepage
+              ];
               homeModules = [
                 hm.base.common
                 hm.base.cli

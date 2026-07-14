@@ -22,7 +22,7 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `modules/darwin.nix` — macOS-specific module
 - `home/` — home-manager configs; `home.nix` for GUI hosts, `melina.nix` for headless, `darwin.nix` for macOS
 - `home/programs/` — per-program home-manager modules (nvf, kitty, alacritty, wezterm, rofi, nushell, etc.)
-- `infra/` — infrastructure modules (`piaseczny_cache.nix` binary cache, `maliketh_services.nix` caddy + personal website)
+- `infra/` — infrastructure modules (`maliketh_services.nix` caddy + personal website, individual service modules)
 - `scripts/` — utility shell scripts (wallpaper change, color update, nix cleanup)
 - `colors/` — generated color palettes
 - `wallpapers/` — image files used by wallust theming
@@ -62,3 +62,23 @@ nix flake update
 - `nvf` — neovim config (github:Free-Rat/nvf), follows nixpkgs
 - `eirian-font` — custom font (github:Free-Rat/eirian-font-nix-pkgs)
 - `personal-website` — personal website (github:Free-Rat/personal-website), follows nixpkgs
+
+## Services (maliketh)
+
+Each service uses its own built-in authentication.
+
+| Service | Domain | Port | Module |
+|---------|--------|------|--------|
+| Forgejo | git.free-rat.dev | 3000 | `infra/forgejo.nix` |
+| Vaultwarden | vault.free-rat.dev | 8222 | `infra/vaultwarden.nix` |
+| n8n | n8n.free-rat.dev | 5678 | `infra/n8n.nix` |
+| Nextcloud | cloud.free-rat.dev | 8091 (nginx) | `infra/nextcloud.nix` |
+| Homepage | home.free-rat.dev | 8082 | `infra/homepage-dashboard.nix` |
+| Caddy proxy | — | 80/443 | `infra/maliketh_services.nix` |
+
+### Setup notes
+
+- **Vaultwarden admin token**: Auto-generated at `/var/lib/vaultwarden/admin-token`. Access admin at `https://vault.free-rat.dev/admin`.
+- **Nextcloud admin password**: Auto-generated at `/var/lib/nextcloud/admin-pass`.
+- No PostgreSQL for Nextcloud only — Forgejo, Vaultwarden, and n8n use SQLite.
+- Nextcloud uses PostgreSQL (`services.postgresql` enabled by the nextcloud module).
