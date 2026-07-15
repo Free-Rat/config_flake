@@ -19,6 +19,10 @@
     settings = {
       trusted_proxies = [ "127.0.0.1" ];
       overwriteprotocol = "https";
+      maintenance_window_start = 1; # 1 a.m.
+      default_phone_region = "PL";
+      log_type = "file";
+      logfile = "/var/log/nextcloud/nextcloud.log";
     };
 
     phpOptions = {
@@ -26,7 +30,7 @@
       "opcache.interned_strings_buffer" = "16";
       "opcache.max_accelerated_files" = "10000";
       "opcache.revalidate_freq" = "60";
-      "memory_limit" = lib.mkForce "256M";
+      "memory_limit" = lib.mkForce "512M";
     };
 
     poolSettings = {
