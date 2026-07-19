@@ -70,6 +70,7 @@
           programs.cava = ./programs/cava;
           programs.dunst = ./programs/dunst;
           programs.eww = ./programs/eww;
+          programs.eww-notifications = ./programs/eww-notifications;
           programs.ghostty = ./programs/ghostty;
           programs.helix = ./programs/helix;
           programs.kakoune = ./programs/kakoune;
@@ -162,6 +163,7 @@
                 hm.programs.nushell
                 hm.programs.cava
                 hm.programs.kakoune
+                hm.programs.eww-notifications
                 hm.profiles.linuxDesktop
               ];
             };
@@ -181,6 +183,7 @@
                 hm.programs.nushell
                 hm.programs.cava
                 hm.programs.kakoune
+                hm.programs.eww-notifications
                 hm.profiles.linuxDesktop
               ];
             };

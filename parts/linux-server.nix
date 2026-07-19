@@ -36,5 +36,7 @@
     # dev tools
     inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
     opencode
+
+    secretspec # https://secretspec.dev/
   ];
 }

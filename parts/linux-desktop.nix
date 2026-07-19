@@ -68,6 +68,8 @@
     libheif
     clippy
     sshfs
+
+    secretspec # https://secretspec.dev/
   ];
 
   programs.ssh = {
