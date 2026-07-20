@@ -105,6 +105,7 @@
           n8n = ./infra/n8n.nix;
           nextcloud = ./infra/nextcloud.nix;
           homepage = ./infra/homepage-dashboard.nix;
+          tuwunel = ./infra/tuwunel.nix;
 
         };
 
@@ -197,6 +198,7 @@
                 self.nixosModules.n8n
                 self.nixosModules.nextcloud
                 self.nixosModules.homepage
+                self.nixosModules.tuwunel
               ];
               homeModules = [
                 hm.base.common
