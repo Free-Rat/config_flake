@@ -106,6 +106,7 @@
           nextcloud = ./infra/nextcloud.nix;
           homepage = ./infra/homepage-dashboard.nix;
           tuwunel = ./infra/tuwunel.nix;
+          element = ./infra/element.nix;
 
         };
 
@@ -199,6 +200,7 @@
                 self.nixosModules.nextcloud
                 self.nixosModules.homepage
                 self.nixosModules.tuwunel
+                self.nixosModules.element
               ];
               homeModules = [
                 hm.base.common

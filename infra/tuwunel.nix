@@ -8,7 +8,7 @@
       address = [ "127.0.0.1" "::1" ];
       port = [ 6167 ];
       allow_federation = true;
-      allow_registration = true;
+      allow_registration = false;
     };
   };
 
