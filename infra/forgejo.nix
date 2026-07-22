@@ -9,7 +9,10 @@
         ROOT_URL = "https://git.free-rat.dev/";
         HTTP_ADDR = "127.0.0.1";
         HTTP_PORT = 3000;
-        DISABLE_SSH = true;
+        DISABLE_SSH = false;
+        START_SSH_SERVER = true;
+        SSH_PORT = 2223;
+        SSH_DOMAIN = "git.free-rat.dev";
         LFS_START_SERVER = true;
       };
 

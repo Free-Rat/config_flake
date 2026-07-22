@@ -108,6 +108,7 @@
     22
     80
     443
+    2223
     5900
   ];
   # networking.firewall.allowedTCPPorts = [ ... ];
