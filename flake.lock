@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "bombon": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785017644,
+        "narHash": "sha256-n3rPqzw7xZchz3BvGsiCBkTTmDNPUiZDtbEaCMbbD/0=",
+        "owner": "nikstur",
+        "repo": "bombon",
+        "rev": "1619e73340a4af41c3baeb0ebe1e42a6be351851",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nikstur",
+        "repo": "bombon",
+        "type": "github"
+      }
+    },
     "eirian-font": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -117,11 +137,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783134515,
-        "narHash": "sha256-qMoZazubXlXUD9k/syJ/aiWC4X4g73mwVmZ7Z4+rdpM=",
+        "lastModified": 1784913159,
+        "narHash": "sha256-JWq0BfjO4ktpH5USfQNQzdvHpIDT8fSKD5K7LvdMRFs=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b885baad531fa3d3beae2ba9a0712d22974d8016",
+        "rev": "079a3b5d1aa6a719920a51316253b7d6dd22738d",
         "type": "github"
       },
       "original": {
@@ -175,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781761792,
-        "narHash": "sha256-rCPytmKNjctLloB6UgK5CRrHSwV4b0ygxtJLPPp8R14=",
+        "lastModified": 1784500460,
+        "narHash": "sha256-UvORnAxTRHax7RG74W8Z2t4GvIkX6AjJ5kk0QlwZomo=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "a1fa429e945becaf60468600daf649be4ba0350c",
+        "rev": "57a3171f94705599a2499248ca5758d5eb47c0e0",
         "type": "github"
       },
       "original": {
@@ -278,11 +298,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1782723713,
-        "narHash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ=",
+        "lastModified": 1784796856,
+        "narHash": "sha256-wWFrV5/Qbm+lyt5x20E/bSbfJiGKMo4RCxZV8cl/WZI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
+        "rev": "e2587caef70cea85dd97d7daab492899902dbf5d",
         "type": "github"
       },
       "original": {
@@ -377,11 +397,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781262426,
-        "narHash": "sha256-MXnlf3OlvEff15ljW1qzT+a+bblooVk2cvYlN+i90LY=",
+        "lastModified": 1781035728,
+        "narHash": "sha256-xvFuglqX3KmllYlKFeaCm002+QRUsK14xbIWooc354A=",
         "ref": "main",
-        "rev": "aed4c7f1dd234a4d7567c72c4813053e95d41dcc",
-        "revCount": 22,
+        "rev": "69ae60c161c42d60b884e1adb29509ff187d1935",
+        "revCount": 17,
         "type": "git",
         "url": "ssh://git@github.com/Free-Rat/personal-website"
       },
@@ -413,6 +433,7 @@
     },
     "root": {
       "inputs": {
+        "bombon": "bombon",
         "eirian-font": "eirian-font",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

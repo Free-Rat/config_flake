@@ -44,18 +44,24 @@
       url = "git+ssh://git@github.com/Free-Rat/personal-website?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bombon = {
+      url = "github:nikstur/bombon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      { self, ... }:
+      { self, inputs, ... }:
       let
         hm = self.homeModules;
       in
       {
         imports = [
           ./parts/parts-options.nix
+          ./parts/vulnscan.nix
         ];
 
         flake.homeModules = {

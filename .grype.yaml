@@ -1,0 +1,3 @@
+ignore:
+  - vulnerability: CVE-2023-4039
+  - vulnerability: CVE-2026-4176
