@@ -90,6 +90,7 @@
           programs.tmux = ./programs/tmux;
           programs.wezterm = ./programs/wezterm;
           programs.zsh = ./programs/zsh;
+          programs.lazygit = ./programs/lazygit;
 
           profiles.linuxDesktop = ./parts/linux-desktop.nix;
           profiles.linuxServer = ./parts/linux-server.nix;
@@ -256,6 +257,7 @@
                     hm.programs.nvf
                     hm.programs.bash
                     hm.programs.nushell
+                    hm.programs.lazygit
                     hm.profiles.darwin
                   ];
                 };
