@@ -22,7 +22,7 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `modules/darwin.nix` — macOS-specific module
 - `home/` — home-manager configs; `home.nix` for GUI hosts, `melina.nix` for headless, `darwin.nix` for macOS
 - `home/programs/` — per-program home-manager modules (nvf, kitty, alacritty, wezterm, rofi, nushell, etc.)
-- `infra/` — infrastructure modules (`maliketh_services.nix` caddy + personal website, individual service modules)
+- `infra/` — infrastructure modules (`caddy.nix` Caddy reverse proxy, `personal_website.nix` personal website, individual service modules)
 - `scripts/` — utility shell scripts (wallpaper change, color update, nix cleanup)
 - `colors/` — generated color palettes
 - `wallpapers/` — image files used by wallust theming
@@ -34,7 +34,8 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `scripts/clean_nix.sh` uses `sudo nixos-rebuild switch --flake /home/freerat/config_flake` (no hostname qualifier — targets current system)
 - Wallpaper workflow: `scripts/changeWallpaper.sh` (fzf picker + wallust), `scripts/updateColors.sh` reads `~/.wallpaper_path`
 - `.gitignore` excludes generated files: `home/wallpapers/.colors.scss`, `home/wallpapers/.wallpaper`, waybar colors
-- `infra/maliketh_services.nix` enables Caddy reverse proxy + personal website on `free-rat.dev`; the `package` option is explicitly set to the personal-website input package (avoids `self` ambiguity)
+- `infra/caddy.nix` enables Caddy reverse proxy with domain redirects (e.g. `tomasz.bijeswoja.zone` → `free-rat.dev`)
+- `infra/personal_website.nix` serves personal website on `free-rat.dev`; the `package` option is explicitly set to the personal-website input package (avoids `self` ambiguity)
 - Maliketh has a static IP (192.168.1.107) — if the interface name changes, update `hosts/maliketh/configuration.nix`
 
 ## Flake commands
@@ -74,7 +75,7 @@ Each service uses its own built-in authentication.
 | n8n | n8n.free-rat.dev | 5678 | `infra/n8n.nix` |
 | Nextcloud | cloud.free-rat.dev | 8091 (nginx) | `infra/nextcloud.nix` |
 | Homepage | dash.free-rat.dev | 8082 | `infra/homepage-dashboard.nix` |
-| Caddy proxy | — | 80/443 | `infra/maliketh_services.nix` |
+| Caddy proxy | — | 80/443 | `infra/caddy.nix` |
 
 ### Setup notes
 

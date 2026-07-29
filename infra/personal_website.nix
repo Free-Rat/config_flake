@@ -4,8 +4,6 @@
     inputs.personal-website.nixosModules.website
   ];
 
-  services.caddy.enable = true;
-
   services.personal-website = {
     enable = true;
     domain = "free-rat.dev";

@@ -103,7 +103,8 @@
           niri = ./modules/niri;
           awesome = ./modules/awesome;
 
-          infra-services = ./infra/maliketh_services.nix;
+          infra-caddy = ./infra/caddy.nix;
+          infra-personal-website = ./infra/personal_website.nix;
           ollama = ./infra/ollama.nix;
           bluetooth = ./modules/bluetooth.nix;
 
@@ -200,7 +201,8 @@
             maliketh = mkHost {
               name = "maliketh";
               nixosModules = [
-                self.nixosModules.infra-services
+                self.nixosModules.infra-caddy
+                self.nixosModules.infra-personal-website
                 self.nixosModules.forgejo
                 self.nixosModules.vaultwarden
                 self.nixosModules.n8n
