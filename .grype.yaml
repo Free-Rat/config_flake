@@ -1,3 +1,7 @@
 ignore:
   - vulnerability: CVE-2023-4039
   - vulnerability: CVE-2026-4176
+  - vulnerability: CVE-2026-6791
+    reason: "no fix available, requires app passing untrusted input to wordexp()"
+  - vulnerability: CVE-2026-6368
+    reason: "low severity, local-only, narrow wordexp(WRDE_APPEND) use case"
