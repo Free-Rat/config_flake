@@ -40,8 +40,9 @@
       url = "github:Free-Rat/pi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     personal-website = {
-      url = "git+ssh://git@github.com/Free-Rat/personal-website?ref=main";
+      url = "git+ssh://forgejo@git.free-rat.dev:2223/Free-Rat/personal-website.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -160,7 +161,10 @@
           {
             ranni = mkHost {
               name = "ranni";
-              nixosModules = [ self.nixosModules.hyprland self.nixosModules.bluetooth ];
+              nixosModules = [
+                self.nixosModules.hyprland
+                self.nixosModules.bluetooth
+              ];
               homeModules = [
                 hm.base.common
                 hm.base.cli
@@ -180,7 +184,11 @@
 
             malenia = mkHost {
               name = "malenia";
-              nixosModules = [ self.nixosModules.hyprland self.nixosModules.ollama self.nixosModules.bluetooth ];
+              nixosModules = [
+                self.nixosModules.hyprland
+                self.nixosModules.ollama
+                self.nixosModules.bluetooth
+              ];
               homeModules = [
                 hm.base.common
                 hm.base.cli

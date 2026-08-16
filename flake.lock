@@ -399,16 +399,15 @@
       "locked": {
         "lastModified": 1781035728,
         "narHash": "sha256-xvFuglqX3KmllYlKFeaCm002+QRUsK14xbIWooc354A=",
-        "ref": "main",
+        "ref": "refs/heads/main",
         "rev": "69ae60c161c42d60b884e1adb29509ff187d1935",
         "revCount": 17,
         "type": "git",
-        "url": "ssh://git@github.com/Free-Rat/personal-website"
+        "url": "ssh://forgejo@git.free-rat.dev:2223/Free-Rat/personal-website.git"
       },
       "original": {
-        "ref": "main",
         "type": "git",
-        "url": "ssh://git@github.com/Free-Rat/personal-website"
+        "url": "ssh://forgejo@git.free-rat.dev:2223/Free-Rat/personal-website.git"
       }
     },
     "pi": {
