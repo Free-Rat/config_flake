@@ -51,6 +51,7 @@ in
     PATH_SCRIPTS        = "${flake}/scripts";
     PATH_WALLPAPERS     = "${flake}/wallpapers";
     PATH_PROGRAMS       = programsDir;
+    HERDR_CONFIG_PATH   = "${programsDir}/herdr/config.toml";
     KAKOUNE_CONFIG_DIR  = "${programsDir}/kakoune";
     WEZTERM_CONFIG_DIR  = "${programsDir}/wezterm";
     WEZTERM_CONFIG_FILE = "${programsDir}/wezterm/wezterm.lua";

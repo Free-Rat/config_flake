@@ -1,0 +1,25 @@
+onboarding = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[theme]
+name = "kanagawa"
+auto_switch = false
+
+[keys]
+previous_workspace = "prefix+k"
+next_workspace = "prefix+j"
+
+previous_tab = "prefix+h"
+next_tab = "prefix+l"
+
+focus_pane_up = "prefix+shift+k"
+focus_pane_down = "prefix+shift+j"
+focus_pane_left = "prefix+shift+h"
+focus_pane_right = "prefix+shift+l"
+
+swap_pane_up = "prefix+alt+k"
+swap_pane_down = "prefix+alt+j"
+swap_pane_left = "prefix+alt+h"
+swap_pane_right = "prefix+alt+l"

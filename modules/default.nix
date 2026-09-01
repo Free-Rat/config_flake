@@ -18,6 +18,7 @@
     PATH_SCRIPTS = "${PATH_FLAKE_CONFIG}/scripts";
     PATH_WALLPAPERS = "${PATH_FLAKE_CONFIG}/wallpapers";
     PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/programs";
+    HERDR_CONFIG_PATH = "${PATH_PROGRAMS}/herdr/config.toml";
     KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
     WEZTERM_CONFIG_DIR = "${PATH_PROGRAMS}/wezterm";
     WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm/wezterm.lua";
