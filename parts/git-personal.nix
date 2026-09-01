@@ -10,5 +10,8 @@
       };
       core.askpass = "";
     };
+    extraConfig = {
+      diff.wordRegex = ".";
+    };
   };
 }

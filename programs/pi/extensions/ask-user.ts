@@ -1,6 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { Type } from "typebox";
-import { StringEnum } from "@earendil-works/pi-ai";
+import { Type, type Static } from "typebox";
+import { StringEnum } from "@mariozechner/pi-ai";
 
 /**
  * ask-user extension
@@ -52,50 +52,117 @@ reasonable options. This reduces user friction while still getting the signal
 you need.
 `;
 
-// ── Choice normalization ────────────────────────────────────────────
-// LLMs occasionally send choices in non-string shapes:
-//   - { label: "Yes", description: "..." }   (Claude / OpenAI tool-use style)
-//   - { "Yes": "" }                          (label used as a key with empty value)
-//   - "Yes"                                  (already a string)
-//
-// `ctx.ui.select` requires `string[]`, so flatten anything we get into that.
-type RawChoice =
-  | string
-  | { label?: unknown; description?: unknown; [k: string]: unknown };
+// ── Normalized parameter shape (after prepareArguments) ────────────
+const ParameterSchema = Type.Object({
+  question: Type.String({
+    description:
+      "The full question to present to the user. Be specific and provide context for why you're asking.",
+  }),
+  question_type: StringEnum(
+    ["open", "choice", "confirm"] as const,
+    {
+      description:
+        "Type of question: 'confirm' for yes/no, 'choice' for multiple choice, 'open' for free text",
+    }
+  ),
+  choices: Type.Optional(
+    Type.Array(Type.String(), {
+      description:
+        "For 'choice' type: list of options to present. First option is the default.",
+    })
+  ),
+  context: Type.Optional(
+    Type.String({
+      description:
+        "Brief context explaining why you're asking (shown to user as a subtitle)",
+    })
+  ),
+});
 
-function normalizeChoice(raw: unknown, index: number): string {
-  if (typeof raw === "string") return raw;
+type NormalizedParams = Static<typeof ParameterSchema>;
 
-  if (raw && typeof raw === "object") {
+// ── LLM input normalization (prepareArguments) ─────────────────────
+// Models send choices in wildly inconsistent shapes. Normalize *before* validation.
+type RawChoice = unknown;
+
+function normalizeSingleChoice(raw: RawChoice, index: number): string {
+  // Already a non-empty string ✓
+  if (typeof raw === "string" && raw.trim().length > 0) return raw.trim();
+
+  // Object shapes
+  if (raw && typeof raw === "object" && !Array.isArray(raw)) {
     const obj = raw as Record<string, unknown>;
 
-    // 1. Preferred shape: { label, description? }
+    // Shape: { label: "...", description?: "..." }
     if (typeof obj.label === "string" && obj.label.length > 0) {
       const desc = typeof obj.description === "string" ? obj.description : "";
       return desc ? `${obj.label} — ${desc}` : obj.label;
     }
 
-    // 2. Last-resort: label was used as the *key* with an empty value
-    //    e.g. { "Yes, destroy now": "" }
-    for (const [key, value] of Object.entries(obj)) {
-      if (typeof value === "string" || value === "") return key;
+    // Shape: { label: "...", ...otherKeys ignored }
+    if (typeof obj.label !== "undefined") {
+      return String(obj.label);
     }
 
-    // 3. Give up — fall back to JSON so the user can still see something
-    try {
-      return JSON.stringify(obj);
-    } catch {
-      return `Option ${index + 1}`;
-    }
+    // Last resort: first key in the object IS the label
+    const keys = Object.keys(obj);
+    if (keys.length > 0) return keys[0];
   }
 
-  // 4. Anything else (number, null, …): stringify it.
-  return String(raw);
+  // Coerce numbers, booleans
+  if (raw !== null && raw !== undefined) {
+    const s = String(raw).trim();
+    if (s.length > 0) return s;
+  }
+
+  // Final fallback — index sentinel
+  return `Option ${index + 1}`;
 }
 
-function normalizeChoices(raw: unknown): string[] {
-  if (!Array.isArray(raw)) return [];
-  return raw.map((c, i) => normalizeChoice(c, i));
+function normalizeChoices(raw: unknown): string[] | undefined {
+  if (!Array.isArray(raw)) return undefined;
+  return raw.map((c, i) => normalizeSingleChoice(c, i));
+}
+
+function prepareArguments(raw: unknown): NormalizedParams {
+  if (!raw || typeof raw !== "object") {
+    return {
+      question: "No question provided",
+      question_type: "open",
+    };
+  }
+
+  const obj = raw as Record<string, unknown>;
+
+  // question — must be present and non-empty string; fall back gracefully
+  let question = "";
+  if (typeof obj.question === "string" && obj.question.trim()) {
+    question = obj.question.trim();
+  } else if (obj.prompt && typeof obj.prompt === "string") {
+    question = obj.prompt.trim(); // some models use "prompt" instead of "question"
+  }
+  question = question || "No question provided";
+
+  // question_type — clamp to valid enum
+  const typeRaw = obj.question_type ?? obj.type ?? "open";
+  const validTypes = ["open", "choice", "confirm"];
+  const question_type = (typeof typeRaw === "string" &&
+    validTypes.includes(typeRaw.toLowerCase())
+    ? typeRaw.toLowerCase()
+    : "open") as NormalizedParams["question_type"];
+
+  // choices — normalized to string[] | undefined
+  const choices = normalizeChoices(obj.choices);
+
+  // context — optional subtitle
+  let context: string | undefined;
+  if (typeof obj.context === "string" && obj.context.trim()) {
+    context = obj.context.trim();
+  } else if (typeof obj.subtitle === "string" && obj.subtitle.trim()) {
+    context = obj.subtitle.trim(); // some models use "subtitle"
+  }
+
+  return { question, question_type, choices, context };
 }
 
 // Sentinel appended to the choice list so the user can always type a free-form
@@ -104,9 +171,12 @@ function normalizeChoices(raw: unknown): string[] {
 // produce the same string as a regular choice.
 const FREE_TEXT_SENTINEL = "\u270f\ufe0f Type your own answer\u2026";
 
+// Timeout for UI dialogs (5 minutes) — prevents agent from hanging forever
+const UI_TIMEOUT_MS = 5 * 60 * 1000;
+
 export default function (pi: ExtensionAPI) {
   // ── Inject system prompt guidance ─────────────────────────────────
-  pi.on("before_agent_start", async (event, ctx) => {
+  pi.on("before_agent_start", async (event, _ctx) => {
     return {
       systemPrompt: event.systemPrompt + "\n\n" + ASK_USER_GUIDANCE,
     };
@@ -123,103 +193,117 @@ export default function (pi: ExtensionAPI) {
     promptGuidelines: [
       "Use ask_user proactively when you lack context, face architectural decisions with trade-offs, are about to make high-impact changes, or need clarification on ambiguous requests. Do NOT use for trivial questions or when the answer is obvious from context.",
     ],
-    parameters: Type.Object({
-      question: Type.String({
-        description:
-          "The full question to present to the user. Be specific and provide context for why you're asking.",
-      }),
-      question_type: StringEnum([
-        "open",
-        "choice",
-        "confirm",
-      ] as const),
-      // Accept either a plain string OR an object with a `label` field.
-      // We normalize everything to `string[]` inside `execute`.
-      choices: Type.Optional(
-        Type.Array(
-          Type.Union([
-            Type.String(),
-            Type.Object({
-              label: Type.String(),
-              description: Type.Optional(Type.String()),
-            }),
-          ]),
-          {
-            description:
-              "For 'choice' type: list of options to present. First option is the default. Each entry may be a plain string or an object like { label, description }.",
-          }
-        )
-      ),
-      context: Type.Optional(
-        Type.String({
-          description:
-            "Brief context explaining why you're asking (shown to user as a subtitle). E.g., 'Choosing between React Query and SWR for data fetching'",
-        })
-      ),
-    }),
-    async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
-      const { question, question_type, context } = params;
-      const choices = normalizeChoices(params.choices);
+    parameters: ParameterSchema,
+    prepareArguments,
 
-      // Build the prompt text for the dialog
+    async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
+      const { question, question_type, choices, context } = params;
       const title = context ?? "Question";
 
+      // ── Non-interactive fallback ────────────────────────────────────
       if (!ctx.hasUI) {
-        // Non-interactive mode: return a message indicating we can't ask
         return {
           content: [
             {
               type: "text" as const,
-              text: `[ask_user skipped in non-interactive mode] Question: "${question}" — proceeding without user input. If critical, re-run interactively and the model will ask again.`,
+              text: `[ask_user skipped — non-interactive mode] Question: "${question}"`,
             },
           ],
-          details: { skipped: true, question, question_type, choices },
+          details: { skipped: true, reason: "non-interactive" },
+          terminate: true,
         };
       }
 
-      let answer: string | undefined;
+      let answer: string;
 
-      switch (question_type) {
-        case "confirm": {
-          const ok = await ctx.ui.confirm(title, question);
-          answer = ok ? "Yes (confirmed by user)" : "No (declined by user)";
-          break;
-        }
-
-        case "choice": {
-          if (choices.length === 0) {
-            // Fallback to open if no choices given
-            answer = await ctx.ui.input(title, question);
+      try {
+        switch (question_type) {
+          case "confirm": {
+            try {
+              const ok = await ctx.ui.confirm(title, question, {
+                timeout: UI_TIMEOUT_MS,
+              });
+              answer = ok
+                ? "Yes (confirmed by user)"
+                : "No (declined by user)";
+            } catch {
+              answer = "(user did not respond in time or dialog was dismissed)";
+            }
             break;
           }
-          // Always offer a free-text escape hatch as the last option.
-          const choicesWithFreeText = [...choices, FREE_TEXT_SENTINEL];
-          const selected = await ctx.ui.select(title, choicesWithFreeText);
 
-          if (selected === undefined) {
-            answer = "(user cancelled)";
-          } else if (selected === FREE_TEXT_SENTINEL) {
-            // User picked the free-text option — prompt for input.
-            const freeText = await ctx.ui.input(title, question);
-            if (freeText === undefined || freeText.trim() === "") {
-              answer = "(user did not provide an answer)";
-            } else {
-              answer = freeText;
+          case "choice": {
+            const choiceList = choices?.filter(Boolean);
+            if (!choiceList || choiceList.length === 0) {
+              // Degraded to open if no valid choices provided
+              try {
+                const input = await ctx.ui.input(title, question, {
+                  timeout: UI_TIMEOUT_MS,
+                });
+                answer =
+                  input && input.trim()
+                    ? input.trim()
+                    : "(user did not provide an answer)";
+              } catch {
+                answer = "(user did not respond in time or dialog was dismissed)";
+              }
+              break;
             }
-          } else {
-            answer = selected;
-          }
-          break;
-        }
 
-        case "open":
-        default: {
-          answer = await ctx.ui.input(title, question);
-          if (answer === undefined || answer.trim() === "") {
-            answer = "(user did not provide an answer)";
+            // Always offer a free-text escape hatch as the last option.
+            const allChoices = [...choiceList, FREE_TEXT_SENTINEL];
+
+            try {
+              const selected = await ctx.ui.select(title, allChoices, {
+                timeout: UI_TIMEOUT_MS,
+              });
+
+              if (selected === undefined) {
+                answer = "(user cancelled the dialog)";
+              } else if (selected === FREE_TEXT_SENTINEL) {
+                // User picked the free-text option — prompt for input.
+                try {
+                  const freeText = await ctx.ui.input(title, question, {
+                    timeout: UI_TIMEOUT_MS,
+                  });
+                  answer =
+                    freeText && freeText.trim()
+                      ? freeText.trim()
+                      : "(user did not provide an answer)";
+                } catch {
+                  answer =
+                    "(user cancelled the free-text input or timed out)";
+                }
+              } else {
+                answer = selected;
+              }
+            } catch {
+              answer = "(user did not respond in time or dialog was dismissed)";
+            }
+            break;
           }
-          break;
+
+          case "open":
+          default: {
+            try {
+              const input = await ctx.ui.input(title, question, {
+                timeout: UI_TIMEOUT_MS,
+              });
+              answer =
+                input && input.trim()
+                  ? input.trim()
+                  : "(user did not provide an answer)";
+            } catch {
+              answer =
+                "(user did not respond in time or dialog was dismissed)";
+            }
+            break;
+          }
         }
+      } catch (err) {
+        // Catches any unexpected errors from the switch logic itself
+        const msg = err instanceof Error ? err.message : String(err);
+        answer = `(error: ${msg})`;
       }
 
       return {

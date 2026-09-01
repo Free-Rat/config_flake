@@ -64,7 +64,7 @@
   # Uses jq to idempotently add the path without touching runtime-managed settings
   home.activation.piExtensions = ''
     SETTINGS="$HOME/.pi/agent/settings.json"
-    EXTS_PATH="/home/freerat/config_flake/home/programs/pi/extensions/"
+    EXTS_PATH="/home/freerat/config_flake/programs/pi/extensions/"
 
     if [ ! -f "$SETTINGS" ]; then
       mkdir -p "$(dirname "$SETTINGS")"
