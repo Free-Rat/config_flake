@@ -71,6 +71,7 @@
           base.gitPersonal = ./parts/git-personal.nix;
           base.gitWork = ./parts/git-work.nix;
           base.desktopFiles = ./parts/desktop-files.nix;
+          base.herdr = ./parts/herdr.nix;
 
           programs.alacritty = ./programs/alacritty;
           programs.bash = ./programs/bash;
@@ -170,6 +171,7 @@
                 hm.base.cli
                 hm.base.gitPersonal
                 hm.base.desktopFiles
+                hm.base.herdr
                 hm.programs.nvf
                 hm.programs.rofi
                 hm.programs.alacritty
@@ -194,6 +196,7 @@
                 hm.base.cli
                 hm.base.gitPersonal
                 hm.base.desktopFiles
+                hm.base.herdr
                 hm.programs.nvf
                 hm.programs.rofi
                 hm.programs.alacritty
@@ -223,6 +226,7 @@
                 hm.base.common
                 hm.base.cli
                 hm.base.gitPersonal
+                hm.base.herdr
                 hm.programs.nvf
                 hm.programs.wezterm
                 hm.profiles.linuxServer
@@ -236,6 +240,7 @@
                 hm.base.common
                 hm.base.cli
                 hm.base.gitPersonal
+                hm.base.herdr
                 hm.programs.nvf
                 hm.programs.ghostty
                 hm.profiles.linuxServer
