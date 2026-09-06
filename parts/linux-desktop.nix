@@ -26,6 +26,7 @@
     blender
     osu-lazer
     nodejs_22
+    nextcloud-client
 
     opencode
     krita

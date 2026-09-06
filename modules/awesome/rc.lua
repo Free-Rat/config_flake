@@ -128,18 +128,15 @@ local function set_wallpaper(s)
     if beautiful.wallpaper then
         local wallpaper = beautiful.wallpaper
 
-        local pathWallpapers = os.getenv("PATH_FLAKE_CONFIG") or "/home/freerat/config_flake"
-        if pathWallpapers then
-            pathWallpapers = pathWallpapers .. "/home/wallpapers"
-            local files = {}
-            for file in io.popen('ls "' .. pathWallpapers .. '"'):lines() do
-                table.insert(files, file)
-            end
-            if #files > 0 then
-                local randomFile = files[math.random(#files)]
-                local newPathWallpapers = pathWallpapers .. "/" .. randomFile
-                wallpaper = newPathWallpapers
-            end
+        local pathWallpapers = os.getenv("PATH_WALLPAPERS") or "/home/freerat/Nextcloud/wallpapers"
+        local files = {}
+        for file in io.popen('ls "' .. pathWallpapers .. '"'):lines() do
+            table.insert(files, file)
+        end
+        if #files > 0 then
+            local randomFile = files[math.random(#files)]
+            local newPathWallpapers = pathWallpapers .. "/" .. randomFile
+            wallpaper = newPathWallpapers
         end
 
         -- If wallpaper is a function, call it with the screen

@@ -7,7 +7,7 @@
 	extraConfig = builtins.readFile ./kitty.conf;
 	settings = {
 	 # shell = "fish";
-	# background_image = "~/config_flake/wallpapers/FrenziedFlame.png";
+	# background_image = "~/Nextcloud/wallpapers/FrenziedFlame.png";
 	 # background_opacity = "0.95";
 	 # background_blur = "5";
 	 # background_image_layout = "cscaled";

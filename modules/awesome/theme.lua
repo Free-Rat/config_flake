@@ -11,7 +11,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.wallpaper = "/home/freerat/config_flake/home/wallpapers/ranni3.jpg"
+theme.wallpaper = "/home/freerat/Nextcloud/wallpapers/ranni3.jpg"
 
 theme.font          =  "Monaspace Krypton Light 11" --"Roboto Mono 8" --"3270 Nerd Font 8"
 

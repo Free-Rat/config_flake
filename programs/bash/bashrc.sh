@@ -74,7 +74,7 @@ export PS1="\n ${COLOR}\W $white_d_c>$white_l_c> $back_c ${reset_c}"
 
 PATH_FLAKE_CONFIG="$HOME/config_flake"
 PATH_SCRIPTS="$PATH_FLAKE_CONFIG/scripts"
-PATH_WALLPAPERS="$PATH_FLAKE_CONFIG/wallpapers"
+PATH_WALLPAPERS="$HOME/Nextcloud/wallpapers"
 PATH_PROGRAMS="$PATH_FLAKE_CONFIG/programs"
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="/home/freerat/.local/bin:$PATH"

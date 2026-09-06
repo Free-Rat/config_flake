@@ -49,7 +49,7 @@ in
   launchd.user.envVariables = {
     PATH_FLAKE_CONFIG   = flake;
     PATH_SCRIPTS        = "${flake}/scripts";
-    PATH_WALLPAPERS     = "${flake}/wallpapers";
+    PATH_WALLPAPERS     = "${myHome}/Nextcloud/wallpapers";
     PATH_PROGRAMS       = programsDir;
     HERDR_CONFIG_PATH   = "${programsDir}/herdr/config.toml";
     KAKOUNE_CONFIG_DIR  = "${programsDir}/kakoune";

@@ -12,4 +12,4 @@ run "kitty --config /home/freerat/config_flake/programs/kitty/kitty.conf"
 
 run "nm-applet"
 run "picom" -b
-run "feh --bg-fill $HOME/config_flake/home/wallpapers/ranni1.jpg"
+run "feh --bg-fill $HOME/Nextcloud/wallpapers/ranni1.jpg"

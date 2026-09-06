@@ -26,15 +26,15 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 - `infra/` — infrastructure modules (`caddy.nix` Caddy reverse proxy, `personal_website.nix` personal website, individual service modules)
 - `scripts/` — utility shell scripts (wallpaper change, color update, nix cleanup)
 - `colors/` — generated color palettes
-- `wallpapers/` — image files used by wallust theming
+- `wallpapers/` — images now live in `/home/freerat/Nextcloud/wallpapers` (outside the repo), used by wallust theming
 
 ## Key conventions
 
 - Config path hardcoded as `/home/freerat/config_flake` in `modules/default.nix` env vars — changing it requires updating that file
 - Active window manager: **hyprland** (others are commented out in `flake.nix` outputs)
 - `scripts/clean_nix.sh` uses `sudo nixos-rebuild switch --flake /home/freerat/config_flake` (no hostname qualifier — targets current system)
-- Wallpaper workflow: `scripts/changeWallpaper.sh` (fzf picker + wallust), `scripts/updateColors.sh` reads `~/.wallpaper_path`
-- `.gitignore` excludes generated files: `home/wallpapers/.colors.scss`, `home/wallpapers/.wallpaper`, waybar colors
+- Wallpaper workflow: `scripts/changeWallpaper.sh` (fzf picker + wallust), `scripts/updateColors.sh` reads `$PATH_WALLPAPERS/.wallpaper`
+- `.gitignore` excludes generated waybar colors; wallust-generated files (`.colors.scss`, `.wallpaper`) live in the Nextcloud wallpapers dir outside the repo
 - `infra/caddy.nix` enables Caddy reverse proxy with domain redirects (e.g. `tomasz.bijeswoja.zone` → `free-rat.dev`)
 - `infra/personal_website.nix` serves personal website on `free-rat.dev`; the `package` option is explicitly set to the personal-website input package (avoids `self` ambiguity)
 - Maliketh has a static IP (192.168.1.107) — if the interface name changes, update `hosts/maliketh/configuration.nix`

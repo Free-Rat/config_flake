@@ -33,7 +33,7 @@
     #
     #   PATH_FLAKE_CONFIG = "$HOME/config_flake";
     #   PATH_SCRIPTS = "$PATH_FLAKE_CONFIG/scripts";
-    #   PATH_WALLPAPERS = "$PATH_FLAKE_CONFIG/wallpapers";
+    #   PATH_WALLPAPERS = "$HOME/Nextcloud/wallpapers";
     #   PATH_PROGRAMS = "$PATH_FLAKE_CONFIG/home/programs";
     #
     #   KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
