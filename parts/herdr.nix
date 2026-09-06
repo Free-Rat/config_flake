@@ -6,6 +6,9 @@
     if [ -d "$HOME/.config/opencode" ]; then
       ${pkgs.herdr}/bin/herdr integration install opencode
     fi
-    ${pkgs.herdr}/bin/herdr integration install pi
+    if [ -d "$HOME/.pi" ]; then
+      mkdir -p "$HOME/.pi/agent/extensions"
+      ${pkgs.herdr}/bin/herdr integration install pi
+    fi
   '';
 }
