@@ -1,0 +1,78 @@
+{ pkgs, user, ... }:
+{
+  imports = [ ./hardware-configuration.nix ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
+
+  boot.kernelModules = [
+    "ip_tables"
+    "iptable_filter"
+    "iptable_nat"
+    "nf_conntrack"
+    "nf_conntrack_ipv4"
+    "nf_nat"
+    "xt_conntrack"
+  ];
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
+
+  virtualisation.docker.enable = true;
+
+  # Bootloader.
+  # Kept as systemd-boot because this laptop uses an EFI system partition.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "rennala";
+
+  hardware.graphics.enable = true;
+
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Europe/Warsaw";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "pl_PL.UTF-8";
+    LC_IDENTIFICATION = "pl_PL.UTF-8";
+    LC_MEASUREMENT = "pl_PL.UTF-8";
+    LC_MONETARY = "pl_PL.UTF-8";
+    LC_NAME = "pl_PL.UTF-8";
+    LC_NUMERIC = "pl_PL.UTF-8";
+    LC_PAPER = "pl_PL.UTF-8";
+    LC_TELEPHONE = "pl_PL.UTF-8";
+    LC_TIME = "pl_PL.UTF-8";
+  };
+
+  users.users.${user} = {
+    isNormalUser = true;
+    description = "Free-Rat";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+      "dialout"
+      "docker"
+    ];
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  system.stateVersion = "26.05";
+}

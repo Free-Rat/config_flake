@@ -9,6 +9,7 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 | Name | Role | Platform | Rebuild command |
 |------|------|----------|-----------------|
 | ranni | Laptop | x86_64-linux (NixOS) | `sudo nixos-rebuild switch --flake .#ranni` |
+| rennala | Laptop | x86_64-linux (NixOS) | `sudo nixos-rebuild switch --flake .#rennala` |
 | malenia | Desktop | x86_64-linux (NixOS) | `sudo nixos-rebuild switch --flake .#malenia` |
 | maliketh | Mini PC server | x86_64-linux (NixOS) | `sudo nixos-rebuild switch --flake .#maliketh` |
 | melina | Raspberry Pi | NixOS (no hyprland) | `sudo nixos-rebuild switch --flake .#melina` |
@@ -17,7 +18,7 @@ A NixOS/Nix-Darwin flake managing multiple machines with home-manager. All machi
 ## Structure
 
 - `flake.nix` — all host definitions, inputs, and wiring
-- `hosts/<name>/` — per-host hardware/config (ranni, malenia, maliketh, melina use `configuration.nix` + `hardware-configuration.nix`; hyetta uses `default.nix`)
+- `hosts/<name>/` — per-host hardware/config (ranni, rennala, malenia, maliketh, melina use `configuration.nix` + `hardware-configuration.nix`; hyetta uses `default.nix`)
 - `modules/` — shared NixOS modules; `default.nix` is the common base, `hyprland/` is the active WM, others (awesome, xmonad, sway, river, niri, qtile) are commented out
 - `modules/darwin.nix` — macOS-specific module
 - `home/` — home-manager configs; `home.nix` for GUI hosts, `melina.nix` for headless, `darwin.nix` for macOS

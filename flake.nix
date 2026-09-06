@@ -1,6 +1,7 @@
 {
   # pc: sellia
   # thinkpad: lucaria or raya-lucaria
+  # zenbook: rennala
   # macbook: leyndell or midra-manse or manse
   # minipc(public ip): stromveil
   # rasberypi: jarburg
@@ -162,6 +163,30 @@
           {
             ranni = mkHost {
               name = "ranni";
+              nixosModules = [
+                self.nixosModules.hyprland
+                self.nixosModules.bluetooth
+              ];
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.base.desktopFiles
+                hm.base.herdr
+                hm.programs.nvf
+                hm.programs.rofi
+                hm.programs.alacritty
+                hm.programs.wezterm
+                hm.programs.nushell
+                hm.programs.cava
+                hm.programs.kakoune
+                hm.programs.eww-notifications
+                hm.profiles.linuxDesktop
+              ];
+            };
+
+            rennala = mkHost {
+              name = "rennala";
               nixosModules = [
                 self.nixosModules.hyprland
                 self.nixosModules.bluetooth
