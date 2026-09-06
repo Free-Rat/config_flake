@@ -7,17 +7,94 @@ RED='\033[0;31m'
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-DRY_RUN=false
-if [ "${1:-}" = "--dry-run" ] || [ "${1:-}" = "-n" ]; then
-    DRY_RUN=true
-    echo -e "${YELLOW}[DRY RUN] no destructive actions will be taken${NC}"
+usage() {
+    cat <<EOF
+clean_nix.sh — audit and clean the nix store on this machine
+
+Usage: $(basename "$0") [OPTIONS]
+
+Options:
+    -n, --dry-run   Audit only: show store size, broken/old GC roots and
+                    what GC would remove. Skips rebuild, garbage
+                    collection, and optimisation.
+    -h, --help      Show this help message and exit.
+
+Steps performed (without --dry-run):
+    1. Store audit (size, broken GC roots, stale 'result' roots,
+       old home-manager generations, largest GC roots)
+    2. Rebuild system  (sudo nixos-rebuild switch --flake /home/freerat/config_flake)
+    3. Garbage collection (user + root; optional deletion of old
+       system generations, asks first)
+    4. Store optimisation (nix-store --optimise, nix store optimise)
+    5. Optional store integrity check (nix-store --verify
+       --check-contents; slow, asks first)
+    6. Remove broken GC roots, re-run root GC
+    7. Final store size + cleanup tips
+
+Examples:
+    $(basename "$0") --dry-run    # see what would be cleaned
+    $(basename "$0")              # full clean
+EOF
+}
+
+case "${1:-}" in
+    -h|--help)
+        usage
+        exit 0
+        ;;
+    -n|--dry-run)
+        DRY_RUN=true
+        echo -e "${YELLOW}[DRY RUN] no destructive actions will be taken${NC}"
+        ;;
+    "")
+        DRY_RUN=false
+        ;;
+    *)
+        echo -e "${RED}Unknown option: $1${NC}" >&2
+        usage >&2
+        exit 1
+        ;;
+esac
+if [ "$#" -gt 1 ]; then
+    echo -e "${RED}Unexpected extra arguments: ${*:2}${NC}" >&2
+    usage >&2
+    exit 1
 fi
+
+ask_yes_no() {
+    local prompt=$1 answer=""
+    printf '%s [y/N] ' "$prompt"
+    read -r answer < /dev/tty 2>/dev/null || answer=""
+    printf '%s\n' "$answer"
+    [[ "$answer" =~ ^[yY]([eE][sS])?$ ]]
+}
+
+prompt_remove() {
+    local -n links=$1
+    local label=$2
+    [ "${#links[@]}" -eq 0 ] && return 0
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "${YELLOW}[DRY RUN] would prompt to remove ${#links[@]} $label${NC}"
+        return 0
+    fi
+    if ask_yes_no "Remove ${#links[@]} $label?"; then
+        for link in "${links[@]}"; do
+            if sudo rm "$link"; then
+                echo -e "  ${GREEN}[REMOVED]${NC} $link"
+            else
+                echo -e "  ${RED}[FAILED]${NC} $link" >&2
+            fi
+        done
+    else
+        echo "  skipped"
+    fi
+}
 
 # ─────────────────────────────────────────────
 # 1. Store health audit
 # ─────────────────────────────────────────────
 echo -e "${CYAN}═══ Store audit ═══${NC}"
-STORE_SIZE=$(du -sh /nix/store 2>/dev/null | cut -f1)
+STORE_SIZE=$(du -sh /nix/store 2>/dev/null | cut -f1 || true)
 echo -e "Store size: ${YELLOW}$STORE_SIZE${NC}"
 echo ""
 
@@ -40,6 +117,7 @@ echo ""
 # ── 1b. Old project result roots (> 60 days) ──
 echo -e "${CYAN}--- Old project results (> 60 days) ---${NC}"
 OLD_RESULT_COUNT=0
+OLD_RESULT_LINKS=()
 CUTOFF_EPOCH=$(date -d "60 days ago" +%s)
 for link in /nix/var/nix/gcroots/auto/*; do
     [ -e "$link" ] || continue
@@ -56,17 +134,22 @@ for link in /nix/var/nix/gcroots/auto/*; do
             size=$(nix path-info -S "$target" 2>/dev/null | awk '{print $2}' || echo "?")
             echo -e "  ${YELLOW}[${age_days}d old]${NC} $(basename "$link") -> $target (${size})"
             OLD_RESULT_COUNT=$((OLD_RESULT_COUNT + 1))
+            OLD_RESULT_LINKS+=("$link")
         fi
     fi
 done
 if [ "$OLD_RESULT_COUNT" -eq 0 ]; then
     echo "  (none)"
 fi
+prompt_remove OLD_RESULT_LINKS "old 'result' gc roots"
 echo ""
 
-# ── 1c. Old home-manager generations (> 3 kept) ──
-echo -e "${CYAN}--- Home-manager gc roots (non-current) ---${NC}"
+# ── 1c. Old home-manager generations (newest 3 kept) ──
+echo -e "${CYAN}--- Home-manager gc roots (keeping newest 3) ---${NC}"
 HM_COUNT=0
+HM_LINKS=()
+declare -A HM_GEN_LINKS=()
+HM_GENS=()
 for link in /nix/var/nix/gcroots/auto/*; do
     [ -e "$link" ] || continue
     target=$(readlink "$link" 2>/dev/null || true)
@@ -74,28 +157,46 @@ for link in /nix/var/nix/gcroots/auto/*; do
     case "$target" in *home-manager-*-link*)
         if ! echo "$target" | grep -q "current-home"; then
             gen=$(echo "$target" | grep -oP 'home-manager-\K[0-9]+(?=-link)' || echo "?")
-            size=$(nix path-info -S "$target" 2>/dev/null | awk '{print $2}' || echo "?")
-            echo -e "  ${YELLOW}[gen $gen]${NC} $(basename "$link") -> $target (${size})"
-            HM_COUNT=$((HM_COUNT + 1))
+            if [[ "$gen" =~ ^[0-9]+$ ]]; then
+                HM_GENS+=("$gen")
+                HM_GEN_LINKS[$gen]="$link|$target"
+            fi
         fi
     esac
 done
+# keep the newest 3 generations, mark older ones for removal
+HM_KEEP=3
+if [ "${#HM_GENS[@]}" -gt "$HM_KEEP" ]; then
+    mapfile -t HM_SORTED < <(printf '%s\n' "${HM_GENS[@]}" | sort -n -r)
+    for gen in "${HM_SORTED[@]:$HM_KEEP}"; do
+        IFS='|' read -r link target <<< "${HM_GEN_LINKS[$gen]}"
+        size=$(nix path-info -S "$target" 2>/dev/null | awk '{print $2}' || echo "?")
+        echo -e "  ${YELLOW}[gen $gen]${NC} $(basename "$link") -> $target (${size})"
+        HM_COUNT=$((HM_COUNT + 1))
+        HM_LINKS+=("$link")
+    done
+fi
 if [ "$HM_COUNT" -eq 0 ]; then
     echo "  (none)"
 fi
+prompt_remove HM_LINKS "old home-manager gc roots"
 echo ""
 
 # ── 1d. Top large roots summary ──
 echo -e "${CYAN}--- Top GC roots by closure size ---${NC}"
-for link in /nix/var/nix/gcroots/auto/*; do
-    [ -e "$link" ] || continue
-    target=$(readlink "$link" 2>/dev/null || true)
-    [ -e "$target" ] || continue
-    nix path-info -S "$target" 2>/dev/null || true
-done | sort -t$'\t' -k2 -hr | head -10 | while IFS=$'\t' read -r path size; do
+TOP_ROOTS=$( {
+    for link in /nix/var/nix/gcroots/auto/*; do
+        [ -e "$link" ] || continue
+        target=$(readlink "$link" 2>/dev/null || true)
+        [ -e "$target" ] || continue
+        nix path-info -S "$target" 2>/dev/null || true
+    done | sort -t$'\t' -k2 -hr | head -10
+} || true )
+while IFS=$'\t' read -r path size; do
+    [ -n "$path" ] || continue
     short=$(echo "$path" | sed 's|/nix/store/[a-z0-9]\+-||')
     echo -e "  ${size}\t$short"
-done
+done <<< "$TOP_ROOTS"
 echo ""
 
 # ─────────────────────────────────────────────
@@ -123,11 +224,14 @@ sudo nix-collect-garbage --dry-run 2>&1 | grep -E "store paths|would be" || true
 if [ "$DRY_RUN" = false ]; then
     echo "--- collecting user garbage ---"
     nix-collect-garbage -d
+
     echo "--- collecting root garbage ---"
-    sudo nix-collect-garbage
-    sudo nix-collect-garbage -d
-    nix-collect-garbage
-    nix-collect-garbage -d
+    if ask_yes_no "Also delete old system generations (removes rollback targets)?"; then
+        sudo nix-collect-garbage -d
+    else
+        echo "  keeping system generations; collecting garbage they don't reference"
+        sudo nix-collect-garbage
+    fi
 else
     echo "[DRY RUN] skipping actual GC"
 fi
@@ -151,6 +255,37 @@ if [ "$DRY_RUN" = false ]; then
     nix store optimise 2>&1 || echo -e "${YELLOW}  (new-style optimise failed — already covered by nix-store --optimise)${NC}"
 else
     echo "[DRY RUN] nix store optimise"
+fi
+
+# ─────────────────────────────────────────────
+# 4b. Store integrity verification (opt-in, slow)
+# ─────────────────────────────────────────────
+echo ""
+echo -e "${GREEN}═══ Store integrity check ═══${NC}"
+if [ "$DRY_RUN" = false ]; then
+    if ask_yes_no "Verify store integrity (sudo nix-store --verify --check-contents — hashes the whole store, can take a long time)?"; then
+        echo "--- verifying (this may take many minutes) ---"
+        VERIFY_LOG=$(mktemp /tmp/nix-verify.XXXXXX.log)
+        sudo nix-store --verify --check-contents >"$VERIFY_LOG" 2>&1 || true
+        BAD_PATHS=$(grep -Ei "modified|mismatch|not valid|^error" "$VERIFY_LOG" || true)
+        if [ -n "$BAD_PATHS" ]; then
+            echo -e "${RED}Corrupted / invalid store paths detected:${NC}"
+            echo "$BAD_PATHS"
+            echo -e "  full log: $VERIFY_LOG"
+            if ask_yes_no "Attempt auto-repair (sudo nix-store --verify --check-contents --repair — re-downloads/rebuilds bad paths)?"; then
+                sudo nix-store --verify --check-contents --repair
+            else
+                echo "  to repair manually later:"
+                echo "    sudo nix-store --verify --check-contents --repair"
+            fi
+        else
+            echo -e "  ${GREEN}store integrity OK${NC} (full log: $VERIFY_LOG)"
+        fi
+    else
+        echo "  skipped"
+    fi
+else
+    echo "[DRY RUN] skipping integrity check"
 fi
 
 # ─────────────────────────────────────────────
@@ -178,7 +313,7 @@ fi
 # ─────────────────────────────────────────────
 echo ""
 echo -e "${GREEN}═══ Results ═══${NC}"
-du -sh /nix/store
+du -sh /nix/store || true
 echo ""
 echo -e "${CYAN}Tips:${NC}"
 echo "  Run with --dry-run / -n to audit without changes"
