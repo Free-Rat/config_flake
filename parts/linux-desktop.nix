@@ -29,6 +29,8 @@
     nextcloud-client
 
     opencode
+    claude-code
+
     krita
     tcpdump
     libnotify

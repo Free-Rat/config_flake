@@ -10,5 +10,6 @@
       mkdir -p "$HOME/.pi/agent/extensions"
       ${pkgs.herdr}/bin/herdr integration install pi
     fi
+    ${pkgs.herdr}/bin/herdr integration install claude
   '';
 }
