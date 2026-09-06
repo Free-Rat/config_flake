@@ -9,8 +9,6 @@
         email = "lawicki02@gmail.com";
       };
       core.askpass = "";
-    };
-    extraConfig = {
       diff.wordRegex = ".";
     };
   };
