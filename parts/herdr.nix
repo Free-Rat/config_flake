@@ -13,5 +13,8 @@
     if [ -d "$HOME/.claude" ]; then
       ${pkgs.herdr}/bin/herdr integration install claude
     fi
+    if [ -d "$HOME/.codex" ]; then
+      ${pkgs.herdr}/bin/herdr integration install codex
+    fi
   '';
 }

@@ -10,6 +10,7 @@
     nushell
     ripgrep
     opencode
+    codex
     firefox
     openvpn
     atac
