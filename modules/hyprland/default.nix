@@ -52,6 +52,7 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
+    # wlr backend would conflict with xdg-desktop-portal-hyprland's ScreenCast impl
+    # wlr.enable = true;
   };
 }
