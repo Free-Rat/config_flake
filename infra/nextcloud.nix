@@ -1,7 +1,17 @@
 { config, lib, pkgs, ... }:
 {
+  # Nextcloud 33 removed services.nextcloud.config.adminuser/adminpassFile. The
+  # admin account already exists from the original install; its generated
+  # password is still at /var/lib/nextcloud/admin-pass. Further users:
+  #   nextcloud-occ user:add <name> && nextcloud-occ group:adduser admin <name>
   services.nextcloud = {
     enable = true;
+    # Bump ONE major at a time, and only after the previous one has finished
+    # migrating — Nextcloud refuses upgrades across multiple majors, and the
+    # migration is not undone by rolling back the NixOS generation.
+    # Use scripts/nextcloud-upgrade-step.sh, which checks that and backs up first.
+    # Available in the pinned nixpkgs: 33.0.10, 34.0.5, 35.0.2.
+    package = pkgs.nextcloud35;
     hostName = "cloud.free-rat.dev";
     https = true;
     home = "/var/lib/nextcloud";
@@ -11,9 +21,6 @@
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       dbuser = "nextcloud";
-      adminuser = "admin";
-
-      adminpassFile = "/var/lib/nextcloud/admin-pass";
     };
 
     settings = {
@@ -65,21 +72,5 @@
   systemd.services.nextcloud-setup = {
     after = [ "postgresql.service" ];
     requires = [ "postgresql.service" ];
-  };
-
-  systemd.services.nextcloud-admin-pass = {
-    description = "Nextcloud admin password bootstrap";
-    before = [ "nextcloud-setup.service" ];
-    requiredBy = [ "nextcloud-setup.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      if [ ! -f "/var/lib/nextcloud/admin-pass" ]; then
-        ${lib.getExe pkgs.openssl} rand -base64 48 > "/var/lib/nextcloud/admin-pass"
-        echo "Admin password saved to /var/lib/nextcloud/admin-pass"
-      fi
-    '';
   };
 }

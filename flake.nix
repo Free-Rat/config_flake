@@ -118,6 +118,7 @@
           homepage = ./infra/homepage-dashboard.nix;
           tuwunel = ./infra/tuwunel.nix;
           element = ./infra/element.nix;
+          hookshot = ./infra/hookshot.nix;
 
         };
 
@@ -246,6 +247,10 @@
                 self.nixosModules.homepage
                 self.nixosModules.tuwunel
                 self.nixosModules.element
+                # Disabled until the bridge is actually set up — see todo.md
+                # ("Finish setting up matrix-hookshot"). The module itself is
+                # kept and still exported as self.nixosModules.hookshot.
+                # self.nixosModules.hookshot
               ];
               homeModules = [
                 hm.base.common

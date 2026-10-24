@@ -5,3 +5,5 @@ ignore:
     reason: "no fix available, requires app passing untrusted input to wordexp()"
   - vulnerability: CVE-2026-6368
     reason: "low severity, local-only, narrow wordexp(WRDE_APPEND) use case"
+  - vulnerability: CVE-2026-18374
+    reason: "low-to-medium severity, local-only, requires app to pass user-controlled input to fopen() mode with ccs= syntax; none of the exposed services use this pattern"

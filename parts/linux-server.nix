@@ -39,6 +39,11 @@
     claude-code
     codex
 
+    nextcloud-client
+    rsync # scripts/backup.sh
+    sqlite # scripts/vaultwarden-backup-now.sh (sqlite3 .backup)
+    openssl # same script: proves the vaultwarden RSA key parses
+
     secretspec # https://secretspec.dev/
   ];
 }
