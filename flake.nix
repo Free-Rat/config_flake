@@ -263,6 +263,18 @@
               ];
             };
 
+            blaidd = mkHost {
+              name = "blaidd";
+              homeModules = [
+                hm.base.common
+                hm.base.cli
+                hm.base.gitPersonal
+                hm.base.herdr
+                hm.programs.nvf
+                hm.profiles.linuxServer
+              ];
+            };
+
             melina = mkHost {
               name = "melina";
               system = "aarch64-linux";
