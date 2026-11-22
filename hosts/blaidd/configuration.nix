@@ -8,12 +8,39 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./factory.nix
   ];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
+
+  # Factory host (fr-factory#21): trusted so builds can be copied here, and a
+  # cleaned store because VM closures pile up.
+  nix.settings.trusted-users = [ "root" "freerat" ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+  nix.optimise.automatic = true;
+
+  # vsock for the microVMs (cloud-hypervisor).
+  boot.kernelModules = [ "vhost_vsock" ];
+
+  # A laptop used as a server: never sleep, keep running with the lid closed.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    "hybrid-sleep".enable = false;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
