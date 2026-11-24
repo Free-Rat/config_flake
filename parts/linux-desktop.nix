@@ -28,7 +28,6 @@
     nodejs_22
     nextcloud-client
 
-    opencode
     claude-code
 
     krita

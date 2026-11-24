@@ -9,7 +9,6 @@
     signal-desktop
     nushell
     ripgrep
-    opencode
     codex
     firefox
     openvpn
@@ -22,10 +21,7 @@
     fish
   ];
 
-  home.activation.herdrOpenCodeIntegration = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ -d "$HOME/.config/opencode" ]; then
-      ${pkgs.herdr}/bin/herdr integration install opencode
-    fi
+  home.activation.herdrIntegrations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -d "$HOME/.pi/agent" ]; then
       mkdir -p "$HOME/.pi/agent/extensions"
       ${pkgs.herdr}/bin/herdr integration install pi

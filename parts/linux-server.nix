@@ -35,7 +35,6 @@
 
     # dev tools
     inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
-    opencode
     claude-code
     codex
 
@@ -45,5 +44,8 @@
     openssl # same script: proves the vaultwarden RSA key parses
 
     secretspec # https://secretspec.dev/
+    bitwarden-cli # bw, secretspec bw:// provider (vault.free-rat.dev)
+
+    tea # forgejo cli
   ];
 }
