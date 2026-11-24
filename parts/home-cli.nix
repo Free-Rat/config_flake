@@ -17,7 +17,7 @@
       unzip
       wget
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       linuxquota
       man
       man-pages
