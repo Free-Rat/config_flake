@@ -6,5 +6,11 @@
   "font_ligatures": false,
   "minimum_contrast": 1,
   "appearance": "dark",
-  "font": "Monaspace Krypton"
+  "font": "Monaspace Krypton",
+  "colors": {
+    "background": "#000000",
+    "canvas": "#000000",
+    "surface": "#000000",
+    "chrome": "#000000"
+  }
 }
