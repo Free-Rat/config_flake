@@ -5,7 +5,7 @@
 }: {
   programs.rofi = {
     enable = true;
-    terminal = "alacritty";
+    settings.terminal = "alacritty";
     # theme = ./themes/squared-everforest.rasi;
     # theme = ./sniedz.rasi;
     theme = ./themes/nord.rasi;

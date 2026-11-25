@@ -37,6 +37,7 @@
     inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
     claude-code
     codex
+    herdr-core
 
     nextcloud-client
     rsync # scripts/backup.sh

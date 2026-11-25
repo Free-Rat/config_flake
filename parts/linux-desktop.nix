@@ -24,11 +24,14 @@
     inputs.pi.packages.${pkgs.stdenv.hostPlatform.system}.default
     spotifywm
     blender
-    osu-lazer
+    # osu-lazer # nixpkgs src hash broken (upstream re-tagged 2026.1117.0-lazer)
     nodejs_22
     nextcloud-client
 
     claude-code
+    codex
+    herdr-core
+    herdr-desktop
 
     krita
     tcpdump
