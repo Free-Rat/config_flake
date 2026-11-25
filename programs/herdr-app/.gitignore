@@ -1,0 +1,13 @@
+# HERDR_APP_HOME: Herdr also writes runtime state here (socket, view/window
+# state, mod data, shipped mods/layouts). Track only our own config.
+/*
+!/.gitignore
+!/settings.json
+!/keys.json
+!/programs.json
+!/layouts/
+/layouts/*
+!/layouts/my-*.json
+!/mods/
+/mods/*
+!/mods/my-*/

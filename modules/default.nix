@@ -19,6 +19,7 @@
     PATH_WALLPAPERS = "$HOME/Nextcloud/wallpapers";
     PATH_PROGRAMS = "${PATH_FLAKE_CONFIG}/programs";
     HERDR_CONFIG_PATH = "${PATH_PROGRAMS}/herdr/config.toml";
+    HERDR_APP_HOME = "${PATH_PROGRAMS}/herdr-app";
     KAKOUNE_CONFIG_DIR = "${PATH_PROGRAMS}/kakoune";
     WEZTERM_CONFIG_DIR = "${PATH_PROGRAMS}/wezterm";
     WEZTERM_CONFIG_FILE = "${PATH_PROGRAMS}/wezterm/wezterm.lua";
