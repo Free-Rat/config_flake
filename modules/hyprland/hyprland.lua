@@ -10,8 +10,11 @@
 hl.monitor({ output = "eDP-1", mode = "2560x1600@60", position = "0x0", scale = 1.33 })
 -- hl.monitor({ output = "HDMI-A-2", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1" })
 
+-- hl.monitor({ output = "HDMI-A-1", mode = "preferred", position = "1920x0", scale = 1 })
+hl.monitor({ output = "DP-3", mode = "preferred", position = "2560x0", scale = 1 })
+
 -- fallback for any other monitor
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
+-- hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 
 
 ---------------------
@@ -172,6 +175,12 @@ hl.device({
     name      = "wacom-intuos-pt-s-2-pen",
     transform = 0,
     output    = "HDMI-A-2",
+})
+
+-- Logitech mouse (rennala)
+hl.device({
+    name        = "logitech-m215-1",
+    sensitivity = 0.0, -- -1.0 - 1.0, 0 means no modification
 })
 
 
