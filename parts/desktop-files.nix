@@ -3,7 +3,7 @@
   home.file = {
     ".config/awesome".source = ../modules/awesome;
     ".config/qtile".source = ../modules/qtile;
-    ".config/hypr/hyprland.conf".source = ../modules/hyprland/hyprland.conf;
+    ".config/hypr/hyprland.lua".source = ../modules/hyprland/hyprland.lua;
     ".config/sway/Config".source = ../modules/sway/sway.conf;
     ".local/share/icons/miku-cursor-linux".source = ../modules/hyprland/miku-cursor-linux;
   };
