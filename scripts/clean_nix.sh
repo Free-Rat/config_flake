@@ -17,6 +17,8 @@ Options:
     -n, --dry-run   Audit only: show store size, broken/old GC roots and
                     what GC would remove. Skips rebuild, garbage
                     collection, and optimisation.
+    -y, --yes       Answer 'yes' automatically to all prompts (GC root
+                    removal, old system generations, integrity check).
     -h, --help      Show this help message and exit.
 
 Steps performed (without --dry-run):
@@ -24,49 +26,70 @@ Steps performed (without --dry-run):
        old home-manager generations, largest GC roots)
     2. Rebuild system  (nixos-rebuild switch --sudo --flake /home/freerat/config_flake)
     3. Garbage collection (user + root; optional deletion of old
-       system generations, asks first)
+       system generations, asks first unless -y)
     4. Store optimisation (nix-store --optimise, nix store optimise)
     5. Optional store integrity check (nix-store --verify
-       --check-contents; slow, asks first)
+       --check-contents; slow, asks first unless -y)
     6. Remove broken GC roots, re-run root GC
     7. Final store size + cleanup tips
 
 Examples:
     $(basename "$0") --dry-run    # see what would be cleaned
     $(basename "$0")              # full clean
+    $(basename "$0") -y           # full clean, no prompts
 EOF
 }
 
-case "${1:-}" in
-    -h|--help)
-        usage
-        exit 0
-        ;;
-    -n|--dry-run)
-        DRY_RUN=true
-        echo -e "${YELLOW}[DRY RUN] no destructive actions will be taken${NC}"
-        ;;
-    "")
-        DRY_RUN=false
-        ;;
-    *)
-        echo -e "${RED}Unknown option: $1${NC}" >&2
-        usage >&2
-        exit 1
-        ;;
-esac
-if [ "$#" -gt 1 ]; then
-    echo -e "${RED}Unexpected extra arguments: ${*:2}${NC}" >&2
-    usage >&2
-    exit 1
+DRY_RUN=false
+AUTO_YES=false
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -n|--dry-run)
+            DRY_RUN=true
+            ;;
+        -y|--yes)
+            AUTO_YES=true
+            ;;
+        *)
+            echo -e "${RED}Unknown option: $1${NC}" >&2
+            usage >&2
+            exit 1
+            ;;
+    esac
+    shift
+done
+if [ "$DRY_RUN" = true ]; then
+    echo -e "${YELLOW}[DRY RUN] no destructive actions will be taken${NC}"
 fi
 
 ask_yes_no() {
     local prompt=$1 answer=""
+    if [ "$AUTO_YES" = true ]; then
+        printf '%s [y/N] y (auto)\n' "$prompt"
+        return 0
+    fi
     printf '%s [y/N] ' "$prompt"
     read -r answer < /dev/tty 2>/dev/null || answer=""
     printf '%s\n' "$answer"
     [[ "$answer" =~ ^[yY]([eE][sS])?$ ]]
+}
+
+# Authenticate first (sudo -v), then announce that the action has started,
+# then run it — so a "started" message always appears once sudo is through.
+sudo_run() {
+    local desc=$1
+    shift
+    sudo -v
+    if { : > /dev/tty; } 2>/dev/null; then
+        echo -e "${CYAN}  [sudo] started: $desc${NC}" > /dev/tty
+    else
+        echo -e "${CYAN}  [sudo] started: $desc${NC}" >&2
+    fi
+    sudo "$@"
 }
 
 prompt_remove() {
@@ -79,7 +102,7 @@ prompt_remove() {
     fi
     if ask_yes_no "Remove ${#links[@]} $label?"; then
         for link in "${links[@]}"; do
-            if sudo rm "$link"; then
+            if sudo_run "rm $link" rm "$link"; then
                 echo -e "  ${GREEN}[REMOVED]${NC} $link"
             else
                 echo -e "  ${RED}[FAILED]${NC} $link" >&2
@@ -204,6 +227,11 @@ echo ""
 # ─────────────────────────────────────────────
 echo -e "${GREEN}═══ Rebuilding system ═══${NC}"
 if [ "$DRY_RUN" = false ]; then
+    # --sudo, not sudo_run: evaluation must run as the user (personal-website
+    # input is fetched over SSH; root has no Forgejo key). Auth up front so the
+    # "started" message appears once sudo is through.
+    sudo -v
+    echo -e "${CYAN}  [sudo] started: nixos-rebuild switch (may take a while)${NC}"
     nixos-rebuild switch --sudo --flake /home/freerat/config_flake
 else
     echo "[DRY RUN] nixos-rebuild switch --sudo --flake /home/freerat/config_flake"
@@ -219,7 +247,7 @@ echo "--- GC dry run (user) ---"
 nix-collect-garbage --dry-run 2>&1 | grep -E "store paths|would be" || true
 
 echo "--- GC dry run (root) ---"
-sudo nix-collect-garbage --dry-run 2>&1 | grep -E "store paths|would be" || true
+sudo_run "nix-collect-garbage --dry-run" nix-collect-garbage --dry-run | grep -E "store paths|would be" || true
 
 if [ "$DRY_RUN" = false ]; then
     echo "--- collecting user garbage ---"
@@ -227,10 +255,10 @@ if [ "$DRY_RUN" = false ]; then
 
     echo "--- collecting root garbage ---"
     if ask_yes_no "Also delete old system generations (removes rollback targets)?"; then
-        sudo nix-collect-garbage -d
+        sudo_run "nix-collect-garbage -d (deleting old system generations)" nix-collect-garbage -d
     else
         echo "  keeping system generations; collecting garbage they don't reference"
-        sudo nix-collect-garbage
+        sudo_run "nix-collect-garbage (root)" nix-collect-garbage
     fi
 else
     echo "[DRY RUN] skipping actual GC"
@@ -266,14 +294,14 @@ if [ "$DRY_RUN" = false ]; then
     if ask_yes_no "Verify store integrity (sudo nix-store --verify --check-contents — hashes the whole store, can take a long time)?"; then
         echo "--- verifying (this may take many minutes) ---"
         VERIFY_LOG=$(mktemp /tmp/nix-verify.XXXXXX.log)
-        sudo nix-store --verify --check-contents >"$VERIFY_LOG" 2>&1 || true
+        sudo_run "nix-store --verify --check-contents (may take many minutes)" nix-store --verify --check-contents >"$VERIFY_LOG" 2>&1 || true
         BAD_PATHS=$(grep -Ei "modified|mismatch|not valid|^error" "$VERIFY_LOG" || true)
         if [ -n "$BAD_PATHS" ]; then
             echo -e "${RED}Corrupted / invalid store paths detected:${NC}"
             echo "$BAD_PATHS"
             echo -e "  full log: $VERIFY_LOG"
             if ask_yes_no "Attempt auto-repair (sudo nix-store --verify --check-contents --repair — re-downloads/rebuilds bad paths)?"; then
-                sudo nix-store --verify --check-contents --repair
+                sudo_run "nix-store --verify --check-contents --repair (may take many minutes)" nix-store --verify --check-contents --repair
             else
                 echo "  to repair manually later:"
                 echo "    sudo nix-store --verify --check-contents --repair"
@@ -298,14 +326,14 @@ for link in /nix/var/nix/gcroots/auto/*; do
     if [ ! -e "$target" ]; then
         echo -e "${YELLOW}Removing broken gc root: $link${NC}"
         if [ "$DRY_RUN" = false ]; then
-            sudo rm "$link"
+            sudo_run "rm broken gc root $link" rm "$link"
         fi
         BROKEN_REMOVED=$((BROKEN_REMOVED + 1))
     fi
 done
 if [ "$BROKEN_REMOVED" -gt 0 ] && [ "$DRY_RUN" = false ]; then
     echo "  re-running root GC after broken root removal..."
-    sudo nix-collect-garbage
+    sudo_run "nix-collect-garbage (root)" nix-collect-garbage
 fi
 
 # ─────────────────────────────────────────────
