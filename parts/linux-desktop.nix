@@ -85,6 +85,20 @@
         hostname = "u555363.your-storagebox.de";
         user = "u555363";
       };
+      # Public address so the same config works off the home network (laptop).
+      maliketh = {
+        hostname = "ssh.free-rat.dev";
+        port = 2222;
+        hostkeyalias = "maliketh";
+        user = "freerat";
+      };
+      # Not exposed publicly; reached through maliketh, which resolves blaidd.home on the LAN.
+      blaidd = {
+        hostname = "blaidd.home";
+        user = "freerat";
+        proxyjump = "maliketh";
+        hostkeyalias = "blaidd";
+      };
     };
   };
 }
