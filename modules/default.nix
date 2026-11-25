@@ -12,7 +12,7 @@
 
   environment.variables = rec {
     EDITOR = "nvim";
-    SHELL = "bash";
+    SHELL = "${pkgs.bashInteractive}/bin/bash";
     KITTY_CONFIG_DIRECTORY = "/home/freerat/config_flake/programs/kitty";
     PATH_FLAKE_CONFIG = "$HOME/config_flake";
     PATH_SCRIPTS = "${PATH_FLAKE_CONFIG}/scripts";
