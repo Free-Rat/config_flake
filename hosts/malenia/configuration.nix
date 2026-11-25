@@ -111,5 +111,9 @@
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip ];
 
+  # Montowanie kart SD/pendrive bez roota (PrusaSlicer -> karta drukarki).
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
   system.stateVersion = "23.11";
 }
