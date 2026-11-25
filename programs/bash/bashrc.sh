@@ -99,7 +99,7 @@ alias open="xdg-open"
 alias cw="\$PATH_SCRIPTS/changeWallpaper.sh"
 
 # nix related
-alias nrf="sudo nixos-rebuild switch --flake \$PATH_FLAKE_CONFIG"
+alias nrf="nixos-rebuild switch --sudo --flake \$PATH_FLAKE_CONFIG"
 alias drf="sudo darwin-rebuild switch --flake \$PATH_FLAKE_CONFIG"
 alias nd="nix develop "
 alias ns="nix-shell -p "

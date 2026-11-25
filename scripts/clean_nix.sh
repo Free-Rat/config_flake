@@ -22,7 +22,7 @@ Options:
 Steps performed (without --dry-run):
     1. Store audit (size, broken GC roots, stale 'result' roots,
        old home-manager generations, largest GC roots)
-    2. Rebuild system  (sudo nixos-rebuild switch --flake /home/freerat/config_flake)
+    2. Rebuild system  (nixos-rebuild switch --sudo --flake /home/freerat/config_flake)
     3. Garbage collection (user + root; optional deletion of old
        system generations, asks first)
     4. Store optimisation (nix-store --optimise, nix store optimise)
@@ -204,9 +204,9 @@ echo ""
 # ─────────────────────────────────────────────
 echo -e "${GREEN}═══ Rebuilding system ═══${NC}"
 if [ "$DRY_RUN" = false ]; then
-    sudo nixos-rebuild switch --flake /home/freerat/config_flake
+    nixos-rebuild switch --sudo --flake /home/freerat/config_flake
 else
-    echo "[DRY RUN] sudo nixos-rebuild switch --flake /home/freerat/config_flake"
+    echo "[DRY RUN] nixos-rebuild switch --sudo --flake /home/freerat/config_flake"
 fi
 
 # ─────────────────────────────────────────────
