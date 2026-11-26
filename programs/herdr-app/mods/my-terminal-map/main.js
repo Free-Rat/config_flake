@@ -14,8 +14,11 @@ const TILE_WIDTH = 420;
 const TILE_HEIGHT = 246;
 const GAP = 12;
 const PADDING = 18;
+const LABEL_HEIGHT = 26;
+const LABEL_WIDTH = 156;
+const WAITING_COLOR = "#f97316";
 const FULLSCREEN = { kind: "dialog", width: 1, height: 1, frame: "none" };
-const ZOOM = { duration: 290, easing: "ease-in-out" };
+const ZOOM = { duration: 100, easing: "ease-in-out" };
 const PAN = { duration: 160, easing: "ease-out" };
 
 function mapRows() {
@@ -28,6 +31,7 @@ function mapRows() {
 
   return spaces().map((space) => ({
     space: space.id,
+    name: space.name,
     terminals: space.tabs.flatMap((tab) => byTab.get(tab.id) ?? []),
   })).filter((row) => row.terminals.length);
 }
@@ -83,6 +87,20 @@ function plainScreen(text) {
   };
 }
 
+function focusShadow() {
+  // Stack translucent circles to fade the cyan out from the terminal's center.
+  const layers = [
+    [305, 0.0025], [294, 0.003], [283, 0.0035], [272, 0.004], [261, 0.0045],
+    [250, 0.005], [239, 0.0055], [228, 0.006], [217, 0.0065], [206, 0.007], [195, 0.0075],
+  ];
+  const center = div().relative().size(0).children(layers.map(([radius, opacity]) =>
+    div().absolute().left(-radius).top(-radius).size(radius * 2)
+      .rounded_full().bg("#22d3ee").opacity(opacity),
+  ));
+  return div().absolute().left(0).top(0).size_full()
+    .flex().items_center().justify_center().child(center);
+}
+
 export default class TerminalMap extends View {
   init(options, cx) {
     this.controller = options?.controller ?? props()?.controller;
@@ -107,7 +125,7 @@ export default class TerminalMap extends View {
     this.height = 680;
     this.handle.focus();
     cx.timer.after(0, () => this.handle.focus());
-    cx.timer.after(180, (cx) => this.startZoom(cx));
+    cx.timer.after(110, (cx) => this.startZoom(cx));
     cx.timer.every(1600, (cx) => this.refresh(cx));
   }
 
@@ -215,11 +233,11 @@ export default class TerminalMap extends View {
     this.zoomPhase = "full";
     cx.notify();
     // Submit the full-size frame before changing the native motion targets.
-    cx.timer.after(48, (cx) => {
+    cx.timer.after(32, (cx) => {
       if (this.zoomPhase !== "full") return;
       this.zoomPhase = "shrinking";
       cx.notify();
-      cx.timer.after(ZOOM.duration + 35, (cx) => {
+      cx.timer.after(ZOOM.duration + 20, (cx) => {
         this.zoomPhase = "done";
         cx.notify();
       });
@@ -257,12 +275,27 @@ export default class TerminalMap extends View {
   }
 
   preview(item, col, row, selected, t) {
-    return v_flex().id(item.pane)
-      .absolute().left(cellStart(col, TILE_WIDTH)).top(cellStart(row, TILE_HEIGHT))
-      .w(TILE_WIDTH).h(TILE_HEIGHT).overflow_hidden().rounded(7).p(7)
-      .border_2().border_color(selected ? t.accent : t.border)
+    const terminal = v_flex().relative().size_full().overflow_hidden()
       .bg(t.background).cursor_pointer().on_click(() => this.openTerminal(item))
-      .child(this.screenText(this.screens.get(item.terminal), TILE_WIDTH, TILE_HEIGHT, t, 10));
+      .when(selected, (el) => el.p(9))
+      .when(!selected, (el) => el.p(7).border_2().border_color(t.border))
+      .child(this.screenText(this.screens.get(item.terminal), TILE_WIDTH, TILE_HEIGHT, t, 10))
+      .when(item.status === "blocked", (el) => el.child(
+        div().absolute().top(8).right(8).size(10).bg(WAITING_COLOR),
+      ));
+
+    return div().id(item.pane).absolute()
+      .left(cellStart(col, TILE_WIDTH)).top(cellStart(row, TILE_HEIGHT))
+      .w(TILE_WIDTH).h(TILE_HEIGHT)
+      .child(terminal);
+  }
+
+  workspaceLabel(workspace, row, selected, t) {
+    return div().id(workspace.space).absolute().left(PADDING)
+      .top(cellStart(row, TILE_HEIGHT) + (TILE_HEIGHT - LABEL_HEIGHT) / 2)
+      .h(LABEL_HEIGHT).max_w(LABEL_WIDTH).flex().items_center().px(7)
+      .text_color(selected ? t.foreground : t.muted).text_size(12)
+      .child(div().truncate().child(workspace.name));
   }
 
   zoomingTerminal(at, t) {
@@ -276,14 +309,14 @@ export default class TerminalMap extends View {
       .w(shrinking ? TILE_WIDTH : this.width).h(shrinking ? TILE_HEIGHT : this.height)
       .transition("left", ZOOM).transition("top", ZOOM)
       .transition("width", ZOOM).transition("height", ZOOM)
-      .bg(t.background).overflow_hidden()
-      .when(shrinking, (el) => el.rounded(7).border_2().border_color(t.accent))
-      .child(div().id("terminal-map-zoom-full").absolute().top(8).left(8)
-        .opacity(shrinking ? 0 : 1).transition("opacity", { duration: 145, easing: "ease-out" })
-        .child(this.screenText(screen, this.width, this.height, t, 24)))
-      .child(div().id("terminal-map-zoom-preview").absolute().top(7).left(7)
-        .opacity(shrinking ? 1 : 0).transition("opacity", { duration: 170, delay: 100, easing: "ease-out" })
-        .child(this.screenText(screen, TILE_WIDTH, TILE_HEIGHT, t, 10)));
+      .when(shrinking, (el) => el.child(focusShadow()))
+      .child(div().relative().size_full().bg(t.background).overflow_hidden()
+        .child(div().id("terminal-map-zoom-full").absolute().top(8).left(8)
+          .opacity(shrinking ? 0 : 1).transition("opacity", { duration: 55, easing: "ease-out" })
+          .child(this.screenText(screen, this.width, this.height, t, 24)))
+        .child(div().id("terminal-map-zoom-preview").absolute().top(9).left(9)
+          .opacity(shrinking ? 1 : 0).transition("opacity", { duration: 70, delay: 25, easing: "ease-out" })
+          .child(this.screenText(screen, TILE_WIDTH, TILE_HEIGHT, t, 10))));
   }
 
   render(cx) {
@@ -303,10 +336,13 @@ export default class TerminalMap extends View {
     const xRange = renderedRange(this.cameraX, this.width, TILE_WIDTH);
     const yRange = renderedRange(this.cameraY, this.height, TILE_HEIGHT);
     const tiles = [];
+    const labels = [];
     const visible = [];
     for (let row = yRange.first; row < Math.min(yRange.end, rows.length); row++) {
       const top = cellStart(row, TILE_HEIGHT) - this.cameraY;
-      const items = rows[row].terminals;
+      const workspace = rows[row];
+      labels.push(this.workspaceLabel(workspace, row, row === at.row, t));
+      const items = workspace.terminals;
       for (let col = xRange.first; col < Math.min(xRange.end, items.length); col++) {
         const item = items[col];
         const left = cellStart(col, TILE_WIDTH) - this.cameraX;
@@ -327,9 +363,18 @@ export default class TerminalMap extends View {
     const gridElement = div().id("terminal-map-grid").absolute().size_full()
       .left(-this.cameraX).top(-this.cameraY)
       .transition("left", PAN).transition("top", PAN)
-      .opacity(done || shrinking ? 1 : 0)
-      .transition("opacity", { duration: 200, delay: 35, easing: "ease-out" })
+      .when(done && rows.length > 0, (el) => el.child(
+        div().absolute().left(cellStart(at.col, TILE_WIDTH)).top(cellStart(at.row, TILE_HEIGHT))
+          .w(TILE_WIDTH).h(TILE_HEIGHT).child(focusShadow()),
+      ))
       .children(tiles);
+    const labelLayer = div().id("terminal-map-workspace-labels").absolute()
+      .left(0).top(-this.cameraY).w(PADDING + LABEL_WIDTH).h(this.height)
+      .transition("top", PAN).children(labels);
+    const overview = div().id("terminal-map-content").relative().size_full()
+      .opacity(done || shrinking ? 1 : 0)
+      .transition("opacity", { duration: 85, delay: 10, easing: "ease-out" })
+      .child(gridElement).child(labelLayer);
 
     return div().id("terminal-map-overview").relative().size_full().overflow_hidden()
       .when(done || full || shrinking, (el) => el.bg(t.popover))
@@ -344,7 +389,7 @@ export default class TerminalMap extends View {
         this.height = height;
         cx.notify();
       })
-      .child(gridElement)
+      .child(overview)
       .when(rows.length > 0 && (full || shrinking), (el) => el.child(this.zoomingTerminal(at, t)));
   }
 }
