@@ -1,0 +1,29 @@
+{
+  "id": "terminal-map",
+  "name": "Terminal Map",
+  "type": "column",
+  "resizable": false,
+  "movable": false,
+  "children": [
+    {
+      "id": "terminal-map-active",
+      "type": "block",
+      "content": {
+        "tab": "active"
+      }
+    },
+    {
+      "id": "terminal-map-controller",
+      "type": "block",
+      "size": {
+        "px": 3
+      },
+      "content": {
+        "mod": "my-terminal-map",
+        "props": {
+          "controller": true
+        }
+      }
+    }
+  ]
+}
