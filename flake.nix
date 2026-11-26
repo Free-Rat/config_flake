@@ -94,6 +94,7 @@
           programs.wezterm = ./programs/wezterm;
           programs.zsh = ./programs/zsh;
           programs.lazygit = ./programs/lazygit;
+          programs.quickshell = ./programs/quickshell;
 
           profiles.linuxDesktop = ./parts/linux-desktop.nix;
           profiles.linuxServer = ./parts/linux-server.nix;
@@ -182,6 +183,7 @@
                 hm.programs.cava
                 hm.programs.kakoune
                 hm.programs.eww-notifications
+                hm.programs.quickshell
                 hm.profiles.linuxDesktop
               ];
             };
@@ -206,6 +208,7 @@
                 hm.programs.cava
                 hm.programs.kakoune
                 hm.programs.eww-notifications
+                hm.programs.quickshell
                 hm.profiles.linuxDesktop
               ];
             };
@@ -231,6 +234,7 @@
                 hm.programs.cava
                 hm.programs.kakoune
                 hm.programs.eww-notifications
+                hm.programs.quickshell
                 hm.profiles.linuxDesktop
               ];
             };
