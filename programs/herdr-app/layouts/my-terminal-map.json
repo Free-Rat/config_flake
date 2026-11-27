@@ -4,26 +4,32 @@
   "type": "column",
   "resizable": false,
   "movable": false,
+  "colors": {
+    "border": "#000000",
+    "popover": "#000000",
+    "raised": "#000000",
+    "input": "#000000"
+  },
   "children": [
     {
       "id": "terminal-map-active",
       "type": "block",
       "content": {
         "tab": "active"
-      }
-    },
-    {
-      "id": "terminal-map-controller",
-      "type": "block",
-      "size": {
-        "px": 3
       },
-      "content": {
-        "mod": "my-terminal-map",
-        "props": {
-          "controller": true
+      "floating": [
+        {
+          "id": "terminal-map-controller",
+          "content": {
+            "mod": "my-terminal-map",
+            "props": {
+              "controller": true
+            }
+          },
+          "edge": "top",
+          "align": "end"
         }
-      }
+      ]
     }
   ]
 }
